@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import TriangularMF from '@/components/TriangularMF'
+import Home from '@/components/Home'
+import Demo from '@/components/Demo'
+import Example from "@/components/Example";
 
 Vue.use(Router)
 
@@ -9,13 +10,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Home',
+      component: Home
     },
     {
-      path: '/triangular',
-      name: 'TriangularMF',
-      component: TriangularMF
+      path: '/demo',
+      name: 'Demo',
+      component: Demo
+    },
+    {
+      path: '/example',
+      name: 'Example',
+      component: Example
     }
   ]
 })

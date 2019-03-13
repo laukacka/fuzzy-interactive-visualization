@@ -2,7 +2,7 @@
 
   <div id="app">
     <router-link to="/"> <img src="./assets/logo.png"></router-link>
-    <p>tuto menis to ako to vyzera pr</p>
+    <h1>Interactive visualizations fuzzy </h1>
     <router-view/>
   </div>
 </template>
