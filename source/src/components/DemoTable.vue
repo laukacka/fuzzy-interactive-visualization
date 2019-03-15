@@ -11,7 +11,7 @@
 				enabled: true,
 				selectOnCheckboxOnly: false,
 				selectionInfoClass: 'alert alert-info m-b-0 no-rounded-corner',
-				selectionText: 'text ked nioeco vyselektujessdssswsssw',
+				selectionText: 'text ked nioeco vyselektujem',
 				clearSelectionText: 'clear',
 			}"
     >
@@ -19,9 +19,7 @@
   </div>
 </template>
 
-
 <script>
-
     export default {
         name: "Demo",
       data(){

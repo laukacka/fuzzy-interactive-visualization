@@ -1,26 +1,26 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-
+//defaultne importy:
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// tuto su importy pluginov
+
+//importy pluginov:
 import BootstrapVue from 'bootstrap-vue'
 import VueNVD3 from 'vue-nvd3'
-import VueGoodTablePlugin from 'vue-good-table';
+import VueGoodTablePlugin from 'vue-good-table'; //moja demo tabulka
 
-//tuto su importy css pre plaginy
+//CSS importy pre pluginy:
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-good-table/dist/vue-good-table.css'
 
-//tuto bude import vlastnych css stylov
+//clastne CSS importy
 
-//defaltne nieco
+//defaultne nieco:
 Vue.config.productionTip = false;
 
-// pouzitie pluginov
-
+//pouzitie samotnych pluginov:
 Vue.use(BootstrapVue);
 Vue.use(VueNVD3);
 Vue.use(VueGoodTablePlugin);
@@ -29,7 +29,7 @@ Vue.use(VueGoodTablePlugin);
 new Vue({
   el: '#app',
   router,
-  components: { App, BootstrapVue,  VueGoodTablePlugin},
+  components: { App },
   template: '<App/>'
 });
 

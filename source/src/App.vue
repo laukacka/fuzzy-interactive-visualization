@@ -1,8 +1,7 @@
 <template>
-
   <div id="app">
     <router-link to="/"> <img src="./assets/logo.png"></router-link>
-    <h1>Interactive visualizations fuzzy </h1>
+    <h1>Interactive fuzzy visualizations</h1>
     <router-view/>
   </div>
 </template>
@@ -19,7 +18,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #041;
+  color: rgb(0, 0, 0);
   margin-top: 10px;
 }
 </style>
+<!-- COMMENT -->

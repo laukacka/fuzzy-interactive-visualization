@@ -1,11 +1,11 @@
 import {Pie} from 'vue-chartjs'
 
 export default {
-  name: "JankinKolac",
+  name: "PieChart",
   extends: Pie,
   props: ['data', 'options'],
   mounted() {
     this.renderChart(this.data, this.options);
-    console.log("nacital sa mi ....");
+    console.log("PieChart was loaded");
   }
 }
