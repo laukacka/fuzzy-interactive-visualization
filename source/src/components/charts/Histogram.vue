@@ -1,23 +1,23 @@
 <template>
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <router-link to="/demoCharts">
-        <b-button>Back</b-button>
-      </router-link>
       <!-- begin panel -->
       <panel title="Bar Chart">
         <bar-chart :data="barChart.data" :options="barChart.options" class="height-sm"></bar-chart>
       </panel>
       <!-- end panel -->
+
     </div>
   </div>
 </template>
 
 <script>
   import BarChart from '../vue-chartjs/BarChart'
+  import Panel from "@/components/tokokjkfkl/Panel";
 
   export default {
     components: {
+      Panel,
       BarChart
     },
     data() {

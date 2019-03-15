@@ -11,7 +11,7 @@
 
 <script>
     export default {
-        name: "LineChart"
+        name: "LineChart",
     }
 </script>
 

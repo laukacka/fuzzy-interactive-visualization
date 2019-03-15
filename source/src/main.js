@@ -14,9 +14,10 @@ import VueGoodTablePlugin from 'vue-good-table'; //moja demo tabulka
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-good-table/dist/vue-good-table.css'
+import Histogram from "@/components/charts/Histogram";
 
 //clastne CSS importy
-
+import './assets/css/style.css'
 //defaultne nieco:
 Vue.config.productionTip = false;
 

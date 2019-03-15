@@ -1,11 +1,10 @@
 <template>
   <div class="row">
     <div class="col-lg-6 offset-lg-3">
-      <router-link to="/demoCharts">
-        <b-button>Back</b-button>
-      </router-link>
+
       <!-- begin panel -->
-      <panel title="Bubble Chart">
+      <panel
+         title="Bubble Chart">
         <bubble-chart :data="bubbleChart.data" :options="bubbleChart.options" class="height-sm"></bubble-chart>
       </panel>
       <!-- end panel -->
@@ -15,9 +14,11 @@
 
 <script>
   import BubbleChart from '../vue-chartjs/BubbleChart'
+  import Panel from "@/components/tokokjkfkl/Panel";
 
   export default {
     components: {
+      Panel,
       BubbleChart
     },
     data() {

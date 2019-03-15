@@ -1,35 +1,38 @@
 <template>
   <div>
-    <router-link to="/pieChart">
-      <b-button variant="outline-primary">Pie chart</b-button>
-    </router-link>
-    <router-link to="/barChart">
-      <b-button variant="outline-secondary">Bar chart</b-button>
-    </router-link>
-    <router-link to="/bubbleChart">
-      <b-button variant="outline-success">Bubble chart</b-button>
-    </router-link>
-    <router-link to="/doughnutChart">
-      <b-button variant="outline-danger">Doughnut chart</b-button>
-    </router-link>
-    <router-link to="/lineChart">
-      <b-button variant="outline-warning">Line chart</b-button>
-    </router-link>
-    <router-link to="/scatter">
-      <b-button variant="outline-info">Polar area chart</b-button>
-    </router-link>
-    <router-link to="/polarAreaChart">
-      <b-button variant="outline-dark">Radar chart</b-button>
-    </router-link>
-    <router-link to="/radarChart">
-      <b-button variant="outline-primary">Scatter</b-button>
-    </router-link>
+
+    <b-button
+      v-for='i in pole'
+      variant='outline-success'
+      v-on:click='currentGraph = i'
+    >
+        {{ i }}
+    </b-button>
+
+    <component
+      v-bind:is='currentGraph'
+    ></component>
   </div>
 </template>
 
 <script>
+  import Histogram from '@/components/charts/Histogram';
+  import DoughnutChart from '@/components/charts/DoughnutChart';
+  import PolarAreaChart from '@/components/charts/PolarAreaChart';
+  import Clusters from '@/components/charts/Clusters';
+  import Scatter from "@/components/charts/Scatter";
+  import Jdfjklsdjkfdskl from "@/components/charts/Jdfjklsdjkfdskl";
   export default {
-    name: "DemoCharts"
+    components: {Jdfjklsdjkfdskl, Scatter, Clusters, PolarAreaChart, DoughnutChart, Histogram},
+    data() {
+      return {
+        currentGraph: 'Histogram',
+        pole: ['Histogram', 'Clusters', 'Scatter', 'Jdfjklsdjkfdskl'],
+        premennaina: 'Histogram',
+        buttons: ['outline-primary',  'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-dark', 'light'],
+
+      }
+    }
   }
 </script>
 
