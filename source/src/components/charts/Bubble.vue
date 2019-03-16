@@ -1,24 +1,16 @@
 <template>
   <div class="row">
-    <div class="col-lg-6 offset-lg-3">
-
-      <!-- begin panel -->
-      <panel
-         title="Bubble Chart">
-        <bubble-chart :data="bubbleChart.data" :options="bubbleChart.options" class="height-sm"></bubble-chart>
-      </panel>
-      <!-- end panel -->
+    <div class="col-md-6 offset-md-3">
+      <bubble-chart :data="bubbleChart.data" :options="bubbleChart.options"></bubble-chart>
     </div>
   </div>
 </template>
 
 <script>
   import BubbleChart from '../vue-chartjs/BubbleChart'
-  import Panel from "@/components/tokokjkfkl/Panel";
 
   export default {
     components: {
-      Panel,
       BubbleChart
     },
     data() {
@@ -28,26 +20,26 @@
             labels: "Africa",
             datasets: [{
               label: ["China"],
-              backgroundColor: "rgba(255,221,50,0.2)",
-              borderColor: "rgba(255,221,50,1)",
+              backgroundColor: "#2e8aff",
+              borderColor: "#0e0d3c",
               data: [{
-                x: 21269017,
-                y: 2.545,
+                x: 20269017,
+                y: 2.845,
                 r: 15
               }]
             }, {
               label: ["Denmark"],
-              backgroundColor: "rgba(60,186,159,0.2)",
-              borderColor: "rgba(60,186,159,1)",
+              backgroundColor: "#2af70a",
+              borderColor: "#005c0a",
               data: [{
                 x: 2508702,
                 y: 3.526,
-                r: 10
+                r: 15
               }]
             }, {
               label: ["Germany"],
-              backgroundColor: "rgba(0,0,0,0.2)",
-              borderColor: "#000",
+              backgroundColor: "#ff0307",
+              borderColor: "#792527",
               data: [{
                 x: 3979083,
                 y: 4.794,
@@ -55,8 +47,8 @@
               }]
             }, {
               label: ["Japan"],
-              backgroundColor: "rgba(193,46,12,0.2)",
-              borderColor: "rgba(193,46,12,1)",
+              backgroundColor: "#bfcb0b",
+              borderColor: "#7a7741",
               data: [{
                 x: 10931877,
                 y: 5.021,

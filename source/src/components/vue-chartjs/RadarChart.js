@@ -5,6 +5,7 @@ export default {
   extends: Radar,
   props: ['data', 'options'],
   mounted () {
-    this.renderChart(this.data, this.options)
+    this.renderChart(this.data, this.options);
+    console.log("RadarChart was loaded");
   }
 }

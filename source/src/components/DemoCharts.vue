@@ -1,35 +1,29 @@
 <template>
   <div>
-
-    <b-button
-      v-for='i in pole'
-      variant='outline-success'
-      v-on:click='currentGraph = i'
-    >
-        {{ i }}
+    <b-button v-for='graph in graphs' variant='outline-success' v-on:click='currentGraph = graph'>
+      {{ graph }}
     </b-button>
-
-    <component
-      v-bind:is='currentGraph'
-    ></component>
+    <component v-bind:is='currentGraph'></component>
   </div>
 </template>
 
 <script>
-  import Histogram from '@/components/charts/Histogram';
-  import DoughnutChart from '@/components/charts/DoughnutChart';
-  import PolarAreaChart from '@/components/charts/PolarAreaChart';
-  import Clusters from '@/components/charts/Clusters';
+  import Bar from '@/components/charts/Bar';
+  import Doughnut from '@/components/charts/Doughnut';
+  import PolarArea from '@/components/charts/PolarArea';
+  import Bubble from '@/components/charts/Bubble';
   import Scatter from "@/components/charts/Scatter";
-  import Jdfjklsdjkfdskl from "@/components/charts/Jdfjklsdjkfdskl";
+  import Pie from "@/components/charts/Pie";
+  import Linee from "@/components/charts/Linee";
+  import Radar from "@/components/charts/Radar";
+
   export default {
-    components: {Jdfjklsdjkfdskl, Scatter, Clusters, PolarAreaChart, DoughnutChart, Histogram},
+    components: {Radar, Linee, Pie, Scatter, Bubble, Doughnut, Bar, PolarArea},
     data() {
       return {
-        currentGraph: 'Histogram',
-        pole: ['Histogram', 'Clusters', 'Scatter', 'Jdfjklsdjkfdskl'],
-        premennaina: 'Histogram',
-        buttons: ['outline-primary',  'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-dark', 'light'],
+        currentGraph: 'Bar',
+        graphs: ['Bar', 'Bubble', 'Scatter', 'Pie', 'Linee', 'PolarArea', 'Doughnut', 'Radar'],
+        buttons: ['outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-dark', 'light'],
 
       }
     }

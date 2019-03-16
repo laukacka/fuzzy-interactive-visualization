@@ -4,7 +4,6 @@ import Home from '@/components/Home';
 import DemoTable from '@/components/DemoTable';
 import DemoCharts from '@/components/DemoCharts';
 
-
 Vue.use(Router);
 
 export default new Router({
