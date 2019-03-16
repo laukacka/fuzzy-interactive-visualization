@@ -5,6 +5,7 @@ export default {
   extends: Scatter,
   props: ['data', 'options'],
   mounted () {
-    this.renderChart(this.data, this.options)
+    this.renderChart(this.data, this.options);
+    console.log("Scatter was loaded");
   }
 }
