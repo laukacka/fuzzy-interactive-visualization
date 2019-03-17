@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-button v-for='graph in graphs' variant='outline-success' v-on:click='currentGraph = graph'>
+    <b-button v-for='graph in graphs' v-on:click='currentGraph = graph'>
       {{ graph }}
     </b-button>
     <component v-bind:is='currentGraph'></component>
@@ -23,8 +23,7 @@
       return {
         currentGraph: 'Bar',
         graphs: ['Bar', 'Bubble', 'Scatter', 'Pie', 'Linee', 'PolarArea', 'Doughnut', 'Radar'],
-        buttons: ['outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-dark', 'light'],
-
+        //buttons: ['outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-dark', 'light']
       }
     }
   }

@@ -1,7 +1,6 @@
 <template>
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      blbost
       <line-chart :data="lineChart.data" :options="lineChart.options"></line-chart>
     </div>
   </div>
@@ -24,19 +23,19 @@
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [{
               label: 'Dataset 1',
-              borderColor: '#348fe2',
-              pointBackgroundColor: '#348fe2',
+              borderColor: '#e23ea6',
+              pointBackgroundColor: '#ab0ee2',
               pointRadius: 2,
               borderWidth: 2,
-              backgroundColor: 'rgba(52, 143, 226, 0.3)',
+              backgroundColor: 'rgba(255, 100, 255, 0.3)',
               data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
             }, {
               label: 'Dataset 2',
-              borderColor: '#2d353c',
-              pointBackgroundColor: '#2d353c',
+              borderColor: '#0f193c',
+              pointBackgroundColor: '#5387cd',
               pointRadius: 2,
               borderWidth: 2,
-              backgroundColor: 'rgba(45, 53, 60, 0.3)',
+              backgroundColor: 'rgba(0, 255, 255, 0.3)',
               data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
             }]
           },

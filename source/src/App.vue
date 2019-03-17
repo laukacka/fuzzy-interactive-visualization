@@ -22,4 +22,10 @@ export default {
   margin-top: 10px;
 }
 </style>
-<!-- COMMENT -->
+<!-- COMMENT
+  background-image: url('./assets/background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+ -->

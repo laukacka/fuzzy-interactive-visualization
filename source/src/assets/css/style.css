@@ -1,18 +1,3 @@
-.row {
-  margin: 0;
-}
-/* Vue Good Table OVERRIDES */
-/* ################################################################# */
-table.vgt-table.vgt-fixed-header {
-  position: relative !important;
-}
-
-table.vgt-table.vgt-fixed-header th:last-child {
-  /* Offset for the scrollbar, you may have to adjust this */
-  width: calc(100% + 17px) !important;
-}
-
-table.vgt-table:not(.vgt-fixed-header) > thead {
-  /* Collapse the first row which is the un-fixed table header */
-  visibility: collapse !important;
+#tablee {
+  margin-bottom: 15px;
 }
