@@ -28,7 +28,7 @@ Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueNVD3);
 Vue.use(VueGoodTablePlugin);
-Vue.use(VueAxios, axios)
+Vue.use(VueAxios, axios);
 
 /* eslint-disable no-new */
 new Vue({

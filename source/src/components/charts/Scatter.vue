@@ -3,6 +3,7 @@
     <div class="col-md-6 offset-md-3">
       <scatter :data="scatter.data" :options="scatter.options"></scatter>
     </div>
+    {{scatter.data}}
   </div>
 </template>
 
