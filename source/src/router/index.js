@@ -4,6 +4,7 @@ import Home from '@/components/Home';
 import DemoTable from '@/components/DemoTable';
 import DemoCharts from '@/components/DemoCharts';
 import Example from "@/components/Example";
+import Blbost from "@/components/Blbost";
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/example',
       name: 'Example',
       component: Example
+    },
+    {
+      path: '/blbost',
+      name: 'Blbost',
+      component: Blbost
     }
   ]
 });

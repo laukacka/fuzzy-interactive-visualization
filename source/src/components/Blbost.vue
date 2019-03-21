@@ -1,34 +1,36 @@
 <template>
-  <b-container fluid style="margin-top: 3%">
-    <b-row align-v="center">
-      <b-col offset-lg="1" offset-md="1" md="4" lg="4">
-        <b-row align-v="center" v-for="column in columns" :key="column.id">
-          <b-col md="4">
-            column {{column.id}}.
-          </b-col>
-          <b-col md="8" lg="7">
-            <b-form-input v-model="column.label" type="text"/>
-          </b-col>
-        </b-row>
+<div>
+ <b-container fluid>
+    <b-row>
+      <b-col sm="3">
+        <label>dnjdkljkdljkl:</label>
       </b-col>
-      <b-col md="6" lg="6">
-        <vue-good-table
-          :columns="columns"
-          :rows="rows"
-          styleClass="vgt-responsive"
-          :lineNumbers="true"
-          :search-options="{ enabled: true, placeholder: 'Search this table' }"
-          :pagination-options="{ enabled: true,  position: 'bottom' }"
-          :selectOptions="{
-            enabled: false,
-            selectOnCheckboxOnly: false,
-            selectionInfoClass: 'alert alert-info m-b-0 no-rounded-corner',
-            selectionText: 'rows selected',
-            clearSelectionText: 'clear',
-			  }"></vue-good-table>
+      <b-col sm="9">
+    <b-form-input v-model="ndklkdljd" type="text"  />
+      </b-col>
+    </b-row>
+     <b-row>
+      <b-col sm="3">
+        <label>dsasffsdfd ( 0 - {{ sdajkksdjfkd}}):</label>
+      </b-col>
+      <b-col sm="9">
+    <b-form-input v-model="attribute1" type="text"  />
+      </b-col>
+    </b-row>
+     <b-row>
+      <b-col sm="3">
+        <label>wewerewrewrew ( 0 - {{ sdajkksdjfkd}}):</label>
+      </b-col>
+      <b-col sm="9">
+    <b-form-input v-model="attribute2" type="text"/>
       </b-col>
     </b-row>
   </b-container>
+
+<b-button @click="doSomething()">Do something interesting</b-button>
+<b-button @click="dsddfsdads()">Do something sadas</b-button>
+  <scatter v-if="sdjkaljkldsj" :data="data.datasets"></scatter>
+</div>
 
 </template>
 
@@ -42,7 +44,10 @@
     },
     data() {
       return {
+        sdjkaljkldsj: false,
+         ndklkdljd : "https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json",
         data: {
+          id: 1,
           datasets: [],
         },
         options: {
@@ -57,11 +62,14 @@
         rows: [],
         colorPallet: ['#ff9418', '#52a', '#cc2417', '#feff0e', '#32aa41', '#cba'],
         attribute1: 0,
-        attribute2: 1
-      }
-    },
-    mounted() {
-      axios.get('https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json').then(response => {
+        attribute2: 1,
+        sdajkksdjfkd: 1,
+        dsddfsdads() {
+          alert("tvoja domaca uloha");
+},
+        doSomething() {
+
+        axios.get(this.ndklkdljd).then(response => {
         //filling the table with data:
         this.rows = response.data;
         let oneRowOfAllData = Object.entries(this.rows[0]);
@@ -111,18 +119,27 @@
           for (let j = 0; j < typesOfClusters.length; j++) {//we go through the whole array of clusters and
             if (typeOfCluster === typesOfClusters[j]) { //compare whether data belong to particular cluster
               clusters[j].data.push({//we add new object to data attribute in appropriate cluster
+                id: i,
                 x: attributes[this.attribute1][1],//x and y axis are set according to the user's selection
                 y: attributes[this.attribute2][1],
               });
               break; //if we find particular cluster, break is called
             }
           }
+          this.sdajkksdjfkd = typesOfClusters.length;
         }
 
         this.data.datasets = {
+          id: 1,
           datasets: clusters
         };
+         this.sdjkaljkldsj = true;
       }).catch(error => console.log(error)) //if we have same errors, we can see them in console
+        }
+      }
+    },
+    mounted() {
+
     }
   }
 </script>

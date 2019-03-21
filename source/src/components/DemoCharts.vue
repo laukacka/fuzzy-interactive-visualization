@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-button v-for='graph in graphs' v-on:click='currentGraph = graph'>
+    <b-button v-for='graph in graphs' v-on:click='currentGraph = graph' :key="graph.id">
       {{ graph }}
     </b-button>
     <component v-bind:is='currentGraph'></component>

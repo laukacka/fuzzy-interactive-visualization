@@ -10,6 +10,9 @@
     <router-link to="/example">
       <b-button variant="danger">Example</b-button>
     </router-link>
+     <router-link to="/blbost">
+      <b-button variant="primary">Blbost</b-button>
+    </router-link>
   </div>
 </template>
 

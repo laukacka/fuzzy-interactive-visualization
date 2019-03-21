@@ -1,12 +1,12 @@
 <template>
   <div>
     <b-container>
-      <b-row v-for="col in columns">
+      <b-row v-for="col in columns" :key="col.id">
         <b-col offset-md="1" md="3">
           column {{col.id}}.
         </b-col>
         <b-col md="6">
-          <b-form-input v-model="col.label" type="text"/>
+          <b-form-input v-model="col.label" :key="col.id" type="text"/>
         </b-col>
       </b-row>
       <b-row id="tablee">
@@ -34,7 +34,7 @@
         </b-col>
       </b-row>
     </b-container>
-    {{data.datasets}}
+
     <b-container>
       <b-row>
         <b-col>
