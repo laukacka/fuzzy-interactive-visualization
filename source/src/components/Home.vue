@@ -7,6 +7,9 @@
     <router-link to="/demoCharts">
       <b-button variant="success">Demo charts</b-button>
     </router-link>
+    <router-link to="/example">
+      <b-button variant="danger">Example</b-button>
+    </router-link>
   </div>
 </template>
 

@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from '@/components/Home';
 import DemoTable from '@/components/DemoTable';
 import DemoCharts from '@/components/DemoCharts';
+import Example from "@/components/Example";
 
 Vue.use(Router);
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/demoCharts',
       name: 'DemoCharts',
       component: DemoCharts
+    },
+    {
+      path: '/example',
+      name: 'Example',
+      component: Example
     }
   ]
 });
