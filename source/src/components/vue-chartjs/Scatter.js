@@ -1,11 +1,13 @@
-import { Scatter } from 'vue-chartjs'
+import { Scatter, mixins } from 'vue-chartjs'
+const { reactiveProp } = mixins;
 
 export default {
   name: "Scatter",
   extends: Scatter,
-  props: ['data', 'options'],
+  mixins: [reactiveProp],
+  props: ['chartData', 'options'],
   mounted () {
-    this.renderChart(this.data, this.options);
+    this.renderChart(this.chartData, this.options);
     console.log("Scatter was loaded");
   }
 }
