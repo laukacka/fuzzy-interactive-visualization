@@ -4,7 +4,7 @@
       <b-input-group prepend="Path to JSON file:" class="mt-3">
         <b-form-input v-model="path"/>
         <b-input-group-append>
-          <b-button @click="start" variant="outline-success">Enter</b-button>
+          <b-button @click="start" variant="outline-success">Load JSON file</b-button>
         </b-input-group-append>
       </b-input-group>
     </b-container>
@@ -42,6 +42,23 @@
 
     <b-container style="margin-top: 3%" v-if="loadedJSON">
       <b-row>
+        <b-col>
+          <b-dropdown text="column for clusters" variant="primary" class="m-2">
+            <b-dropdown-item v-for="index in oneRowOfAllData.length" @click="indexCluster = index - 1">{{ index }}
+            </b-dropdown-item>
+          </b-dropdown>
+          <b-dropdown text="column for x label" variant="primary">
+            <b-dropdown-item v-for="index in oneRowOfAllData.length" @click="xLabel = index - 1">{{ index }}
+            </b-dropdown-item>
+          </b-dropdown>
+
+          <b-dropdown text="column for y label" variant="primary" class="m-2">
+            <b-dropdown-item v-for="index in oneRowOfAllData.length" @click="yLabel = index - 1">{{ index }}
+            </b-dropdown-item>
+          </b-dropdown>
+        </b-col>
+      </b-row>
+      <!--<b-row>
         <b-col sm="3">
           <label>index cluster (0 - {{ oneRowOfAllData.length }}):</label>
         </b-col>
@@ -64,7 +81,7 @@
         <b-col sm="9">
           <b-form-input v-model="yLabel" type="text"/>
         </b-col>
-      </b-row>
+      </b-row>-->
     </b-container>
 
     <b-container style="margin-top: 3%">
@@ -114,7 +131,7 @@
     },
     watch: {
       columns: function () {
-        alert('mOrE');
+        //alert('mOrE');
         this.start();
       },
       xLabel: function (val) {
@@ -145,6 +162,21 @@
       }
     },
     methods: {
+      start() {
+        if (this.rows.length === 0) {
+          this.loadDataFromJSON();
+        }
+        this.foundNewClusters();
+        this.createClusters();
+        this.assignClusters();
+
+        this.data.datasets = {
+          datasets: this.clusters
+        };
+
+        this.assignXAxes();
+        this.assignYAxes();
+      },
       foundNewClusters() {
         this.typesOfClusters = []; // where on the first index are all attributes
         //we have to find out have many clusters we have:
@@ -200,7 +232,7 @@
         }
       },
       assignXAxes: function () {
-        alert(this.columns[this.xLabel].label);
+        //alert(this.columns[this.xLabel].label);
         if (this.options.scales.xAxes.length > 0) {
           this.options.scales.xAxes.pop();
         }
@@ -227,21 +259,6 @@
             fontColor: '#000000'
           }
         });
-      },
-      start() {
-        if (this.rows.length === 0) {
-          this.loadDataFromJSON();
-        }
-        this.foundNewClusters();
-        this.createClusters();
-        this.assignClusters();
-
-        this.data.datasets = {
-          datasets: this.clusters
-        };
-
-        this.assignXAxes();
-        this.assignYAxes();
       },
       loadDataFromJSON() {
         axios.get(this.path).then(response => {
