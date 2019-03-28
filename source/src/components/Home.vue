@@ -4,9 +4,9 @@
     <router-link to="/demoTable">
       <b-button variant="warning">Demo table</b-button>
     </router-link>
-    <router-link to="/demoCharts">
+    <!--<router-link to="/demoCharts">
       <b-button variant="success">Demo charts</b-button>
-    </router-link>
+    </router-link>-->
     <router-link to="/example">
       <b-button variant="danger">Example</b-button>
     </router-link>

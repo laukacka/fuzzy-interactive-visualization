@@ -54,7 +54,7 @@
 
           <b-dropdown text="column for y label" variant="primary" class="m-2">
             <b-dropdown-item v-for="index in oneRowOfAllData.length" @click="yLabel = index - 1">{{ index }}
-            </b-dropdown-item>
+            </b-dropdown-item>-
           </b-dropdown>
         </b-col>
       </b-row>
@@ -91,15 +91,18 @@
         </b-col>
       </b-row>
     </b-container>
+    <base-line-chart></base-line-chart>
   </div>
 </template>
 
 <script>
   import axios from 'axios';
   import Scatter from "./vue-chartjs/Scatter";
+  import BaseLineChart from "./charts/BaseLineChart";
 
   export default {
     components: {
+      BaseLineChart,
       Scatter
     },
     data() {

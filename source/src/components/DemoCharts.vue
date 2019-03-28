@@ -8,21 +8,21 @@
 </template>
 
 <script>
-  import Bar from '@/components/charts/Bar';
-  import Doughnut from '@/components/charts/Doughnut';
-  import PolarArea from '@/components/charts/PolarArea';
-  import Bubble from '@/components/charts/Bubble';
-  import Scatter from "@/components/charts/Scatter";
-  import Pie from "@/components/charts/Pie";
-  import Linee from "@/components/charts/Linee";
-  import Radar from "@/components/charts/Radar";
+  import BaseBarChart from '@/components/charts/BaseBarChart';
+  import BaseDoughnutChart from '@/components/charts/BaseDoughnutChart';
+  import BasePolarAreaChart from '@/components/charts/BasePolarAreaChart';
+  import BaseBubbleChart from '@/components/charts/BaseBubbleChart';
+  import BaseScatterChart from "@/components/charts/BaseScatterChart";
+  import BasePieChart from "@/components/charts/BasePieChart";
+  import BaseLineChart from "@/components/charts/BaseLineChart";
+  import BaseRadarChart from "@/components/charts/BaseRadarChart";
 
   export default {
-    components: {Radar, Linee, Pie, Scatter, Bubble, Doughnut, Bar, PolarArea},
+    components: {BaseRadarChart, BaseLineChart, BasePieChart, BaseScatterChart, BaseBubbleChart, BaseDoughnutChart, BaseBarChart, BasePolarAreaChart},
     data() {
       return {
-        currentGraph: 'Bar',
-        graphs: ['Bar', 'Bubble', 'Scatter', 'Pie', 'Linee', 'PolarArea', 'Doughnut', 'Radar'],
+        currentGraph: 'BaseBarChart',
+        graphs: ['BaseBarChart', 'BaseBubbleChart', 'BaseScatterChart', 'BasePieChart', 'BaseLineChart', 'BasePolarAreaChart', 'BaseDoughnutChart', 'BaseRadarChart'],
         //buttons: ['outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-dark', 'light']
       }
     }

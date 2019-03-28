@@ -14,7 +14,7 @@
       LineChart
     },
     data() {
-      var randomScalingFactor = function () {
+      let randomScalingFactor = function () {
         return Math.round(Math.random() * 100)
       };
       return {

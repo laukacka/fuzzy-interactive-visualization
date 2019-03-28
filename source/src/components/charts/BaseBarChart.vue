@@ -10,11 +10,12 @@
   import BarChart from '../vue-chartjs/BarChart'
 
   export default {
+    name: "BarChart",
     components: {
       BarChart
     },
     data() {
-      var randomScalingFactor = function () {
+      let randomScalingFactor = function () {
         return Math.round(Math.random() * 100)
       };
       return {
