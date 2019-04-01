@@ -6,7 +6,7 @@
       fuzzifikácie a fuzzy zhlukovania.</h3>
 
     <router-link  to="/dataInput">
-      <b-button id="tlacidko" variant="success">Začni s vizualizáciou..</b-button>
+      <b-button id="startButton" variant="success">Začni s vizualizáciou..</b-button>
     </router-link>
     <b-container class="">
       <b-row>
@@ -20,7 +20,7 @@
             background=""
             img-width="1024"
             img-height="480"
-            style="text-shadow: 1px 1px 2px #f31af3;"
+            style="text-shadow: 1px 1px 2px #0f193c;"
             @sliding-start="onSlideStart"
             @sliding-end="onSlideEnd"
           >
@@ -76,20 +76,12 @@
 <style scoped>
   h3{
     padding-top: 50px;
-    margin-bottom: 70px;
-  }
-  #tlacidko{
     margin-bottom: 50px;
   }
-  /*img {
-    margin-top: 5%;
-    width: 400px;
-    height: 350px;
-  }
 
-  img:hover {
-    opacity: 0.3;
-  }*/
+  #startButton {
+    margin-bottom: 50px;
+  }
 
   .welcomeText:hover {
     color: red;

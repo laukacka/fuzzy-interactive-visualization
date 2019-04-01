@@ -2,7 +2,7 @@
   <div>
   <div id="file-drag-drop">
     <form ref="fileForm">
-      <span class="dropFiles">Premiestni a pusti súbor sem!</span>
+      <span class="dropFiles">Premiestni  súbor sem!</span>
     </form>
 
   </div>
@@ -18,6 +18,8 @@
     name: "LoadFromFile",
     data() {
       return {
+        successfullyLoad: false,
+        ourFileToLoad: null,
         dragAndDropCapable: false,
         files: []
       }
@@ -65,7 +67,6 @@
             e.stopPropagation();
           }.bind(this), false);
         }.bind(this));
-
         /*
           Add an event listener for drop to the form
         */

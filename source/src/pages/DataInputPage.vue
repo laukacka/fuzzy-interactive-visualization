@@ -27,12 +27,7 @@
           </b-row>
         </b-col>
         <b-col offset-lg="1" offset-md="1" md="7" lg="7">
-          <div v-if="showLoad">
-            <component v-bind:is='currentLoadComponent'></component>
-          </div>
-          <div v-else>
-            {{ this.$store.getters.getData }}
-          </div>
+          <component v-bind:is='currentLoadComponent'></component>
         </b-col>
       </b-row>
     </b-container>
@@ -50,7 +45,6 @@
       return {
         activeButton: 'true',
         currentLoadComponent: 'LoadFromFile',
-        showLoad: true
       }
     }
   }
@@ -62,8 +56,6 @@
     left: 0;
     margin-left: 10px;
     color: red;
-    /*width: 100px;
-    height: 100px;*/
   }
 
   .rows {
@@ -71,7 +63,7 @@
   }
 
   .loading {
-    margin-top: 20%;
+    margin-top: 50px;
   }
 
   .loadWrapper {

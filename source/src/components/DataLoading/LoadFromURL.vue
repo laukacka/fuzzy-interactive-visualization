@@ -21,7 +21,6 @@
     data() {
       return {
         path: '', //https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json
-        showLoad: true
       }
     },
     methods: {
@@ -30,7 +29,6 @@
           this.$store.dispatch("loadData", response.data);
           console.log(this.$store.getters.getData);
         }).catch(error => console.log(error.response)); //if we have same errors, we can see them in console
-        //this.$emit('showLoad', false)
       }
     }
   }
