@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/components/Home';
+import HomePage from '@/pages/HomePage';
 import DemoTable from '@/components/DemoTable';
 import DemoCharts from '@/components/DemoCharts';
 import Example from "@/components/Example";
-import Blbost from "@/components/Blbost";
+import DataInputPage from "@/pages/DataInputPage"
 
 Vue.use(Router);
 
@@ -12,8 +12,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'HomePage',
+      component: HomePage
     },
     {
       path: '/demoTable',
@@ -31,9 +31,9 @@ export default new Router({
       component: Example
     },
     {
-      path: '/blbost',
-      name: 'Blbost',
-      component: Blbost
+      path: '/dataInput',
+      name: 'DataInputPage',
+      component: DataInputPage
     }
   ]
 });
