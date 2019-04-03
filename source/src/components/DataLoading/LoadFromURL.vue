@@ -3,13 +3,13 @@
     <b-input-group prepend="http://" class="mt-3">
       <b-form-input v-model="path"/>
       <b-input-group-append>
-        <b-button @click="loadData" variant="success">Nahrať</b-button>
+        <b-button @click="loadData" variant="success">Načítaj súbor</b-button>
       </b-input-group-append>
     </b-input-group>
     <p>
       Vlož web adresu (URL). Nahraté môžu byť len dáta typu arff, csv, json a txt.
     </p>
-    {{ this.$store.getters.getData }}
+    <!--{{ this.$store.getters.getData }}-->
   </div>
 </template>
 
