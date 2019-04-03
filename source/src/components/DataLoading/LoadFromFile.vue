@@ -1,14 +1,18 @@
 <template>
   <div>
-    <b-form-file
-      v-model="file"
-      :state="Boolean(file)"
-      placeholder="Pretiahni súbor alebo klikni sem!"
-      drop-placeholder="Pretiahni súbor sem!"
+    <b-form-file class="dragAndDrop"
+                 accept=".arff, .csv, .txt, .json"
+                 v-model="file"
+                 :state="Boolean(file)"
+                 browse-text="Klikni sem"
+                 v-bind:placeholder="nameOfPlaceHolder"
+                 v-bind:drop-placeholder="nameOfDropPlaceHolder"
     ></b-form-file>
     <p>
-      Načítané môžu byť len súbory typu arff, csv, txt a json.
+      Načítané môžu byť len súbory .arff, .csv, .json, .txt a .xls.
     </p>
+    <b-button class="loadButton" variant="danger" @click="file = null">Vymaž súbor</b-button>
+
     <b-button variant="success" @click="loadFile" class="loadButton">
       Načítaj súbor
     </b-button>
@@ -23,6 +27,8 @@
         successfullyLoad: false,
         file: null,
         dragAndDropCapable: false,
+        nameOfPlaceHolder: 'Potiahni súbor sem...',
+        nameOfDropPlaceHolder: 'Pusti súbor...'
       }
     },
     methods: {
@@ -43,9 +49,14 @@
 </script>
 
 <style scoped>
+
   p {
     margin: 0;
     margin-top: 10px;
+  }
+
+  .dragAndDrop {
+    width: 100%;
   }
 
   .loadButton {
