@@ -4,17 +4,16 @@
       pre interaktívnu vizualizáciu dát <br>
       získaných z algoritmov <br>
       fuzzifikácie a fuzzy zhlukovania.</h3>
-
-    <router-link  to="/dataInput">
+    <router-link to="/dataInput">
       <b-button id="startButton" variant="success">Začni s vizualizáciou..</b-button>
     </router-link>
-    <b-container class="">
+    <b-container>
       <b-row>
         <b-col offset-lg="2" offset-md="2" md="8" lg="8">
           <b-carousel
             id="carousel-1"
             v-model="slide"
-            :interval="5000"
+            :interval="4000"
             controls
             indicators
             background=""
@@ -24,28 +23,22 @@
             @sliding-start="onSlideStart"
             @sliding-end="onSlideEnd"
           >
+            <!--TODO -> dokoncit rozumnejsie carousel (cez v-for)-->
             <b-carousel-slide
-              caption="Vizualizuj"
-              text="Fuzzy zhlukovanie"
+              caption="Fuzzy zhlukovanie"
+              text="Vizualizuj"
               img-src="https://picsum.photos/1024/480/?image=52"
             ></b-carousel-slide>
-
-            <!-- Slides with custom text -->
-            <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-              <h1>Fuzzifikacia!</h1>
-            </b-carousel-slide>
-
-
-            <b-carousel-slide>
-              <img
-                slot="img"
-                class="d-block img-fluid w-100"
-                width="1024"
-                height="480"
-                src="https://picsum.photos/1024/480/?image=55"
-                alt="image slot"
-              >
-            </b-carousel-slide>
+            <b-carousel-slide
+              caption="Fuzzifikácia"
+              text="Vizualizuj"
+              img-src="https://picsum.photos/1024/480/?image=54"
+            ></b-carousel-slide>
+            <b-carousel-slide
+              caption="Štatistika"
+              text="Vizualizuj"
+              img-src="https://picsum.photos/1024/480/?image=52"
+            ></b-carousel-slide>
           </b-carousel>
         </b-col>
       </b-row>
@@ -63,10 +56,10 @@
       }
     },
     methods: {
-      onSlideStart(slide) {
+      onSlideStart() {
         this.sliding = true
       },
-      onSlideEnd(slide) {
+      onSlideEnd() {
         this.sliding = false
       }
     }

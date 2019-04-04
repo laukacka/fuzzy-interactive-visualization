@@ -1,17 +1,24 @@
 <template>
   <div>
-    <b-container align-v="center" align-h="center">
-      <b-row>
-        <b-col md="1">
-          <router-link to="/"><i id="sss" class="fas fa-angle-double-left fa-3x back"></i></router-link>
+    <!--<div>
+      <router-link to="/"><i class="fas fa-angle-double-left fa-3x backArrow"></i></router-link>
+    </div>-->
+    <!--fluid class="containerFluid"-->
+    <!--TODO -> centrovanie na stred dokoncit!!!-->
+    <b-container fluid class="inputContainer">
+      <b-row v-if="fromChild === null">
+        <b-col md="2" offset-md="5">
+          <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         </b-col>
-        <b-col md="2" offset-md="4">
-          <i class="fa fa-spinner fa-pulse fa-3x fa-fw loading"></i>
+      </b-row>
+      <b-row v-else>
+        <b-col md="2" offset-md="5">
+          <i class="fas fa-check fa-3x"></i>
         </b-col>
       </b-row>
       <b-row>
         <b-col md="4" offset-md="4">
-          <p>Načítaj Dáta</p>
+          <h3>Načítaj Dáta</h3>
         </b-col>
       </b-row>
       <b-row>
@@ -23,27 +30,14 @@
         </b-col>
       </b-row>
       <b-row>
-        <b-col md="8" offset-md="2">
-          <component v-bind:is='currentLoadComponent' id="component"></component>
+        <b-col md="6" offset-md="3">
+          <component v-bind:is='currentLoadComponent' v-on:childToParent="onChildClick" id="component"></component>
         </b-col>
       </b-row>
     </b-container>
-    <b-container>
-
-      <b-container fluid class="loadWrapper">
-        <b-row align-v="center" align-h="center">
-          <b-col>
-
-
-          </b-col>
-        </b-row>
-        <b-row align-v="center" align-h="center">
-
-        </b-row>
-      </b-container>
-    </b-container>
   </div>
 </template>
+
 <script>
   import LoadFromFile from "@/components/DataLoading/LoadFromFile";
   import LoadFromURL from "@/components/DataLoading/LoadFromURL";
@@ -54,63 +48,75 @@
     components: {LoadSamples, LoadFromURL, LoadFromFile},
     data() {
       return {
-        activeButton: 'true',
+        fromChild: null,
+        counter: 0,
         currentLoadComponent: 'LoadFromFile',
         buttons: [
           {
             name: 'Súbor',
-            variant: 'outline-primary',
+            variant: 'primary',
             component: 'LoadFromFile'
           },
           {
             name: 'URL',
-            variant: 'outline-success',
+            variant: 'secondary',
             component: 'LoadFromURL'
           },
           {
             name: 'Demo dáta',
-            variant: 'outline-warning',
+            variant: 'warning',
             component: 'LoadSamples'
           }
         ]
+      }
+    },
+    updated() {
+      if (this.counter === 1) {
+        this.fromChild = null;
+      }
+      this.counter = 1;
+    },
+    methods: {
+      onChildClick(value) {
+        this.fromChild = value;
+        this.counter++;
       }
     }
   }
 </script>
 
 <style scoped>
-
-  .back {
+  .backArrow {
+    margin-left: 20px;
     position: absolute;
     left: 0;
-    margin-left: 10px;
     color: black;
   }
 
-  .loading {
-    margin-top: 10px;
-  }
-
-  .loadWrapper {
-    margin-top: 5%;
-  }
-
-  .back:hover {
+  .backArrow:hover {
     color: red;
   }
 
-  p {
-    margin-top: 20px;
-    margin-bottom: 20px;
+  .fa-check {
+    color: green;
+  }
+
+  h3 {
+    margin-top: 30px;
+    margin-bottom: 30px;
     font-size: 25px;
     font-weight: bold;
   }
 
   #component {
-    margin-top: 35px;
+    margin-top: 30px;
   }
 
   .buttons {
-    margin: 5px;
+    margin: 0 5px 0 5px;
+  }
+
+  .inputContainer {
+    margin-top: 100px;
   }
 </style>

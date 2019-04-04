@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <b-container>
+   <!-- <b-container>
       <b-row>
         <b-col>
           <fuzzification-table v-if="kjljlk"></fuzzification-table>
@@ -10,8 +10,8 @@
           <fuzzification-line-graph-item></fuzzification-line-graph-item>
         </b-col>
       </b-row>
-    </b-container>
-    {{name}}
+    </b-container>-->
+    TODO {{name}}
   </div>
 </template>
 
@@ -23,7 +23,7 @@
       components: {FuzzificationLineGraphItem, FuzzificationTable},
       data () {
         return {
-          kjljlk: false,
+          kjljlk: true,
           name: 'Fuzzification'
         }
       }

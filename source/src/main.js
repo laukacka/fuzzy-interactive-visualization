@@ -17,11 +17,11 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-good-table/dist/vue-good-table.css'
-//import 'vue-flux/dist/vue-flux.css';
+
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-//clastne CSS importy
+//vlastne CSS importy
 import './assets/css/style.css'
 
 //defaultne nieco:
@@ -38,8 +38,8 @@ Vue.use(VueSweetalert2);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  store,
   router,
+  store,
   components: { App },
   template: '<App/>'
 });
