@@ -35,8 +35,9 @@
             break;
           case '.json': //https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json
             axios.get(this.file).then(response => {
-              this.$store.dispatch("loadData", response.data);
-              console.log(this.$store.getters.getData);
+              let rows = response.data;
+              this.$store.dispatch("loadRows", rows);
+              console.log(this.$store.getters.getRows);
             }).catch(error => console.log(error.response)); //if we have same errors, we can see them in console
             break;
           case '.txt':
@@ -48,7 +49,6 @@
           default:
 
         }
-
       }
     }
   }

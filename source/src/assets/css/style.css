@@ -6,3 +6,20 @@
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+
+.backArrowWrapper {
+  margin-bottom: 100px;
+  height: 20px;
+}
+
+.backArrow {
+  margin-left: 40px;
+  position: absolute;
+  left: 0;
+  color: black;
+  margin-bottom: 50px;
+}
+
+.backArrow:hover {
+  color: red;
+}

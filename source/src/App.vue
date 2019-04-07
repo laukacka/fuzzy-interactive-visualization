@@ -4,19 +4,34 @@
           href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
           integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
           crossorigin="anonymous">
-    <router-view>
+      <router-link to="/"> <img src="./assets/logo.png" alt="logo"></router-link>
 
-    </router-view>
+      <router-view/>
+
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data (){
+    return {
+      msgCurrentPage: 'Domov'
+    }
+  }
+
 }
 </script>
 
 <style>
+  img {
+    width: 30px;
+    height: 30px;
+  }
+  img:hover {
+    background-color: yellow;
+
+  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   text-align: center;

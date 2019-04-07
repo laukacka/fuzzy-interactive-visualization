@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="backArrowWrapper">
+      <router-link to="/dataInput"><i class="fas fa-angle-double-left fa-3x backArrow"></i></router-link>
+    </div>
     <!--class="containerFluid"-->
     <b-container class="methodsContainer">
       <b-row>

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <!--<div>
+    <div class="backArrowWrapper">
       <router-link to="/"><i class="fas fa-angle-double-left fa-3x backArrow"></i></router-link>
-    </div>-->
+    </div>
     <!--fluid class="containerFluid"-->
     <!--TODO -> centrovanie na stred dokoncit!!!-->
     <b-container fluid class="inputContainer">
@@ -86,17 +86,6 @@
 </script>
 
 <style scoped>
-  .backArrow {
-    margin-left: 20px;
-    position: absolute;
-    left: 0;
-    color: black;
-  }
-
-  .backArrow:hover {
-    color: red;
-  }
-
   .fa-check {
     color: green;
   }

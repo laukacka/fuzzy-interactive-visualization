@@ -14,12 +14,12 @@ export const loadFile = {
         if (suffix === '.arff' || suffix === '.csv' || suffix === '.json' || suffix === '.txt' || suffix === '.xls') {
           this.loadData(suffix);
           this.$swal({
-            type: 'success',
-            title: 'Súbor bol úspešne načítaný.'
-          }).then((result) => {
-            if (result.value) {
-              this.$router.push("methods");
-            }
+              type: 'success',
+              title: 'Súbor bol úspešne načítaný.'
+            }).then((result) => {
+              if (result.value) {
+                this.$router.push("methods");
+              }
           })
         } else {
           this.$swal({

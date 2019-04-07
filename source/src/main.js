@@ -33,6 +33,7 @@ Vue.use(VueNVD3);
 Vue.use(VueGoodTablePlugin);
 Vue.use(VueAxios, axios);
 Vue.component(VueCarousel.name, VueCarousel);
+
 Vue.use(VueSweetalert2);
 
 /* eslint-disable no-new */

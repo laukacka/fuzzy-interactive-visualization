@@ -4,25 +4,37 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 const state = {
-  rows: []
+  rows: [],
+/*
+  columns: []
+*/
 };
 
 const mutations = {
-  LOAD_DATA(state, payload) {
+  LOAD_ROWS(state, payload) {
     state.rows = payload;
-  }
+  },
+  /*LOAD_COLUMNS(state, payload) {
+    state.columns = payload;
+  }*/
 };
 
 const actions = {
-  loadData(context, rows) {
-    context.commit("LOAD_DATA", rows);
-  }
+  loadRows(context, rows) {
+    context.commit("LOAD_ROWS", rows);
+  },
+ /* loadColumns(context, columns) {
+    context.commit("LOAD_COLUMNS", columns);
+  }*/
 };
 
 const getters = {
-  getData(state) {
+  getRows(state) {
     return state.rows;
-  }
+  },
+  /*getColumns(state) {
+    return state.columns;
+  }*/
 };
 
 export default new Vuex.Store({
