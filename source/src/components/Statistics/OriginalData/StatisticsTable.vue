@@ -33,23 +33,28 @@
     },
     methods: {
       setParameters() {
-       /* this.$swal({
-          html:
-            '<b-form-input id="range" v-model="value" type="range" min="0" max="5"></b-form-input>' +
-            '<div id="ss" class="mt-2">Value: {{ value }}</div>',
-          focusConfirm: true,
-          preConfirm: () => {
-            return [
-              document.getElementById('range').value,
-              document.getElementById('ss').value
-            ]
-          }
-        });*/
+        /* this.$swal({
+           html:
+             '<b-form-input id="range" v-model="value" type="range" min="0" max="5"></b-form-input>' +
+             '<div id="ss" class="mt-2">Value: {{ value }}</div>',
+           focusConfirm: true,
+           preConfirm: () => {
+             return [
+               document.getElementById('range').value,
+               document.getElementById('ss').value
+             ]
+           }
+         });*/
         let indexOfColumn;
         this.$swal({
           title: 'Ktorý stĺpec si prajete zmeniť?',
           type: 'question',
           confirmButtonText: 'Vybrať',
+          cancelButtonColor: '#d33',
+          confirmButtonColor: '#1bd60b',
+          cancelButtonText: 'Zrušiť',
+          showCancelButton: true,
+          showCloseButton: true,
           input: 'range',
           inputAttributes: {
             min: 1,
@@ -62,12 +67,18 @@
             indexOfColumn = result.value;
             this.$swal({
               input: 'text',
-              inputValue: this.columns[indexOfColumn-1].label,
+              inputValue: this.columns[indexOfColumn - 1].label,
               confirmButtonText: 'Zmeniť',
+              confirmButtonColor: '#1bd60b',
+              cancelButtonColor: '#d33',
               cancelButtonText: 'Zrušiť',
+              showCancelButton: true,
+              showCloseButton: true,
             }).then((result) => {
-              console.log(result.value);
-              this.columns[indexOfColumn-1].label = result.value;
+              if (result.value) {
+                console.log(result.value);
+                this.columns[indexOfColumn - 1].label = result.value;
+              }
             })
           }
         })

@@ -1,26 +1,42 @@
 <template>
   <div>
-    <b-row>
-      <b-col>
+    <b-row align-v="center">
+      <b-col md="4">
         <b-button class="setParametersButtons" variant="outline-primary" @click="changeNamesOfAxis">Zmeň názvy osí
         </b-button>
       </b-col>
-      <b-col>
+      <b-col md="4">
         <b-button class="setParametersButtons" variant="outline-success" @click="changeColorOfClusters">Zmeň farbu
           zhlukov
         </b-button>
       </b-col>
-      <b-col>
+      <b-col md="4">
         <b-button class="setParametersButtons" variant="outline-dark" @click="changeParameters">Zmeň parametre
         </b-button>
       </b-col>
     </b-row>
-    <b-button @click="updateNameAxes"> skuska</b-button>
-    <p> {{ newXAxes }}</p>
-    <b-input type="text" v-model="newXAxes"></b-input>
-    <b-input type="text" v-model="newYAxes"></b-input>
-    <!--<chrome v-model="colors" @change-color="onChange"></chrome>-->
-    <scatter :key="change" :chart-data="data.datasets" :options="options"></scatter>
+    <b-row v-if="isChangingColorCluster" align-v="center" class="changeColor">
+      <b-col md="3" offset-md="2">
+        <label>
+          <b-form-select v-model="NameClusterColorChange">
+            <template slot="first">
+              <option disabled>-- Vyber zhluk --</option>
+            </template>
+            <option v-for="cluster in typesOfClusters">
+              {{ cluster }}
+            </option>
+          </b-form-select>
+        </label>
+      </b-col>
+      <b-col md="3" offset-md="2">
+        <chrome v-model="colorClusterChanged" @change-color="updateColorClusters"></chrome>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <scatter :key="change" :chart-data="data.datasets" :options="options"></scatter>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -51,40 +67,44 @@
         typesOfClusters: null,
         dataEntries: null,
         clusters: null,
-        colorPallet: ['#ff9418', '#06aa19', '#cc2417', '#feff0e', '#32aa41', '#cba'],
+        colorPallet: ['#fbff3e', '#06aa19', '#cc2417', '#1552ff', '#f85ffc', '#18cccc'],
+        isChangingColorCluster: false,
+        NameClusterColorChange: '-- Vyber zhluk --',
+        colorClusterChanged: {
+          hex: '#194d33',
+          hsl: {h: 150, s: 0.5, l: 0.2, a: 1},
+          hsv: {h: 150, s: 0.66, v: 0.30, a: 1},
+          rgba: {r: 25, g: 77, b: 51, a: 1},
+          a: 1
+        },
         xLabel: 0,
         yLabel: 1,
         indexCluster: 4,
         newXAxes: "nieco",
         newYAxes: "nieco2",
         change: true,
-        colors: {
-          hex: '#194d33',
-          hsl: {h: 150, s: 0.5, l: 0.2, a: 1},
-          hsv: {h: 150, s: 0.66, v: 0.30, a: 1},
-          rgba: {r: 25, g: 77, b: 51, a: 1},
-          a: 1
-        }
       }
     },
     watch: {
-      /*newXAxes: function (val) {
-        this.options.scales.xAxes[0].scaleLabel.labelString = val;
-      }*/
+      colorClusterChanged: function () {
+        this.updateColorClusters();
+      }
     },
     methods: {
-      onChange (val) {
-        this.colors = val;
-      },
-      updateNameAxes() {
+      updateNameAxes(val) {
         this.change = !this.change;
-        try{
-          this.options.scales.xAxes[0].scaleLabel.labelString = this.newXAxes;
-          this.options.scales.yAxes[0].scaleLabel.labelString = this.newYAxes;
-        }catch (pokemon) {
-         this.assignXAxes();
-         this.assignYAxes();
-          console.log(pokemon);
+        switch (val) {
+          case 'x':
+            this.options.scales.xAxes[0].scaleLabel.labelString = this.newXAxes;
+            break;
+          case 'y':
+            this.options.scales.yAxes[0].scaleLabel.labelString = this.newYAxes;
+            break;
+          case 'xy':
+            this.options.scales.xAxes[0].scaleLabel.labelString = this.newXAxes;
+            this.options.scales.yAxes[0].scaleLabel.labelString = this.newYAxes;
+            break;
+          default:
         }
       },
       start() {
@@ -92,6 +112,7 @@
         this.foundNewClusters();
         this.createClusters();
         this.assignClusters();
+        //this.updateColorClusters();
 
         this.data.datasets = {
           datasets: this.clusters
@@ -155,6 +176,23 @@
           this.clusters.push(cluster); //add new cluster to array of clusters
         }
       },
+      updateColorClusters: function () {
+        try {
+          if (this.colorClusterChanged != null) {
+            if (this.colorClusterChanged.hex != null) {
+              for (let i = 0; i < this.clusters.length; i++) {
+                if (this.clusters[i].label === this.NameClusterColorChange) {
+                  this.clusters[i].backgroundColor = this.colorClusterChanged.hex;
+                }
+              }
+              this.assignClusters();
+            }
+          }
+          this.change = !this.change;
+        } catch (e) {
+          console.log(e);
+        }
+      },
       assignXAxes: function () {
         if (this.options.scales.xAxes.length > 0) {
           this.options.scales.xAxes = [];
@@ -185,54 +223,41 @@
       },
       changeNamesOfAxis() {
         this.$swal({
-          title: "Zmenit nazvy osi",
           html:
-          'Os x: <input type="text" name="inputNewXAxes"><br><br>' +
-          'Os y: <input type="text" name="inputNewYAxes">',
-            /*'Os x: <input id="xAxis" v-model="newXAxes"><br><br>' +
-            'Os y: <input id="yAxis">',*/
+            'Os x: <input type="text" name="inputNewXAxes"><br><br>' +
+            'Os y: <input type="text" name="inputNewYAxes">',
           focusConfirm: true,
-          /*document.getElementById("myText").value*/
-        }).then((result) => {
-            if(result){
-             // this.newXAxes = document.getElementById("inputNewXAxes").value;
-             // this.newYAxes = document.getElementById("inputNewYAxes").value;
-              this.newXAxes = document.getElementsByName('inputNewXAxes')[0].value;
-              this.newYAxes = document.getElementsByName('inputNewYAxes')[0].value              ;
-              this.updateNameAxes();
-            }else{
-              this.$swal({text: "chyba"});
+          showCancelButton: true,
+          showCloseButton: true,
+          confirmButtonColor: '#1bd60b',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Zmeniť',
+          cancelButtonText: 'Zrušiť'
+        }).then(() => {
+          try {
+            let X = document.getElementsByName('inputNewXAxes')[0].value;
+            let Y = document.getElementsByName('inputNewYAxes')[0].value;
+            if (X !== '' && Y === '') {
+              this.newXAxes = X;
+              this.updateNameAxes('x');
             }
-
+            if (Y !== '' && X === '') {
+              this.newYAxes = Y;
+              this.updateNameAxes('y');
+            }
+            if (X !== '' && Y !== '') {
+              this.newXAxes = X;
+              this.newYAxes = Y;
+              this.updateNameAxes('xy');
+            }
+          } catch (e) {
+            console.log(e);
+          }
         });
-
-        /*
-        * .then((result) => {
-  if (result.value) {
-    Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
-  }
-})
-        *
-        * */
-
-
-
 
       },
       changeColorOfClusters() {
-        this.$swal({
-          html: '<chrome id="picker" v-model="colors" @change-color="onChange"></chrome>',
-          focusConfirm: true,
-          /*preConfirm: () => {
-            return [
-              document.getElementById('picker').value,
-            ]
-          }*/
-        })
+        this.isChangingColorCluster = !this.isChangingColorCluster;
       },
       changeParameters() {
 
@@ -246,7 +271,14 @@
 
 <style scoped>
   .setParametersButtons {
+
+    margin-bottom: 15px;
+  }
+
+  .changeColor {
     margin-top: 15px;
     margin-bottom: 15px;
+    border-style: outset;
+    padding: 10px;
   }
 </style>
