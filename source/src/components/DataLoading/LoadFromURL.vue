@@ -7,8 +7,8 @@
     </b-input-group>
     <h6>Vlož web adresu (URL). Načítané môžu byť len dáta typu arff, csv, json, txt a xls.</h6>
     <!--TODO rovnake tlacitko na vymazanie suboru -> do Base -> BaseButton-->
-    <b-button class="loadButtons" variant="danger" @click="file = ''">Vymaž súbor</b-button>
-    <b-button @click="loadFile(file)" class="loadButtons" variant="success">Načítaj dáta</b-button>
+    <b-button class="loadButtons" variant="danger" @click="file = ''">Vymazať súbor</b-button>
+    <b-button @click="loadFile(file)" class="loadButtons" variant="success">Načítať dáta</b-button>
   </div>
 </template>
 

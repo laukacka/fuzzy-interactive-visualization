@@ -15,7 +15,7 @@
             clearSelectionText: 'vyčisti označené',
 			  }">
     </vue-good-table>
-    <b-button class="setParametersButton" variant="outline-info" @click="setParameters">Zmeň názvy stĺpcov</b-button>
+    <b-button class="setParametersButton" variant="outline-info" @click="setParameters">Zmeniť názov stĺpca</b-button>
   </div>
 </template>
 

@@ -21,7 +21,7 @@
       </b-row>
       <b-row>
         <b-col md="4" offset-md="4">
-          <h3>Načítaj Dáta</h3>
+          <h3>Načítanie dát</h3>
         </b-col>
       </b-row>
       <b-row>

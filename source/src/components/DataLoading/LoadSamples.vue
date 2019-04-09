@@ -6,8 +6,8 @@
     </b-button>
     <b-row>
       <b-col>
-        <b-button class="loadButtons" variant="danger" @click="file = ''">Vymaž súbor</b-button>
-        <b-button @click="loadFile(file)" class="loadButtons" variant="success">Načítaj dáta</b-button>
+        <b-button class="loadButtons" variant="danger" @click="file = ''">Vymazať súbor</b-button>
+        <b-button @click="loadFile(file)" class="loadButtons" variant="success">Načítať dáta</b-button>
       </b-col>
     </b-row>
   </div>
