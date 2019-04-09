@@ -1,14 +1,14 @@
 <template>
   <div>
     <b-input-group prepend="http://" class="mt-3 loadURL">
-      <b-form-input v-model="file"/>
-      <b-input-group-append>
-        <b-button @click="loadFile(file)" variant="success">Načítaj dáta</b-button>
+      <b-form-input :state="Boolean(file)" v-model="file"/>
+      <b-input-group-append >
       </b-input-group-append>
     </b-input-group>
     <h6>Vlož web adresu (URL). Načítané môžu byť len dáta typu arff, csv, json, txt a xls.</h6>
     <!--TODO rovnake tlacitko na vymazanie suboru -> do Base -> BaseButton-->
-    <b-button class="loadButton" variant="danger" @click="file = null">Vymaž súbor</b-button>
+    <b-button class="loadButtons" variant="danger" @click="file = ''">Vymaž súbor</b-button>
+    <b-button @click="loadFile(file)" class="loadButtons" variant="success">Načítaj dáta</b-button>
   </div>
 </template>
 
@@ -24,6 +24,14 @@
         file: '',
       }
     },
+    mounted() {
+      this.emitToParent();
+    },
+    watch: {
+      file: function () {
+        this.emitToParent();
+      }
+    },
     methods: {
       loadData(suffix) {
         //TODO switch podla suffix na nacitanie roznych typov suborov - dokoncit
@@ -37,7 +45,9 @@
             axios.get(this.file).then(response => {
               let rows = response.data;
               this.$store.dispatch("loadRows", rows);
-              console.log(this.$store.getters.getRows);
+              //localStorage.rows = rows;
+              //console.log(this.$store.getters.getRows);
+              this.loadHeaders();
             }).catch(error => console.log(error.response)); //if we have same errors, we can see them in console
             break;
           case '.txt':
@@ -49,6 +59,26 @@
           default:
 
         }
+      },
+      loadHeaders() {
+        let rows = this.$store.getters.getRows;
+        let columns = [];
+        let oneRowOfAllData = Object.entries(rows[0]);
+        for (let i = 0; i < oneRowOfAllData.length; i++) { //we create as many columns as we have items in oneRowOfAllData
+          let column = {
+            id: i + 1,
+            label: oneRowOfAllData[i][0],
+            field: oneRowOfAllData[i][0],
+            tdClass: 'text-center text-nowrap',
+            thClass: 'text-center text-nowrap'
+          };
+          columns.push(column);
+        }
+        this.$store.dispatch("loadColumns", columns);
+        //localStorage.columns = columns;
+      },
+      emitToParent() {
+        this.$emit('childToParent', this.file);
       }
     }
   }
@@ -56,6 +86,7 @@
 
 <style scoped>
   h6 {
+    cursor: context-menu;
     margin-top: 10px;
   }
 
@@ -63,7 +94,7 @@
     width: 100%;
   }
 
-  .loadButton {
-    margin: 10px 0 0 0;
+  .loadButtons {
+    margin: 10px 0 10px 0;
   }
 </style>

@@ -1,18 +1,18 @@
 <template>
   <div>
-    <vue-good-table
+    <vue-good-table class="statisticsTable"
       :columns="columns"
       :rows="this.$store.getters.getRows"
       styleClass="vgt-responsive"
       :lineNumbers="true"
-      :search-options="{ enabled: true, placeholder: 'Search this table' }"
+      :search-options="{ enabled: true, placeholder: 'Vyhľadaj v tabulke' }"
       :pagination-options="{ enabled: true,  position: 'bottom' }"
       :selectOptions="{
-            enabled: false,
-            selectOnCheckboxOnly: false,
+            enabled: true,
+            selectOnCheckboxOnly: true,
             selectionInfoClass: 'alert alert-info m-b-0 no-rounded-corner',
-            selectionText: 'rows selected',
-            clearSelectionText: 'clear',
+            selectionText: '',
+            clearSelectionText: 'vyčisti označené',
 			  }">
     </vue-good-table>
     <b-button class="setParametersButton" variant="outline-info" @click="setParameters">Zmeň názvy stĺpcov</b-button>
@@ -27,25 +27,12 @@
     },
     data() {
       return {
-        inputOptions: {},
-        value: '2'
       }
     },
     methods: {
       setParameters() {
-        /* this.$swal({
-           html:
-             '<b-form-input id="range" v-model="value" type="range" min="0" max="5"></b-form-input>' +
-             '<div id="ss" class="mt-2">Value: {{ value }}</div>',
-           focusConfirm: true,
-           preConfirm: () => {
-             return [
-               document.getElementById('range').value,
-               document.getElementById('ss').value
-             ]
-           }
-         });*/
         let indexOfColumn;
+        let columns = this.$store.getters.getColumns;
         this.$swal({
           title: 'Ktorý stĺpec si prajete zmeniť?',
           type: 'question',
@@ -58,16 +45,16 @@
           input: 'range',
           inputAttributes: {
             min: 1,
-            max: this.columns.length,
+            max: columns.length,
             step: 1
           },
-          inputValue: 1
+          inputValue: 2
         }).then((result) => {
           if (result.value) {
             indexOfColumn = result.value;
             this.$swal({
               input: 'text',
-              inputValue: this.columns[indexOfColumn - 1].label,
+              inputValue: columns[indexOfColumn - 1].label,
               confirmButtonText: 'Zmeniť',
               confirmButtonColor: '#1bd60b',
               cancelButtonColor: '#d33',
@@ -77,7 +64,7 @@
             }).then((result) => {
               if (result.value) {
                 console.log(result.value);
-                this.columns[indexOfColumn - 1].label = result.value;
+                columns[indexOfColumn - 1].label = result.value;
               }
             })
           }
@@ -90,5 +77,9 @@
 <style scoped>
   .setParametersButton {
     margin-top: 15px;
+  }
+
+  .statisticsTable {
+    margin-top: 100px;
   }
 </style>

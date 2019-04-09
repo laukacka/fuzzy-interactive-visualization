@@ -5,9 +5,9 @@
       získaných z algoritmov <br>
       fuzzifikácie a fuzzy zhlukovania.</h3>
     <router-link to="/dataInput">
-      <b-button id="startButton" variant="success">Začni s vizualizáciou..</b-button>
+      <b-button id="startButton" variant="success">Vizualizovať</b-button>
     </router-link>
-    <b-container>
+    <!--<b-container class="homeCarousel">
       <b-row>
         <b-col offset-lg="2" offset-md="2" md="8" lg="8">
           <b-carousel
@@ -23,7 +23,7 @@
             @sliding-start="onSlideStart"
             @sliding-end="onSlideEnd"
           >
-            <!--TODO -> dokoncit rozumnejsie carousel (cez v-for)-->
+            &lt;!&ndash;TODO -> dokoncit rozumnejsie carousel (cez v-for)&ndash;&gt;
             <b-carousel-slide
               caption="Fuzzy zhlukovanie"
               text="Vizualizuj"
@@ -42,7 +42,7 @@
           </b-carousel>
         </b-col>
       </b-row>
-    </b-container>
+    </b-container>-->
   </div>
 </template>
 
@@ -62,13 +62,16 @@
       onSlideEnd() {
         this.sliding = false
       }
+    },
+    mounted() {
+      this.$store.dispatch('loadHeader', ' ');
     }
   }
 </script>
 
 <style scoped>
   h3{
-    padding-top: 50px;
+    padding-top: 100px;
     margin-bottom: 50px;
   }
 
@@ -81,8 +84,13 @@
   }
 
   .welcomeText {
+    cursor: context-menu;
     font-size: 25px;
     margin-top: 10px;
     text-shadow: 2px 1px rgba(0, 0, 0, 0.41);
+  }
+
+  .homeCarousel {
+    margin-bottom: 10px;
   }
 </style>

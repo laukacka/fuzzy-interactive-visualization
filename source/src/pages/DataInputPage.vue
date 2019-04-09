@@ -1,12 +1,15 @@
 <template>
   <div>
-    <div class="backArrowWrapper">
-      <router-link to="/"><i class="fas fa-angle-double-left fa-3x backArrow"></i></router-link>
-    </div>
-    <!--fluid class="containerFluid"-->
+    <b-container>
+      <b-row>
+        <b-col>
+          <router-link to="/"><i class="fas fa-angle-double-left fa-3x backArrow" title="Domov"></i></router-link>
+        </b-col>
+      </b-row>
+    </b-container>
     <!--TODO -> centrovanie na stred dokoncit!!!-->
     <b-container fluid class="inputContainer">
-      <b-row v-if="fromChild === null">
+      <b-row v-if="fromChild === ''">
         <b-col md="2" offset-md="5">
           <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         </b-col>
@@ -23,7 +26,7 @@
       </b-row>
       <b-row>
         <b-col md="6" offset-md="3">
-          <b-button class="buttons" v-for="button in buttons" v-bind:variant='button.variant'
+          <b-button class="buttons" v-for="button in buttons" variant='outline-dark'
                     v-on:click='currentLoadComponent = button.component'>
             {{button.name}}
           </b-button>
@@ -31,7 +34,7 @@
       </b-row>
       <b-row>
         <b-col md="6" offset-md="3">
-          <component v-bind:is='currentLoadComponent' v-on:childToParent="onChildClick" id="component"></component>
+          <component v-bind:is='currentLoadComponent' v-on:childToParent="onChildAction" id="component"></component>
         </b-col>
       </b-row>
     </b-container>
@@ -48,7 +51,7 @@
     components: {LoadSamples, LoadFromURL, LoadFromFile},
     data() {
       return {
-        fromChild: null,
+        fromChild: '',
         counter: 0,
         currentLoadComponent: 'LoadFromFile',
         buttons: [
@@ -72,15 +75,18 @@
     },
     updated() {
       if (this.counter === 1) {
-        this.fromChild = null;
+        this.fromChild = '';
       }
       this.counter = 1;
     },
     methods: {
-      onChildClick(value) {
+      onChildAction(value) {
         this.fromChild = value;
         this.counter++;
       }
+    },
+    mounted() {
+      this.$store.dispatch('loadHeader', 'Interaktívna vizualizácia');
     }
   }
 </script>
@@ -91,6 +97,7 @@
   }
 
   h3 {
+    cursor: context-menu;
     margin-top: 30px;
     margin-bottom: 30px;
     font-size: 25px;
@@ -102,7 +109,7 @@
   }
 
   .buttons {
-    margin: 0 5px 0 5px;
+    margin: 2px 5px 2px 5px;
   }
 
   .inputContainer {

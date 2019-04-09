@@ -1,9 +1,13 @@
 <template>
   <div>
-    <div class="backArrowWrapper">
-      <router-link to="/dataInput"><i class="fas fa-angle-double-left fa-3x backArrow"></i></router-link>
-    </div>
-    <!--class="containerFluid"-->
+    <b-container>
+      <b-row>
+        <b-col>
+          <router-link to="/dataInput"><i class="fas fa-angle-double-left fa-3x backArrow" title="Načítanie dát"></i>
+          </router-link>
+        </b-col>
+      </b-row>
+    </b-container>
     <b-container class="methodsContainer">
       <b-row>
         <b-col>
@@ -11,11 +15,6 @@
         </b-col>
       </b-row>
       <b-row>
-        <!--<b-col offset-md="1" md="10" >
-              <b-button>xxxx</b-button>
-          <b-button>xsssssxxx</b-button>
-          <b-button>xxxaaaaax</b-button>
-        </b-col>-->
         <!--TODO -> buttony dokoncit nejak rozumne.. a centrovanie na stred!!-->
         <b-col offset-md="1" md="2">
           <router-link to="/fuzzification">
@@ -29,7 +28,7 @@
         </b-col>
         <b-col offset-md="2" md="2">
           <router-link to="/statistics">
-            <b-button class="buttons" variant="dark">Pôvodné dáta</b-button>
+            <b-button class="buttons" variant="secondary">Štatistika</b-button>
           </router-link>
         </b-col>
       </b-row>
@@ -42,6 +41,19 @@
     name: "MethodsPage",
     data() {
       return {}
+    },
+    mounted() {
+      this.$store.dispatch('loadHeader', 'Interaktívna vizualizácia');
+      if (this.$store.getters.getRows.length === 0) {
+        this.$swal({
+          type: 'warning',
+          title: 'Treba znovu načítať súbor.'
+        }).then((result) => {
+          if (result.value) {
+            this.$router.push("dataInput");
+          }
+        })
+      }
     }
   }
 </script>
@@ -54,10 +66,11 @@
   }
 
   .methodsContainer {
-    margin-top: 10%;
+    margin-top: 100px;
   }
 
   h3 {
+    cursor: context-menu;
     margin-bottom: 50px;
   }
 

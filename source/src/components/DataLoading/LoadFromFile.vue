@@ -10,8 +10,8 @@
                  v-bind:drop-placeholder="nameOfDropPlaceHolder"
     ></b-form-file>
     <h6>Načítané môžu byť len súbory typu .arff, .csv, .json, .txt a .xls.</h6>
-    <b-button class="loadButton" variant="danger" @click="file = null">Vymaž súbor</b-button>
-    <b-button variant="success" @click="loadFile(file)" class="loadButton">Načítaj dáta</b-button>
+    <b-button class="loadButtons" variant="danger" @click="file = ''">Vymaž súbor</b-button>
+    <b-button variant="success" @click="loadFile(file)" class="loadButtons">Načítaj dáta</b-button>
   </div>
 </template>
 
@@ -24,7 +24,7 @@
     data() {
       return {
         successfullyLoad: false,
-        file: null,
+        file: '',
         dragAndDropCapable: false,
         nameOfPlaceHolder: 'Potiahni súbor sem...',
         nameOfDropPlaceHolder: 'Pusti súbor...'
@@ -69,6 +69,7 @@
 
 <style scoped>
   h6 {
+    cursor: context-menu;
     margin: 10px 0 0 0;
   }
 
@@ -78,7 +79,7 @@
     text-align: left;
   }
 
-  .loadButton {
-    margin: 10px 0 0 0;
+  .loadButtons {
+    margin: 10px 0 10px 0;
   }
 </style>

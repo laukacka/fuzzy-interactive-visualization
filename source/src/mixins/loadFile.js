@@ -14,19 +14,21 @@ export const loadFile = {
         if (suffix === '.arff' || suffix === '.csv' || suffix === '.json' || suffix === '.txt' || suffix === '.xls') {
           this.loadData(suffix);
           this.$swal({
-              type: 'success',
-              title: 'Súbor bol úspešne načítaný.'
-            }).then((result) => {
-              if (result.value) {
-                this.$router.push("methods");
-              }
+            type: 'success',
+            confirmButtonColor: '#1bd60b',
+            title: 'Súbor bol úspešne načítaný.'
+          }).then((result) => {
+            if (result.value) {
+              this.$router.push("methods");
+            }
           })
         } else {
           this.$swal({
             type: 'error',
             title: 'Súbor má nesprávny typ!'
           });
-          this.file = null;
+          this.file = '';
+          this.emitToParent();
         }
       } else {
         this.$swal({
