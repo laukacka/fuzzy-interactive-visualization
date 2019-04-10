@@ -3,7 +3,7 @@
     <b-container v-if="(showTable || showGraph)">
       <b-row>
         <b-col @click="showButtons">
-          <router-link to="/statistics"><i class="fas fa-angle-double-left fa-3x backArrow"  title="Spôsob zobrazenia dát"></i></router-link>
+          <router-link to="/statistics"><i class="fas fa-angle-double-left fa-3x backArrow"  title="Spôsob zobrazenia pôvodných dát"></i></router-link>
         </b-col>
       </b-row>
     </b-container>
@@ -44,8 +44,8 @@
     <b-container style="margin-top: 3%" v-if="showGraph">
       <b-row>
         <b-col offset-md="2" md="8">
-          <statistics-graph :firstTimeGraph="firstTimeGraph" :columns="this.$store.getters.getColumns"
-                            v-on:childToParent="onChildAction"></statistics-graph>
+          <statistics-scatter :firstTimeGraph="firstTimeGraph" :columns="this.$store.getters.getColumns"
+                            v-on:childToParent="onChildAction"></statistics-scatter>
         </b-col>
       </b-row>
     </b-container>
@@ -54,12 +54,12 @@
 
 <script>
   import StatisticTable from "@/components/Statistics/OriginalData/StatisticsTable";
-  import StatisticsGraph from "@/components/Statistics/OriginalData/StatisticsGraph";
+  import StatisticsScatter from "@/components/Statistics/OriginalData/StatisticsScatter";
 
   export default {
     name: "StatisticsPage",
     components: {
-      StatisticsGraph,
+      StatisticsScatter,
       StatisticTable
     },
     data() {

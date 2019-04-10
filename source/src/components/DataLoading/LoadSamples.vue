@@ -7,7 +7,7 @@
     <b-row>
       <b-col>
         <b-button class="loadButtons" variant="danger" @click="file = ''">Vymazať súbor</b-button>
-        <b-button @click="loadFile(file)" class="loadButtons" variant="success">Načítať dáta</b-button>
+        <b-button v-if="file !== ''" @click="loadFile(file)" class="loadButtons" variant="success">Ďalej </b-button>
       </b-col>
     </b-row>
   </div>
@@ -30,25 +30,26 @@
             file: 'https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json'
           },
           {
-            name: 'NIECO',
+            name: 'TODO',
             variant: 'warning',
             file: ''
           },
           {
-            name: 'NIECO2',
-            variant: 'secondary'
+            name: 'TODO2',
+            variant: 'secondary',
+            file: ''
           }, {
-            name: 'NIECO3',
+            name: 'TODO3',
             variant: 'secondary',
             file: ''
           },
           {
-            name: 'NIECO4',
+            name: 'TODO4',
             variant: 'warning',
             file: ''
           },
           {
-            name: 'NIECO5',
+            name: 'TODO5',
             variant: 'primary',
             file: ''
           }

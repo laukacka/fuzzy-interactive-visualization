@@ -11,7 +11,7 @@
     <b-container fluid class="inputContainer">
       <b-row v-if="fromChild === ''">
         <b-col md="2" offset-md="5">
-          <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+          <i class="fas fa-arrow-down fa-3x arrow " aria-hidden="true"></i>
         </b-col>
       </b-row>
       <b-row v-else>
@@ -114,5 +114,15 @@
 
   .inputContainer {
     margin-top: 100px;
+  }
+
+  .arrow {
+    animation: arrowSlide 1s ease-in-out infinite;
+  }
+
+  @keyframes arrowSlide {
+    50% {
+      transform: translate(0, 10px);
+    }
   }
 </style>

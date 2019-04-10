@@ -29,7 +29,7 @@
         </label>
       </b-col>
       <b-col md="5">
-        <chrome style="margin: auto" v-model="colorClusterChanged" @change-color="updateColorClusters"></chrome>
+        <chrome style="margin: auto" v-model="color" @change-color="updateColorClusters"></chrome>
       </b-col>
     </b-row>
     <b-row>
@@ -71,7 +71,7 @@
         isChangingColorCluster: false,
         nameClusterColorChange: '-- Vyber zhluk --',
         randomColor: '',
-        colorClusterChanged: {
+        color: {
           hex: '#194d33',
           hsl: {h: 150, s: 0.5, l: 0.2, a: 1},
           hsv: {h: 150, s: 0.66, v: 0.30, a: 1},
@@ -87,7 +87,7 @@
       }
     },
     watch: {
-      colorClusterChanged: function () {
+      color: function () {
         this.updateColorClusters();
       }
     },
@@ -129,8 +129,7 @@
       },
       foundNewClusters() {
         this.typesOfClusters = []; // where on the first index are all attributes
-        //we have to find out have many clusters we have:
-        for (let i = 0; i < this.dataEntries.length; i++) {
+        for (let i = 0; i < this.dataEntries.length; i++) { //we have to find out have many clusters we have:
           let attributes = Object.entries(this.dataEntries[i][1]);//from attributes we make array for better access
           let typeOfCluster = attributes[this.indexCluster][1]; //get type (name) of cluster from last attribute (index 4),
           if (typeof typeOfCluster === 'number') {
@@ -156,8 +155,7 @@
         }
         return allData;
       },
-      assignClusters: function () {
-        //we have to sort our data to clusters where they belong
+      assignClusters: function () {  //we have to sort our data to clusters where they belong
         for (let i = 0; i < this.dataEntries.length; i++) {
           let attributes = Object.entries(this.dataEntries[i][1]); //from attributes we make array for better access
           let typeOfCluster = attributes[this.indexCluster][1]; //get type (name) of cluster from last attribute (index 4)
@@ -175,8 +173,7 @@
           }
         }
       },
-      createClusters: function () {
-        //we create a new clusters and add them to array of clusters
+      createClusters: function () { //we create a new clusters and add them to array of clusters
         this.clusters = [];
         this.colorPallet = [];
         for (let i = 0; i < this.typesOfClusters.length; i++) { //we create as many clusters as we have types (names) of clusters
@@ -196,13 +193,11 @@
       },
       updateColorClusters: function () {
         try {
-          if (this.colorClusterChanged != null) {
-            if (this.colorClusterChanged.hex != null) {
-              console.log(typeof this.clusters[0].label);
-              console.log(typeof this.nameClusterColorChange);
+          if (this.color != null) {
+            if (this.color.hex != null) {
               for (let i = 0; i < this.clusters.length; i++) {
                 if (this.clusters[i].label === this.nameClusterColorChange) {
-                  this.clusters[i].backgroundColor = this.colorClusterChanged.hex;
+                  this.clusters[i].backgroundColor = this.color.hex;
                 }
               }
               this.assignClusters();
@@ -287,27 +282,27 @@
         let columns = this.$store.getters.getColumns;
         this.$swal.mixin({
           input: 'range',
-          showCloseButton: true,
           inputAttributes: {
             min: 1,
             max: columns.length,
             step: 1
           },
           confirmButtonText: 'Ďalej',
+          allowOutsideClick: false,
           confirmButtonColor: '#1bd60b',
           progressSteps: ['1', '2', '3'],
           backdrop: `rgba(0, 0, 0, 0.8)`
         }).queue([
           {
-            title: 'Index stĺpca pre X-OVÚ OS:',
+            title: 'Číslo stĺpca pre X-OVÚ OS:',
             inputValue: this.xLabel + 1,
           },
           {
-            title: 'Index stĺpca pre Y-OVÚ OS:',
+            title: 'Číslo stĺpca pre Y-OVÚ OS:',
             inputValue: this.yLabel + 1,
           },
           {
-            title: 'Index stĺpca pre ZHLUKY:',
+            title: 'Číslo stĺpca pre ZHLUKY:',
             inputValue: this.indexCluster + 1,
           }
         ]).then((result) => {

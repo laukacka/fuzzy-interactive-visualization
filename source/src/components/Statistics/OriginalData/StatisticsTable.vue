@@ -9,7 +9,7 @@
       :pagination-options="{ enabled: true,  position: 'bottom' }"
       :selectOptions="{
             enabled: true,
-            selectOnCheckboxOnly: true,
+            selectOnCheckboxOnly: false,
             selectionInfoClass: 'alert alert-info m-b-0 no-rounded-corner',
             selectionText: '',
             clearSelectionText: 'vyčisti označené',
@@ -34,7 +34,7 @@
         let indexOfColumn;
         let columns = this.$store.getters.getColumns;
         this.$swal({
-          title: 'Ktorý stĺpec si prajete zmeniť?',
+          title: 'Vyberte číslo stĺpca, ktorý chcete zmeniť:',
           type: 'question',
           confirmButtonText: 'Vybrať',
           cancelButtonColor: '#d33',
@@ -63,7 +63,6 @@
               showCloseButton: true,
             }).then((result) => {
               if (result.value) {
-                console.log(result.value);
                 columns[indexOfColumn - 1].label = result.value;
               }
             })

@@ -11,7 +11,7 @@
     ></b-form-file>
     <h6>Načítané môžu byť len súbory typu .arff, .csv, .json, .txt a .xls.</h6>
     <b-button class="loadButtons" variant="danger" @click="file = ''">Vymazať súbor</b-button>
-    <b-button variant="success" @click="loadFile(file)" class="loadButtons">Načítať dáta</b-button>
+    <b-button v-if="file !== ''" variant="success" @click="loadFile(file)" class="loadButtons">Ďalej</b-button>
   </div>
 </template>
 

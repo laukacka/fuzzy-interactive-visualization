@@ -11,6 +11,9 @@
         return {
           name: 'Fuzzy Clustering'
         }
+      },
+      mounted() {
+        this.$store.dispatch('loadHeader', 'Fuzzy zhlukovanie');
       }
     }
 </script>
