@@ -34,7 +34,7 @@
     </b-row>
     <b-row>
       <b-col>
-        <scatter :key="reUploadGraph" :chart-data="data.datasets" :options="options" class="scatter"></scatter>
+        <scatter :key="reupdateGraph" :chart-data="data.datasets" :options="options" class="scatter"></scatter>
       </b-col>
     </b-row>
   </div>
@@ -70,7 +70,6 @@
         colorPallet: [],
         isChangingColorCluster: false,
         nameClusterColorChange: '-- Vyber zhluk --',
-        randomColor: '',
         color: {
           hex: '#194d33',
           hsl: {h: 150, s: 0.5, l: 0.2, a: 1},
@@ -83,7 +82,7 @@
         indexCluster: 0,
         newXAxes: '',
         newYAxes: '',
-        reUploadGraph: true,
+        reupdateGraph: true,
       }
     },
     watch: {
@@ -92,11 +91,24 @@
       }
     },
     methods: {
-      randomColorGenerator: function () {
-        return this.randomColor = '#' + Math.random().toString(16).slice(2, 8);;
+      start() {
+        this.dataEntries = this.assignAllDataEntries();
+        this.foundNewClusters();
+        this.createClusters();
+        this.assignClusters();
+
+        this.data.datasets = {
+          datasets: this.clusters
+        };
+
+        this.assignXAxes();
+        this.assignYAxes();
       },
-      uploadGraph() {
-        this.reUploadGraph = !this.reUploadGraph;
+      randomColorGenerator: function () {
+        return ('#' + Math.random().toString(16).slice(2, 8));
+      },
+      updateGraph() {
+        this.reupdateGraph = !this.reupdateGraph;
       },
       updateNameAxes(val) {
         switch (val) {
@@ -112,23 +124,10 @@
             break;
           default:
         }
-        this.uploadGraph();
-      },
-      start() {
-        this.dataEntries = this.assignAllDataEntries();
-        this.foundNewClusters();
-        this.createClusters();
-        this.assignClusters();
-
-        this.data.datasets = {
-          datasets: this.clusters
-        };
-
-        this.assignXAxes();
-        this.assignYAxes();
+        this.updateGraph();
       },
       foundNewClusters() {
-        this.typesOfClusters = []; // where on the first index are all attributes
+        this.typesOfClusters = [];
         for (let i = 0; i < this.dataEntries.length; i++) { //we have to find out have many clusters we have:
           let attributes = Object.entries(this.dataEntries[i][1]);//from attributes we make array for better access
           let typeOfCluster = attributes[this.indexCluster][1]; //get type (name) of cluster from last attribute (index 4),
@@ -179,7 +178,7 @@
         for (let i = 0; i < this.typesOfClusters.length; i++) { //we create as many clusters as we have types (names) of clusters
           let randomColor = '';
           do {
-            randomColor = this.randomColorGenerator();
+           randomColor = this.randomColorGenerator();
           } while (this.colorPallet.includes(randomColor) === true);
           this.colorPallet.push(randomColor);
           let cluster = {
@@ -203,7 +202,7 @@
               this.assignClusters();
             }
           }
-          this.uploadGraph();
+          this.updateGraph();
         } catch (e) {
           console.log(e);
         }
@@ -317,7 +316,7 @@
               backdrop: `rgba(0, 0, 0, 0.8)`
             });
             this.start();
-            this.uploadGraph();
+            this.updateGraph();
           }
         })
       },

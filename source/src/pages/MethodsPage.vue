@@ -47,7 +47,7 @@
       if (this.$store.getters.getRows.length === 0) {
         this.$swal({
           type: 'warning',
-          title: 'Treba znovu načítať súbor.'
+          title: 'Znovu načítaj dáta.'
         }).then((result) => {
           if (result.value) {
             this.$router.push("dataInput");

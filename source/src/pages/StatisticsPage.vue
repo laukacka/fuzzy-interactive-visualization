@@ -3,7 +3,8 @@
     <b-container v-if="(showTable || showGraph)">
       <b-row>
         <b-col @click="showButtons">
-          <router-link to="/statistics"><i class="fas fa-angle-double-left fa-3x backArrow"  title="Spôsob zobrazenia pôvodných dát"></i></router-link>
+          <router-link to="/statistics"><i class="fas fa-angle-double-left fa-3x backArrow"
+                                           title="Spôsob zobrazenia pôvodných dát"></i></router-link>
         </b-col>
       </b-row>
     </b-container>
@@ -11,7 +12,8 @@
     <b-container v-if="!showTable && !showGraph">
       <b-row>
         <b-col>
-          <router-link to="/methods"><i class="fas fa-angle-double-left fa-3x backArrow" title="Metódy"></i></router-link>
+          <router-link to="/methods"><i class="fas fa-angle-double-left fa-3x backArrow" title="Metódy"></i>
+          </router-link>
         </b-col>
       </b-row>
     </b-container>
@@ -44,8 +46,8 @@
     <b-container style="margin-top: 3%" v-if="showGraph">
       <b-row>
         <b-col offset-md="2" md="8">
-          <statistics-scatter :firstTimeGraph="firstTimeGraph" :columns="this.$store.getters.getColumns"
-                            v-on:childToParent="onChildAction"></statistics-scatter>
+          <statistics-scatter :firstTimeGraph="firstTimeGraph"
+                              v-on:childToParent="onChildAction"></statistics-scatter>
         </b-col>
       </b-row>
     </b-container>
@@ -84,7 +86,7 @@
       if (this.$store.getters.getRows.length === 0) {
         this.$swal({
           type: 'warning',
-          title: 'Treba znovu načítať súbor.'
+          title: 'Znovu načítaj dáta.'
         }).then((result) => {
           if (result.value) {
             this.$router.push("dataInput");

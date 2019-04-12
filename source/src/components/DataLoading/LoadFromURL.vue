@@ -66,7 +66,7 @@
         let oneRowOfAllData = Object.entries(rows[0]);
         for (let i = 0; i < oneRowOfAllData.length; i++) { //we create as many columns as we have items in oneRowOfAllData
           let column = {
-            id: i + 1,
+            id: i,
             label: oneRowOfAllData[i][0],
             field: oneRowOfAllData[i][0],
             tdClass: 'text-center text-nowrap',
