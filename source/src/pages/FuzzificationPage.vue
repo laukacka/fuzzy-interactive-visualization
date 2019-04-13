@@ -76,14 +76,14 @@
             </b-col>
           </b-row>
 
-          <b-row align-v="center" align-h="center" class="coefficientRow">
+          <!--<b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col sm="8">
               <b-input-group prepend="0" :append="' ' + temporaryMaxXValue" class="mt-3">
-                <b-form-input type="range" min="0" v-model="temporaryMaxXValue" step="0.1"
+                <b-form-input type="range" min="temporaryMinXValue" v-model="temporaryMaxXValue" step="0.1"
                               :max="rangeMaxValue"></b-form-input>
               </b-input-group>
             </b-col>
-          </b-row>
+          </b-row>-->
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col>
@@ -125,6 +125,9 @@
         <b-col>
           <b-button @click="mapPointsOnFunction">Namapuj body na funkciu</b-button>
         </b-col>
+        <b-col>
+          <b-button @click="mapPointsOnFunction">Zmeň x-ovú os</b-button>
+        </b-col>
       </b-row>
     </b-container>
   </div>
@@ -144,6 +147,7 @@
       return {
         maxXValue: null,
         temporaryMaxXValue: 0,
+        temporaryMinXValue: 0,
         rangeMaxValue: 0,
         data: {
           datasets: []
@@ -168,14 +172,18 @@
           },
           scales: {
             yAxes: [{
-              beginAtZero: true,
-              max: 1
+              beginAtZero: false,
+              max: 1,
+              min: 0,
+              suggestedMin: 0,
+              suggestedMax: 1
             }],
             xAxes: [{
               ticks: {
                 beginAtZero: true,
                 max: 0,
-                /*stepSize: 0.1*/
+                suggestedMin: this.temporaryMinXValue,
+                suggestedMax: this.temporaryMaxXValue
               },
               type: 'linear'
             }]
