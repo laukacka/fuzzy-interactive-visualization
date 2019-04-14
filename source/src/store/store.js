@@ -4,9 +4,10 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 const state = {
+  header: '',
   rows: [],
   columns: [],
-  header: ''
+  membershipFunction: []
 };
 
 const mutations = {
@@ -18,6 +19,9 @@ const mutations = {
   },
   LOAD_HEADER(state, payload) {
     state.header = payload;
+  },
+  LOAD_MEMBERSHIPFUNCTION(state, payload) {
+    state.membershipFunction = payload;
   }
 };
 
@@ -30,6 +34,9 @@ const actions = {
   },
   loadHeader(context, header) {
     context.commit("LOAD_HEADER", header);
+  },
+  loadMembershipFunction(context, membershipFunction) {
+    context.commit("LOAD_MEMBERSHIPFUNCTION", membershipFunction);
   }
 };
 
@@ -42,6 +49,9 @@ const getters = {
   },
   getHeader(state) {
     return state.header;
+  },
+  getMembershipFunction(state) {
+    return state.membershipFunction;
   }
 };
 

@@ -47,6 +47,7 @@
       if (this.$store.getters.getRows.length === 0) {
         this.$swal({
           type: 'warning',
+          allowOutsideClick: false,
           title: 'Znovu načítaj dáta.'
         }).then((result) => {
           if (result.value) {

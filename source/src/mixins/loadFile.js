@@ -4,7 +4,7 @@ export const loadFile = {
       if (data) {
         let suffix = '';
         if (typeof data === 'string') {
-          console.log(data.lastIndexOf('.'));
+          //console.log(data.lastIndexOf('.'));
           let indexOfDot = data.lastIndexOf('.');
           suffix = data.slice(indexOfDot, data.length);
         } else {

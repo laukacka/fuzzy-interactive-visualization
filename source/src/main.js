@@ -12,11 +12,13 @@ import VueNVD3 from 'vue-nvd3'
 import VueGoodTablePlugin from 'vue-good-table';
 import VueCarousel from '@chenfengyuan/vue-carousel';
 import VueSweetalert2 from 'vue-sweetalert2';
+import VueSlider from 'vue-slider-component';
 
 //CSS importy pre pluginy:
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-good-table/dist/vue-good-table.css'
+import 'vue-slider-component/theme/default.css'
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -32,8 +34,9 @@ Vue.use(BootstrapVue);
 Vue.use(VueNVD3);
 Vue.use(VueGoodTablePlugin);
 Vue.use(VueAxios, axios);
-Vue.component(VueCarousel.name, VueCarousel);
 Vue.use(VueSweetalert2);
+Vue.component(VueCarousel.name, VueCarousel);
+Vue.component('vue-slider', VueSlider);
 
 /* eslint-disable no-new */
 new Vue({

@@ -11,7 +11,7 @@
 
     <b-container class="fuzzificationContainer">
       <b-row align-v="center" align-h="center" class="coefficientRow">
-        <b-col v-if="isNewMembershipFunction === true">
+        <b-col v-if="firstTimeAccess">
           <b-row>
             <b-col>
               <h5>Z ktorého stĺpca chceš vypočítať funkciu príslušnosti?</h5>
@@ -25,15 +25,16 @@
           <b-row>
             <b-col>
               <b-dropdown text="Stĺpce" dropdown>
-                <b-dropdown-item-button v-for="column in this.$store.getters.getColumns" @click="setLineChart(column.id)">
+                <b-dropdown-item-button v-for="column in this.$store.getters.getColumns"
+                                        @click="setLineChart(column.label)">
                   {{column.label}}
                 </b-dropdown-item-button>
               </b-dropdown>
             </b-col>
           </b-row>
-
         </b-col>
-        <b-col md="5" class="coefficientContainer" v-if="isNewMembershipFunction === false">
+
+        <b-col md="5" class="coefficientContainer" v-if="showCoefficients">
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col sm="10">
               <h6>Parametre funkcie príslušnosti pre: {{ attributes[attributeIndex][0] }}</h6>
@@ -76,6 +77,14 @@
             </b-col>
           </b-row>
 
+          <b-row align-v="center" align-h="center" class="coefficientRow">
+            <b-col sm="3">
+              <label>Názov funkcie: </label>
+            </b-col>
+            <b-col sm="8">
+              <b-form-input type="text" v-model="labelFunction"></b-form-input>
+            </b-col>
+          </b-row>
           <!--<b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col sm="8">
               <b-input-group prepend="0" :append="' ' + temporaryMaxXValue" class="mt-3">
@@ -87,7 +96,7 @@
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col>
-              <b-button @click="showColorPicker = !showColorPicker">Zmeň farbu</b-button>
+              <b-button @click="showColorPicker = !showColorPicker">Nastaviť farbu</b-button>
               <chrome v-if="showColorPicker === true" style="margin: auto" v-model="color"
                       @change-color="updateColorMembershipFunction"></chrome>
             </b-col>
@@ -95,8 +104,8 @@
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col>
-              <b-button @click="start" :disabled="maxXValue === null || coefficientA === null ||
-               coefficientB === null || coefficientC === null">Vykresli
+              <b-button @click="start" :disabled="maxXValue === '' || coefficientA === '' ||
+               coefficientB === '' || coefficientC === '' || labelFunction === ''" >Vykresliť
               </b-button>
             </b-col>
           </b-row>
@@ -105,7 +114,18 @@
         <b-col md="6" offset-md="1">
           <b-row>
             <b-col>
-              <fuzzification-line-chart :key="reupdateChart" :data="data" :options="options"></fuzzification-line-chart>
+              <b-row>
+                <b-col>
+                  <fuzzification-line-chart :key="reupdateChart" :data="data" :options="options"></fuzzification-line-chart>
+                </b-col>
+              </b-row>
+
+              <b-row v-if="showSlider">
+                <b-col>
+                  <vue-slider :tooltip-placement="'bottom'" v-bind="slider" v-model="slider.value">
+                  </vue-slider>
+                </b-col>
+              </b-row>
             </b-col>
           </b-row>
         </b-col>
@@ -114,19 +134,24 @@
 
     <b-container class="fuzzificationButtons">
       <b-row>
-        <b-col>
+        <!--<b-col>
           <b-button>Zobraz histogram</b-button>
+        </b-col>-->
+
+        <b-col>
+          <b-button @click="changeAttribute">Zmeň atribút</b-button>
         </b-col>
 
         <b-col>
           <b-button @click="addNewMembershipFunction">Pridaj funkciu</b-button>
         </b-col>
 
-        <b-col>
+       <!-- <b-col>
           <b-button @click="mapPointsOnFunction">Namapuj body na funkciu</b-button>
-        </b-col>
+        </b-col>-->
+
         <b-col>
-          <b-button @click="mapPointsOnFunction">Zmeň x-ovú os</b-button>
+          <b-button @click="showSlider = !showSlider">Zmeň x-ovú os</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -139,16 +164,10 @@
 
   export default {
     name: "FuzzificationPage",
-    components: {
-      FuzzificationLineChart,
-      Chrome
-    },
+    components: {FuzzificationLineChart, Chrome},
     data() {
       return {
-        maxXValue: null,
-        temporaryMaxXValue: 0,
-        temporaryMinXValue: 0,
-        rangeMaxValue: 0,
+        maxXValue: 0,
         data: {
           datasets: []
         },
@@ -172,18 +191,21 @@
           },
           scales: {
             yAxes: [{
-              beginAtZero: false,
-              max: 1,
-              min: 0,
-              suggestedMin: 0,
-              suggestedMax: 1
+              ticks: {
+                beginAtZero: true,
+                min: 0,
+                max: 1,
+              },
+              //suggestedMin: 0,
+              //suggestedMax: 1
             }],
             xAxes: [{
               ticks: {
                 beginAtZero: true,
-                max: 0,
-                suggestedMin: this.temporaryMinXValue,
-                suggestedMax: this.temporaryMaxXValue
+                min: 0,
+                max: 1,
+                suggestedMin: 0,
+                suggestedMax: 1
               },
               type: 'linear'
             }]
@@ -191,11 +213,12 @@
         },
         dataEntries: null,
         attributeIndex: null,
-        membershipFunctions: [],
-        coefficientA: null,
-        coefficientB: null,
-        coefficientC: null,
-        coefficientD: null,
+        membershipFunction: this.$store.getters.getMembershipFunction,
+        coefficientA: '',
+        coefficientB: '',
+        coefficientC: '',
+        coefficientD: '',
+        labelFunction: '',
         reupdateChart: false,
         color: {
           hex: '#194d33',
@@ -204,10 +227,25 @@
           rgba: {r: 25, g: 77, b: 51, a: 1},
           a: 1
         },
+        slider: {
+          value: [0, 0],
+          min: 0,
+          max: 0,
+          interval: 0.1,
+          disabled: false,
+          show: true,
+          useKeyboard: true,
+          tooltip: 'always',
+          formatter: '¥{value}',
+          mergeFormatter: '¥{value1} ~ ¥{value2}'
+        },
         showColorPicker: false,
         showScatterPlot: false,
-        isNewMembershipFunction: true,
-        attributes: []
+        showSlider: false,
+        showCoefficients: false,
+        attributes: [],
+        attribute: null,
+        firstTimeAccess: false,
       }
     },
     methods: {
@@ -216,19 +254,24 @@
       },
       start() {
         this.showColorPicker = false;
-        this.createMembershipFunction();
-        this.assignMembershipFunction();
-        this.data.datasets = this.membershipFunctions;
+        //this.createMembershipFunction();
+        this.createFunction();
+        this.assignFunction();
+        this.data.datasets = this.membershipFunction[0].functions;
+        //TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        this.$store.dispatch("loadMembershipFunction", this.membershipFunction);
+        this.updateChart();
         this.addNewMembershipFunction();
       },
+      changeAttribute() {
+        alert('spravit po restrukturalizacii objektu funkcii prislusnosti');
+      },
       addNewMembershipFunction() {
-        this.isNewMembershipFunction = true;
-        this.coefficientA = null;
-        this.coefficientB = null;
-        this.coefficientC = null;
-        this.coefficientD = null;
-        this.temporaryMaxXValue = 0;
-        this.rangeMaxValue = 0;
+        this.coefficientA = '';
+        this.coefficientB = '';
+        this.coefficientC = '';
+        this.coefficientD = '';
+        this.labelFunction = '';
       },
       mapPointsOnFunction() {
         this.showScatterPlot = !this.showScatterPlot;
@@ -236,23 +279,32 @@
       updateColorMembershipFunction() {
 
       },
-      setLineChart(columnID) {
-        this.isNewMembershipFunction = false;
+      setLineChart(columnLabel) {
+        this.attribute = columnLabel;
+        let columns = this.$store.getters.getColumns;
+        for (let i = 0; i < columns.length; i++) {
+          if (columns[i].label === this.attribute) {
+            this.attributeIndex = columns[i].id;
+            break;
+          }
+        }
         this.dataEntries = this.assignAllDataEntries();
-        this.attributeIndex = columnID;
-        let localMaxXValue = 0;
         for (let i = 0; i < this.dataEntries.length; i++) {
           this.attributes = Object.entries(this.dataEntries[i][1]);
           let xValue = this.attributes[this.attributeIndex][1];
-          if (xValue > localMaxXValue) {
-            localMaxXValue = xValue;
-          }
           if (xValue > this.maxXValue) {
             this.maxXValue = xValue;
           }
         }
-        this.temporaryMaxXValue = localMaxXValue;
-        this.rangeMaxValue = localMaxXValue;
+        this.showCoefficients = true;
+        //this.firstTimeAccess = false;
+        this.slider.max = this.maxXValue;
+        this.slider.value[1] = this.maxXValue;
+        this.options.scales.xAxes[0].ticks.max = this.maxXValue;
+        if (this.firstTimeAccess) {
+          this.createMembershipFunction();
+        }
+        this.updateChart();
       },
       updateChart() {
         this.reupdateChart = !this.reupdateChart;
@@ -266,45 +318,67 @@
         return allData;
       },
       createMembershipFunction() {
-        let membershipFunction = {
-          label: this.attributes[this.attributeIndex][0],
+        let newMembershipFunction = {
+          title: this.attribute,
+          minX: 0,
+          maxX: this.maxXValue,
+          nameXAxis: 'x',
+          nameYAxis: 'y',
+          sortedXValues: [],
+          functions: []
+        };
+        if (this.membershipFunction.length > 0) {
+          this.membershipFunction = [];
+        }
+        this.membershipFunction.push(newMembershipFunction);
+
+        let xValues = [];
+        for (let i = 0; i < this.dataEntries.length; i++) {
+          this.attributes = Object.entries(this.dataEntries[i][1]);
+          let xValue = this.attributes[this.attributeIndex][1];
+          xValues.push(xValue);
+        }
+        xValues.sort();
+        if (this.membershipFunction[0].sortedXValues.length > 0) {
+          this.membershipFunction[0].sortedXValues = [];
+        }
+        this.membershipFunction[0].sortedXValues = xValues;
+        this.firstTimeAccess = false;
+      },
+      createFunction() {
+        let newFunction = {
+          label: this.labelFunction,
           borderColor: this.color.hex,
           borderWidth: 2,
+          coefficientA: this.coefficientA,
+          coefficientB: this.coefficientB,
+          coefficientC: this.coefficientC,
+          coefficientD: this.coefficientD,
           data: [],
           fill: false,
           tension: 0
         };
-        this.membershipFunctions.push(membershipFunction);
+        this.membershipFunction[0].functions.push(newFunction);
       },
-      assignMembershipFunction() {
-        let xValues = [];
-        for (let i = 0; i < this.dataEntries.length; i++) {
-          this.attributes = Object.entries(this.dataEntries[i][1]);
-          let xValueA = this.attributes[this.attributeIndex][1];
-          if (xValues.includes(xValueA) === false) {
-            xValues.push(xValueA);
-          }
-        }
-        xValues.sort();
-        for (let i = 0; i < xValues.length; i++) {
-          let xValue = xValues[i];
+      assignFunction() {
+        for (let i = 0; i < this.membershipFunction[0].sortedXValues.length; i++) {
+          let xValue = this.membershipFunction[0].sortedXValues[i];
           let mu = 0;
-          if (this.coefficientD === null || this.coefficientD === '') {
+          if (this.coefficientD === '') {
             mu = this.triangularCalculation(xValue);
           } else {
             mu = this.trapezoidCalculation(xValue);
           }
-          for (let j = 0; j < this.membershipFunctions.length; j++) {
-            if (this.membershipFunctions[j].label === this.attributes[this.attributeIndex][0]) {
-              this.membershipFunctions[j].data.push({
+          for (let j = 0; j < this.membershipFunction[0].functions.length; j++) {
+            if (this.membershipFunction[0].functions[j].label === this.labelFunction) {
+              let myFunction = this.membershipFunction[0].functions[j];
+              myFunction.data.push({
                 x: xValue,
                 y: mu
               });
             }
           }
         }
-        this.options.scales.xAxes[0].ticks.max = this.maxXValue;
-        this.updateChart();
       },
       triangularCalculation(xValue) {
         let mu = 0;
@@ -324,7 +398,7 @@
       },
       trapezoidCalculation(xValue) {
         let mu = 0;
-        if (xValue <= this.coefficientA ) {
+        if (xValue <= this.coefficientA) {
           mu = 0;
         }
         if (this.coefficientA <= xValue && xValue <= this.coefficientB) {
@@ -336,7 +410,7 @@
         if (this.coefficientC <= xValue && xValue <= this.coefficientD) {
           mu = (this.coefficientD - xValue) / (this.coefficientD - this.coefficientC);
         }
-        if ( this.coefficientD <= xValue) {
+        if (this.coefficientD <= xValue) {
           mu = 0;
         }
         return mu;
@@ -344,9 +418,19 @@
     },
     mounted() {
       this.$store.dispatch('loadHeader', 'Fuzzifikácia');
+
+      let membershipFunction = this.$store.getters.getMembershipFunction;
+      this.firstTimeAccess = membershipFunction.length === 0;
+
+      if (!this.firstTimeAccess) {
+        this.data.datasets = membershipFunction[0].functions;
+        this.setLineChart(membershipFunction[0].title);
+      }
+
       if (this.$store.getters.getRows.length === 0) {
         this.$swal({
           type: 'warning',
+          allowOutsideClick: false,
           title: 'Znovu načítaj dáta.'
         }).then((result) => {
           if (result.value) {
@@ -386,7 +470,7 @@
   }
 
   .fuzzificationButtons {
-    margin-top: 20px;
+    margin-top: 35px;
     margin-bottom: 10px;
   }
 </style>
