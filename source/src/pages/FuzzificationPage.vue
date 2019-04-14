@@ -105,7 +105,7 @@
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col>
               <b-button @click="start" :disabled="maxXValue === '' || coefficientA === '' ||
-               coefficientB === '' || coefficientC === '' || labelFunction === ''" >Vykresliť
+               coefficientB === '' || coefficientC === '' || labelFunction === ''">Vykresliť
               </b-button>
             </b-col>
           </b-row>
@@ -116,7 +116,10 @@
             <b-col>
               <b-row>
                 <b-col>
-                  <fuzzification-line-chart :key="reupdateChart" :data="data" :options="options"></fuzzification-line-chart>
+                  <fuzzification-line-chart :key="reupdateChart"
+                                            :data="data"
+                                            :options="options"
+                  ></fuzzification-line-chart>
                 </b-col>
               </b-row>
 
@@ -146,12 +149,15 @@
           <b-button @click="addNewMembershipFunction">Pridaj funkciu</b-button>
         </b-col>
 
-       <!-- <b-col>
-          <b-button @click="mapPointsOnFunction">Namapuj body na funkciu</b-button>
-        </b-col>-->
+        <!-- <b-col>
+           <b-button @click="mapPointsOnFunction">Namapuj body na funkciu</b-button>
+         </b-col>-->
 
         <b-col>
           <b-button @click="showSlider = !showSlider">Zmeň x-ovú os</b-button>
+          <b-button @click="clickedLineChartNo = onClickAtLine(item, $event) ">skusobna</b-button>
+          {{clickedLineChartNo}}
+
         </b-col>
       </b-row>
     </b-container>
@@ -167,11 +173,19 @@
     components: {FuzzificationLineChart, Chrome},
     data() {
       return {
+        clickedLineChartNo : 0,
         maxXValue: 0,
         data: {
           datasets: []
         },
         options: {
+          events: ['click'],
+          animations: true,
+          onClick: function (evt, item) {
+            console.log(item);
+            alert('zvoleny: ' + item[0]._datasetIndex);
+            //return item[0]._datasetIndex;
+          },
           responsive: true,
           maintainAspectRatio: false,
           hover: {
@@ -195,9 +209,7 @@
                 beginAtZero: true,
                 min: 0,
                 max: 1,
-              },
-              //suggestedMin: 0,
-              //suggestedMax: 1
+              }
             }],
             xAxes: [{
               ticks: {
@@ -246,6 +258,8 @@
         attributes: [],
         attribute: null,
         firstTimeAccess: false,
+
+
       }
     },
     methods: {
@@ -414,7 +428,18 @@
           mu = 0;
         }
         return mu;
-      }
+      },
+      onClickAtLine(item, event) {
+        event.preventDefault();
+        alert('klikli sme');
+       // function (evt, item) {
+        console.log(event);
+          console.log(item);
+
+          return Math.random();
+         // alert(item[0]._model.backgroundColor);
+      //  },*/
+      },
     },
     mounted() {
       this.$store.dispatch('loadHeader', 'Fuzzifikácia');
