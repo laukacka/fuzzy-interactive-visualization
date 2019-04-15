@@ -1,9 +1,12 @@
 <template>
   <div>
     <b-container>
-      <b-row>
-        <b-col>
+      <b-row >
+        <b-col md="4">
           <router-link to="/"><i class="fas fa-angle-double-left fa-3x backArrow" title="Domov"></i></router-link>
+        </b-col>
+        <b-col md="4" offset-md="4" v-if="showForwardArrow">
+          <router-link to="/methods"><i class="fas fa-angle-double-right fa-3x forwardArrow" title="Metódy"></i></router-link>
         </b-col>
       </b-row>
     </b-container>
@@ -51,6 +54,7 @@
     components: {LoadSamples, LoadFromURL, LoadFromFile},
     data() {
       return {
+        showForwardArrow: false,
         fromChild: '',
         counter: 0,
         currentLoadComponent: 'LoadFromFile',
@@ -87,6 +91,7 @@
     },
     mounted() {
       this.$store.dispatch('loadHeader', 'Interaktívna vizualizácia');
+      this.showForwardArrow = this.$store.getters.getRows.length > 0;
     }
   }
 </script>
@@ -124,5 +129,17 @@
     50% {
       transform: translate(0, 10px);
     }
+  }
+
+  .forwardArrow {
+    position: absolute;
+    right: 0;
+    color: black;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+
+  .forwardArrow:hover {
+    color: red;
   }
 </style>

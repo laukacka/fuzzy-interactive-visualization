@@ -31,21 +31,21 @@
           },
           {
             name: 'TODO',
-            variant: 'warning',
+            variant: 'primary',
             file: ''
           },
           {
             name: 'TODO2',
-            variant: 'secondary',
+            variant: 'primary',
             file: ''
           }, {
             name: 'TODO3',
-            variant: 'secondary',
+            variant: 'primary',
             file: ''
           },
           {
             name: 'TODO4',
-            variant: 'warning',
+            variant: 'primary',
             file: ''
           },
           {

@@ -4,7 +4,6 @@ export const loadFile = {
       if (data) {
         let suffix = '';
         if (typeof data === 'string') {
-          //console.log(data.lastIndexOf('.'));
           let indexOfDot = data.lastIndexOf('.');
           suffix = data.slice(indexOfDot, data.length);
         } else {
@@ -13,6 +12,7 @@ export const loadFile = {
         }
         if (suffix === '.arff' || suffix === '.csv' || suffix === '.json' || suffix === '.txt' || suffix === '.xls') {
           this.loadData(suffix);
+          this.$store.dispatch("loadMembershipFunction", []);
           this.$swal({
             type: 'success',
             confirmButtonColor: '#1bd60b',
