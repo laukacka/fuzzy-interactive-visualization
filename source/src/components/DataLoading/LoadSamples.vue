@@ -26,31 +26,31 @@
         buttons: [
           {
             name: 'IRIS',
-            variant: 'primary',
+            variant: 'dark',
             file: 'https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json'
           },
           {
             name: 'TODO',
-            variant: 'primary',
+            variant: 'dark',
             file: ''
           },
           {
             name: 'TODO2',
-            variant: 'primary',
+            variant: 'dark',
             file: ''
           }, {
             name: 'TODO3',
-            variant: 'primary',
+            variant: 'dark',
             file: ''
           },
           {
             name: 'TODO4',
-            variant: 'primary',
+            variant: 'dark',
             file: ''
           },
           {
             name: 'TODO5',
-            variant: 'primary',
+            variant: 'dark',
             file: ''
           }
         ]

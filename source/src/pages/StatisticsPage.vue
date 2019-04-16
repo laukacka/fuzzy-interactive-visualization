@@ -46,8 +46,8 @@
     <b-container style="margin-top: 3%" v-if="showGraph">
       <b-row>
         <b-col offset-md="2" md="8">
-          <statistics-scatter :firstTimeGraph="firstTimeGraph"
-                              v-on:childToParent="onChildAction"></statistics-scatter>
+          <statistics-scatter v-on:childToParent="onChildAction"
+          ></statistics-scatter><!--v-on:childToParent="onChildAction"--> <!--:firstTimeGraph="firstTimeGraph"-->
         </b-col>
       </b-row>
     </b-container>
@@ -69,7 +69,8 @@
         name: 'Statistics',
         showTable: false,
         showGraph: false,
-        firstTimeGraph: true
+        firstTimeGraph: true,
+       // reuploadGraph: false
       }
     },
     methods: {
@@ -94,7 +95,7 @@
           }
         })
       }
-    }
+    },
   }
 </script>
 

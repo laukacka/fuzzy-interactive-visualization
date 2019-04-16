@@ -7,7 +7,8 @@ const state = {
   header: '',
   rows: [],
   columns: [],
-  membershipFunction: []
+  membershipFunction: [],
+  clusters: []
 };
 
 const mutations = {
@@ -22,6 +23,9 @@ const mutations = {
   },
   LOAD_MEMBERSHIPFUNCTION(state, payload) {
     state.membershipFunction = payload;
+  },
+  LOAD_CLUSTERS(state, payload) {
+    state.clusters = payload;
   }
 };
 
@@ -37,6 +41,9 @@ const actions = {
   },
   loadMembershipFunction(context, membershipFunction) {
     context.commit("LOAD_MEMBERSHIPFUNCTION", membershipFunction);
+  },
+  loadClusters(context, clusters) {
+    context.commit("LOAD_CLUSTERS", clusters);
   }
 };
 
@@ -52,6 +59,9 @@ const getters = {
   },
   getMembershipFunction(state) {
     return state.membershipFunction;
+  },
+  getClusters(state) {
+    return state.clusters;
   }
 };
 

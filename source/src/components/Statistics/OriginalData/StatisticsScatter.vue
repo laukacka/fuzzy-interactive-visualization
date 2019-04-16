@@ -34,7 +34,7 @@
     </b-row>
     <b-row>
       <b-col>
-        <scatter :key="reupdateGraph" :chart-data="data.datasets" :options="options" class="scatter"></scatter>
+        <scatter :key="reupdateGraph" :chart-data="data" :options="options" class="scatter"></scatter>
       </b-col>
     </b-row>
   </div>
@@ -45,10 +45,10 @@
   import {Chrome} from 'vue-color';
 
   export default {
-    name: "StatisticsGraph",
-    props: {
+    name: "StatisticsScatter",
+    /*props: {
       firstTimeGraph: Boolean
-    },
+    },*/
     components: {
       Scatter,
       Chrome
@@ -62,11 +62,15 @@
           scales: {
             xAxes: [],
             yAxes: []
+          },
+          animation: {
+            duration: 0
           }
         },
+        columns: this.$store.getters.getColumns,
         typesOfClusters: null,
         dataEntries: null,
-        clusters: null,
+        clusters: this.$store.getters.getClusters,
         colorPallet: [],
         isChangingColorCluster: false,
         nameClusterColorChange: '-- Vyber zhluk --',
@@ -83,6 +87,7 @@
         newXAxes: '',
         newYAxes: '',
         reupdateGraph: true,
+        firstTimeAccess: true
       }
     },
     watch: {
@@ -96,16 +101,22 @@
         this.foundNewClusters();
         this.createClusters();
         this.assignClusters();
-
-        this.data.datasets = {
-          datasets: this.clusters
-        };
-
+        this.data.datasets = this.clusters;
+        if (this.$store.getters.getClusters.length > 0) {
+          this.$store.getters.getClusters.length = [];
+        }
+        this.$store.dispatch("loadClusters", this.clusters);
         this.assignXAxes();
         this.assignYAxes();
       },
       randomColorGenerator: function () {
-        return ('#' + Math.random().toString(16).slice(2, 8));
+        let letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+        //return ('#' + Math.random().toString(16).slice(2, 8));
       },
       updateGraph() {
         this.reupdateGraph = !this.reupdateGraph;
@@ -114,17 +125,30 @@
         switch (val) {
           case 'x':
             this.options.scales.xAxes[0].scaleLabel.labelString = this.newXAxes;
+            this.columns[this.xLabel].label = this.newXAxes;
             break;
           case 'y':
             this.options.scales.yAxes[0].scaleLabel.labelString = this.newYAxes;
+            this.columns[this.yLabel].label = this.newYAxes;
             break;
           case 'xy':
             this.options.scales.xAxes[0].scaleLabel.labelString = this.newXAxes;
             this.options.scales.yAxes[0].scaleLabel.labelString = this.newYAxes;
+            this.columns[this.xLabel].label = this.newXAxes;
+            this.columns[this.yLabel].label = this.newYAxes;
             break;
           default:
         }
+        this.$store.dispatch('loadColumns', this.columns);
         this.updateGraph();
+      },
+      assignAllDataEntries() {
+        let allData = null;
+        let rows = this.$store.getters.getRows;
+        if (rows.length > 0) {
+          allData = Object.entries(rows); //-> array of allData - on every index is another array,
+        }
+        return allData;
       },
       foundNewClusters() {
         this.typesOfClusters = [];
@@ -146,13 +170,38 @@
           }
         }
       },
-      assignAllDataEntries() {
-        let allData = null;
-        let rows = this.$store.getters.getRows;
-        if (rows.length > 0) {
-          allData = Object.entries(rows); //-> array of allData - on every index is another array,
+      createClusters: function () { //we create a new clusters and add them to array of clusters
+        this.clusters = [];
+        this.colorPallet = [];
+        let cluster = {};
+        for (let i = 0; i < this.typesOfClusters.length; i++) { //we create as many clusters as we have types (names) of clusters
+          let randomColor = '';
+          do {
+            randomColor = this.randomColorGenerator();
+          } while (this.colorPallet.includes(randomColor) === true);
+          this.colorPallet.push(randomColor);
+          if (i === 0) {
+            cluster = {
+              xClustersY: [],
+              typesOfClusters: this.typesOfClusters,
+              label: this.typesOfClusters[i], //label is set according to type of cluster
+              data: [],
+              borderColor: '#0c0d10',
+              backgroundColor: randomColor
+            };
+            cluster.xClustersY.push(this.xLabel);
+            cluster.xClustersY.push(this.yLabel);
+            cluster.xClustersY.push(this.indexCluster);
+          } else {
+            cluster = {
+              label: this.typesOfClusters[i], //label is set according to type of cluster
+              data: [],
+              borderColor: '#0c0d10',
+              backgroundColor: randomColor
+            };
+          }
+          this.clusters.push(cluster); //add new cluster to array of clusters
         }
-        return allData;
       },
       assignClusters: function () {  //we have to sort our data to clusters where they belong
         for (let i = 0; i < this.dataEntries.length; i++) {
@@ -172,24 +221,6 @@
           }
         }
       },
-      createClusters: function () { //we create a new clusters and add them to array of clusters
-        this.clusters = [];
-        this.colorPallet = [];
-        for (let i = 0; i < this.typesOfClusters.length; i++) { //we create as many clusters as we have types (names) of clusters
-          let randomColor = '';
-          do {
-           randomColor = this.randomColorGenerator();
-          } while (this.colorPallet.includes(randomColor) === true);
-          this.colorPallet.push(randomColor);
-          let cluster = {
-            label: this.typesOfClusters[i], //label is set according to type of cluster
-            data: [],
-            borderColor: '#0c0d10',
-            backgroundColor: randomColor
-          };
-          this.clusters.push(cluster); //add new cluster to array of clusters
-        }
-      },
       updateColorClusters: function () {
         try {
           if (this.color != null) {
@@ -202,6 +233,7 @@
               this.assignClusters();
             }
           }
+          this.$store.dispatch('loadClusters', this.clusters);
           this.updateGraph();
         } catch (e) {
           console.log(e);
@@ -321,12 +353,27 @@
         })
       },
       emitToParent() {
-        this.$emit('childToParent', false);
+        this.$emit('childToParent', this.firstTimeAccess);
       }
     },
-    created() {
-      this.changeParameters();
-      this.emitToParent();
+    mounted() {
+      let clusters = this.$store.getters.getClusters;
+      if (clusters.length === 0) {
+        //this.firstTimeAccess = true;
+        this.changeParameters();
+      } else {
+        //this.firstTimeAccess = false;
+        this.data.datasets = this.clusters;
+        this.dataEntries = this.assignAllDataEntries();
+        this.xLabel = clusters[0].xClustersY[0];
+        this.yLabel = clusters[0].xClustersY[1];
+        this.indexCluster = clusters[0].xClustersY[2];
+        this.typesOfClusters = clusters[0].typesOfClusters;
+        this.assignXAxes();
+        this.assignYAxes();
+        this.emitToParent();
+        this.updateGraph();
+      }
     }
   }
 </script>

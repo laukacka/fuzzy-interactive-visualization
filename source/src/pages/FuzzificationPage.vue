@@ -128,8 +128,8 @@
     </b-container>
 
     <b-container class="fuzzificationButtons" v-if="!firstTimeAccess">
-      <b-row>
-        <b-col md="4" v-if="showChangeCoefficients">
+      <b-row align-v="center" align-h="center">
+        <b-col md="4" v-if="showChangeCoefficients" class="fuzzificationButton">
           <b-dropdown variant="secondary" text="Zmeň koeficienty funkcie" dropdown>
             <b-dropdown-item-button v-for="myFunction in membershipFunction[0].functions"
                                     @click="changeCoefficients(myFunction.label)">
@@ -139,12 +139,12 @@
         </b-col>
 
         <b-col md="4">
-          <b-button variant="secondary" @click="changeAttribute">Zmeň atribút</b-button>
+          <b-button variant="secondary" @click="changeAttribute" class="fuzzificationButton">Zmeň atribút</b-button>
         </b-col>
         <!-- <b-col>
            <b-button @click="mapPointsOnFunction">Namapuj body na funkciu</b-button>
          </b-col>-->
-        <b-col md="4" v-if="showChangeCoefficients">
+        <b-col md="4" v-if="showChangeCoefficients" class="fuzzificationButton">
           <b-button variant="secondary" @click="showSlider = !showSlider">Zmeň x-ovú os</b-button>
         </b-col>
       </b-row>
@@ -255,7 +255,8 @@
         firstTimeAccess: false,
         showChangeCoefficients: false,
         showColorButton: false,
-        indexLabel: 0
+        indexLabel: 0,
+        colorPallet: []
       }
     },
     methods: {
@@ -382,6 +383,7 @@
         return allData;
       },
       createMembershipFunction() {
+        this.colorPallet = [];
         let newMembershipFunction = {
           title: this.attribute,
           minX: 0,
@@ -409,9 +411,14 @@
         this.firstTimeAccess = false;
       },
       createFunction() {
+        let randomColor = '';
+        do {
+          randomColor = this.randomColorGenerator();
+        } while (this.colorPallet.includes(randomColor) === true);
+        this.colorPallet.push(randomColor);
         let newFunction = {
           label: this.labelFunction,
-          borderColor: this.randomColorGenerator(),
+          borderColor: randomColor,
           borderWidth: 2,
           coefficientA: this.coefficientA,
           coefficientB: this.coefficientB,
@@ -549,5 +556,9 @@
   .fuzzificationButtons {
     margin-top: 35px;
     margin-bottom: 10px;
+  }
+
+  .fuzzificationButton {
+    margin-bottom: 5px;
   }
 </style>

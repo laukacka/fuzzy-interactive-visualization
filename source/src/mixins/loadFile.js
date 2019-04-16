@@ -13,6 +13,7 @@ export const loadFile = {
         if (suffix === '.arff' || suffix === '.csv' || suffix === '.json' || suffix === '.txt' || suffix === '.xls') {
           this.loadData(suffix);
           this.$store.dispatch("loadMembershipFunction", []);
+          this.$store.dispatch("loadClusters", []);
           this.$swal({
             type: 'success',
             confirmButtonColor: '#1bd60b',
