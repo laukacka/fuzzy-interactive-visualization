@@ -328,6 +328,7 @@
       changeAttribute() {
         this.clearInputs();
         this.showSlider = false;
+        this.showColorButton = false;
         this.$store.dispatch('loadMembershipFunction', []);
         this.membershipFunction = [];
         this.firstTimeAccess = true;
