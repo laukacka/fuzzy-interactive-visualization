@@ -46,7 +46,7 @@
               <label>Koeficient a:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientA"></b-form-input>
+              <b-form-input type="number" v-model="coefficientA" min="0" oninput="if (value < 0 ) {value = ''} "></b-form-input>
             </b-col>
           </b-row>
 
@@ -55,7 +55,8 @@
               <label>Koeficient b:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientB"></b-form-input>
+              <b-form-input type="number" v-model="coefficientB" min="0"
+                            oninput="if (value < 0 ) {value = ''} "></b-form-input>
             </b-col>
           </b-row>
 
@@ -64,7 +65,8 @@
               <label>Koeficient c:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientC"></b-form-input>
+              <b-form-input type="number" v-model="coefficientC" min="0"
+                            oninput="if (value < 0 ) {value = ''} "></b-form-input>
             </b-col>
           </b-row>
 
@@ -73,7 +75,8 @@
               <label>Koeficient d:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientD"></b-form-input>
+              <b-form-input type="number" v-model="coefficientD" min="0"
+                            oninput="if (value < 0 ) {value = ''} "></b-form-input>
             </b-col>
           </b-row>
 
@@ -91,16 +94,16 @@
               <b-button variant="secondary" v-if="showColorButton" id="colorButton"
                         @click="showColorPicker = !showColorPicker">Zmeniť farbu
               </b-button>
-              <chrome v-if="showColorPicker" style="margin: auto" v-model="color"></chrome>
+              <chrome v-if="showColorPicker" style="margin: 5px auto" v-model="color"></chrome>
             </b-col>
           </b-row>
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col>
               <b-button variant="secondary" @click="start" id="drawButton" :disabled="maxXValue === '' || coefficientA === '' ||
-               coefficientB === '' || coefficientC === '' || labelFunction === ''"
-                        title="Zadané musia byť aspoň koeficienty a, b, c a názov funkcie!">Pridaj funkciu
+               coefficientB === '' || coefficientC === '' || labelFunction === ''" title="Koeficienty musia byť len kladné čísla.">Pridaj funkciu
               </b-button>
+              <h6>Vyplnené musia byť aspoň koeficienty a, b, c a názov funkcie!</h6>
             </b-col>
           </b-row>
         </b-col>
@@ -162,6 +165,7 @@
     data() {
       return {
         maxXValue: 0,
+        minXValue: 1000000000,
         data: {
           datasets: []
         },
@@ -201,8 +205,7 @@
               ticks: {
                 beginAtZero: true,
                 min: 0,
-                max: 1,
-                //precision:2
+                max: 1
               }
             }],
             xAxes: [{
@@ -269,6 +272,18 @@
         return color;
       },
       start() {
+        if (this.checkSimilarFunctions()) {
+          this.$swal({
+            type: 'warning',
+            allowOutsideClick: false,
+            title: 'Funkcia s názvom ' + '"' + this.labelFunction + '"' + ' už existuje.'
+          }).then((result) => {
+            if (result.value) {
+              this.labelFunction = '';
+            }
+          });
+          return;
+        }
         this.showColorButton = false;
         this.showColorPicker = false;
         if (document.getElementById('drawButton').innerText === 'Zmeniť funkciu') {
@@ -302,7 +317,16 @@
         this.coefficientD = '';
         this.labelFunction = '';
       },
+      checkSimilarFunctions() {
+        for (let i = 0; i < this.membershipFunction[0].functions.length; i++) {
+          if (this.membershipFunction[0].functions[i].label === this.labelFunction) {
+            return true;
+          }
+        }
+        return false;
+      },
       changeAttribute() {
+        this.clearInputs();
         this.showSlider = false;
         this.$store.dispatch('loadMembershipFunction', []);
         this.membershipFunction = [];
@@ -360,12 +384,18 @@
           if (xValue > this.maxXValue) {
             this.maxXValue = xValue;
           }
+          if (xValue < this.minXValue) {
+            this.minXValue = xValue;
+          }
         }
         this.showCoefficients = true;
+        this.slider.min = this.minXValue;
+        this.slider.value[0] = this.minXValue;
         this.slider.max = this.maxXValue;
         this.slider.value[1] = this.maxXValue;
-        this.reupdateSlider = !this.reupdateSlider;
         this.options.scales.xAxes[0].ticks.max = this.maxXValue;
+        this.options.scales.xAxes[0].ticks.min = this.minXValue;
+        this.reupdateSlider = !this.reupdateSlider;
         if (this.firstTimeAccess) {
           this.createMembershipFunction();
         }
@@ -386,7 +416,7 @@
         this.colorPallet = [];
         let newMembershipFunction = {
           title: this.attribute,
-          minX: 0,
+          minX: this.minXValue,
           maxX: this.maxXValue,
           nameXAxis: 'x',
           nameYAxis: 'y',
@@ -560,5 +590,9 @@
 
   .fuzzificationButton {
     margin-bottom: 5px;
+  }
+
+  h6 {
+    margin: 5px 0 0 0;
   }
 </style>

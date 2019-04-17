@@ -15,21 +15,27 @@
         </b-button>
       </b-col>
     </b-row>
-    <b-row v-if="isChangingColorCluster" align-v="center" class="changeColor">
+    <b-row align-v="center" align-h="center" class="changeColor" v-if="clickOnChangeColor">
       <b-col md="5" offset-md="1">
-        <label>
-          <b-form-select v-model="nameClusterColorChange" class="formSelect">
-            <template slot="first">
-              <option disabled>-- Vyber zhluk --</option>
-            </template>
-            <option v-for="cluster in typesOfClusters">
-              {{ cluster }}
-            </option>
-          </b-form-select>
-        </label>
+        <b-row align-v="center" align-h="center">
+          <label>
+            <b-form-select v-model="nameClusterColorChange" class="formSelect">
+              <template slot="first">
+                <option disabled>-- Vyber zhluk --</option>
+              </template>
+              <option v-for="cluster in typesOfClusters">
+                {{ cluster }}
+              </option>
+            </b-form-select>
+          </label>
+        </b-row>
+        <b-row align-v="center" align-h="center" v-if="nameClusterColorChange !== '-- Vyber zhluk --'">
+          <b-button variant="outline-info" @click="updateColorClusters">Zmeň farbu</b-button>
+        </b-row>
       </b-col>
-      <b-col md="5">
-        <chrome style="margin: auto" v-model="color" @change-color="updateColorClusters"></chrome>
+      <b-col md="5" v-if="nameClusterColorChange !== '-- Vyber zhluk --'">
+        <h6>Vyber farbu:</h6>
+        <chrome style="margin: auto" v-model="color"></chrome>
       </b-col>
     </b-row>
     <b-row>
@@ -46,9 +52,6 @@
 
   export default {
     name: "StatisticsScatter",
-    /*props: {
-      firstTimeGraph: Boolean
-    },*/
     components: {
       Scatter,
       Chrome
@@ -72,7 +75,7 @@
         dataEntries: null,
         clusters: this.$store.getters.getClusters,
         colorPallet: [],
-        isChangingColorCluster: false,
+        isChangingColorCluster: '',
         nameClusterColorChange: '-- Vyber zhluk --',
         color: {
           hex: '#194d33',
@@ -87,14 +90,15 @@
         newXAxes: '',
         newYAxes: '',
         reupdateGraph: true,
-        firstTimeAccess: true
+        firstTimeAccess: true,
+        clickOnChangeColor: false
       }
     },
-    watch: {
+    /*watch: {
       color: function () {
         this.updateColorClusters();
       }
-    },
+    },*/
     methods: {
       start() {
         this.dataEntries = this.assignAllDataEntries();
@@ -109,36 +113,32 @@
         this.assignXAxes();
         this.assignYAxes();
       },
-      randomColorGenerator: function () {
+      randomColorGenerator: function () { //return ('#' + Math.random().toString(16).slice(2, 8));
         let letters = '0123456789ABCDEF';
         let color = '#';
         for (let i = 0; i < 6; i++) {
           color += letters[Math.floor(Math.random() * 16)];
         }
         return color;
-        //return ('#' + Math.random().toString(16).slice(2, 8));
       },
       updateGraph() {
         this.reupdateGraph = !this.reupdateGraph;
       },
-      updateNameAxes(val) {
-        switch (val) {
-          case 'x':
-            this.options.scales.xAxes[0].scaleLabel.labelString = this.newXAxes;
-            this.columns[this.xLabel].label = this.newXAxes;
-            break;
-          case 'y':
-            this.options.scales.yAxes[0].scaleLabel.labelString = this.newYAxes;
-            this.columns[this.yLabel].label = this.newYAxes;
-            break;
-          case 'xy':
-            this.options.scales.xAxes[0].scaleLabel.labelString = this.newXAxes;
-            this.options.scales.yAxes[0].scaleLabel.labelString = this.newYAxes;
-            this.columns[this.xLabel].label = this.newXAxes;
-            this.columns[this.yLabel].label = this.newYAxes;
-            break;
-          default:
+      updateNameAxes() {
+        if (this.newXAxes !== '' && this.newYAxes !== '') {
+          this.options.scales.xAxes[0].scaleLabel.labelString = this.newXAxes;
+          this.options.scales.yAxes[0].scaleLabel.labelString = this.newYAxes;
+          this.columns[this.xLabel].label = this.newXAxes;
+          this.columns[this.yLabel].label = this.newYAxes;
+        } else if (this.newXAxes !== '' && this.newYAxes === '') {
+          this.options.scales.xAxes[0].scaleLabel.labelString = this.newXAxes;
+          this.columns[this.xLabel].label = this.newXAxes;
+        } else if (this.newYAxes !== '' && this.newXAxes === '') {
+          this.options.scales.yAxes[0].scaleLabel.labelString = this.newYAxes;
+          this.columns[this.yLabel].label = this.newYAxes;
         }
+        this.newXAxes = '';
+        this.newYAxes = '';
         this.$store.dispatch('loadColumns', this.columns);
         this.updateGraph();
       },
@@ -222,6 +222,7 @@
         }
       },
       updateColorClusters: function () {
+        console.log('ooch');
         try {
           if (this.color != null) {
             if (this.color.hex != null) {
@@ -282,31 +283,26 @@
           cancelButtonColor: '#d33',
           confirmButtonText: 'Zmeniť',
           cancelButtonText: 'Zrušiť'
-        }).then(() => {
-          try {
-            let X = document.getElementsByName('inputNewXAxes')[0].value;
-            let Y = document.getElementsByName('inputNewYAxes')[0].value;
-            if (X !== '' && Y === '') {
-              this.newXAxes = X;
-              this.updateNameAxes('x');
-            }
-            if (Y !== '' && X === '') {
-              this.newYAxes = Y;
-              this.updateNameAxes('y');
-            }
-            if (X !== '' && Y !== '') {
+        }).then((result) => {
+          console.log(result);
+
+          if (result.value === true) {
+            try {
+              console.log('och');
+              let X = document.getElementsByName('inputNewXAxes')[0].value;
+              let Y = document.getElementsByName('inputNewYAxes')[0].value;
               this.newXAxes = X;
               this.newYAxes = Y;
-              this.updateNameAxes('xy');
+              this.updateNameAxes();
+            } catch (e) {
+              console.log(e);
             }
-          } catch (e) {
-            console.log(e);
           }
         });
       },
       changeColorOfClusters() {
         this.nameClusterColorChange = '-- Vyber zhluk --';
-        this.isChangingColorCluster = !this.isChangingColorCluster;
+        this.clickOnChangeColor = !this.clickOnChangeColor;
       },
       changeParameters() {
         this.isChangingColorCluster = false;
@@ -331,6 +327,7 @@
           {
             title: 'Číslo stĺpca pre Y-OVÚ OS:',
             inputValue: this.yLabel + 1,
+
           },
           {
             title: 'Číslo stĺpca pre ZHLUKY:',
@@ -359,10 +356,8 @@
     mounted() {
       let clusters = this.$store.getters.getClusters;
       if (clusters.length === 0) {
-        //this.firstTimeAccess = true;
         this.changeParameters();
       } else {
-        //this.firstTimeAccess = false;
         this.data.datasets = this.clusters;
         this.dataEntries = this.assignAllDataEntries();
         this.xLabel = clusters[0].xClustersY[0];
