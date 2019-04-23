@@ -46,7 +46,7 @@
     <b-container style="margin-top: 3%" v-if="showGraph">
       <b-row>
         <b-col offset-md="2" md="8">
-          <statistics-scatter v-on:childToParent="onChildAction"></statistics-scatter>
+          <statistics-scatter ></statistics-scatter> <!--v-on:childToParent="onChildAction"-->
         </b-col>
       </b-row>
     </b-container>
@@ -67,17 +67,13 @@
       return {
         name: 'Statistics',
         showTable: false,
-        showGraph: false,
-        firstTimeGraph: true,
+        showGraph: false
       }
     },
     methods: {
       showButtons() {
         this.showTable = false;
         this.showGraph = false;
-      },
-      onChildAction(value) {
-        this.firstTimeGraph = value;
       }
     },
     mounted() {

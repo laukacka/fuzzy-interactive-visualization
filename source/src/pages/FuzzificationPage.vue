@@ -540,7 +540,9 @@
       if (!this.firstTimeAccess) {
         this.data.datasets = membershipFunction[0].functions;
         this.setLineChart(membershipFunction[0].title);
-        this.showChangeCoefficients = true;
+        if  (membershipFunction[0].functions.length > 0) {
+          this.showChangeCoefficients = true;
+        }
       }
       if (this.$store.getters.getRows.length === 0) {
         this.$swal({

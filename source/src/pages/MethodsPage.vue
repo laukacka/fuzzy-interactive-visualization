@@ -28,7 +28,7 @@
         </b-col>
         <b-col offset-md="2" md="2">
           <router-link to="/statistics">
-            <b-button class="buttons" variant="secondary">Štatistika</b-button>
+            <b-button class="buttons" variant="secondary">Pôvodné dáta</b-button>
           </router-link>
         </b-col>
       </b-row>
