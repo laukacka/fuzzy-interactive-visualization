@@ -1,27 +1,19 @@
 <template>
   <div>
-    <b-container v-if="(showRadviz || showCoordinates)">
-      <b-row>
-        <b-col @click="showButtons">
-          <router-link to="/fuzzyClustering"><i class="fas fa-angle-double-left fa-3x backArrow"
-                                           title="Spôsob zobrazenia dát"></i></router-link>
-        </b-col>
-      </b-row>
-    </b-container>
+    <div class="arrow-left" v-if="(showRadviz || showCoordinates)" @click="showButtons">
+      <router-link to="/fuzzyClustering"><i class="fas fa-angle-double-left fa-3x backArrow"
+                                            title="Choose a way to view original data"></i></router-link>
+    </div>
 
-    <b-container v-if="!showRadviz && !showCoordinates">
-      <b-row>
-        <b-col>
-          <router-link to="/methods"><i class="fas fa-angle-double-left fa-3x backArrow" title="Metódy"></i>
-          </router-link>
-        </b-col>
-      </b-row>
-    </b-container>
+    <div class="arrow-left" v-if="!showRadviz && !showCoordinates">
+      <router-link to="/methods"><i class="fas fa-angle-double-left fa-3x backArrow" title="Methods"></i>
+      </router-link>
+    </div>
 
     <b-container v-if="!showRadviz && !showCoordinates" class="methodsContainer">
       <b-row>
         <b-col>
-          <h3> Akým spôsobom si prajete zobraziť načítané dáta? </h3>
+          <h3> Choose a method for data visualization: </h3>
         </b-col>
       </b-row>
       <b-row>
@@ -29,7 +21,7 @@
           <b-button class="radvizCoordinatesButtons" variant="danger" @click="showRadviz = true">Radviz</b-button>
         </b-col>
         <b-col offset-md="2" md="3">
-          <b-button class="radvizCoordinatesButtons" variant="danger" @click="showCoordinates = true">Paralelné koordinátory
+          <b-button class="radvizCoordinatesButtons" variant="danger" @click="showCoordinates = true">Parallel Coordinates
           </b-button>
         </b-col>
       </b-row>
@@ -75,12 +67,12 @@
       },
     },
     mounted() {
-      this.$store.dispatch('loadHeader', 'Fuzzy zhlukovanie');
+      this.$store.dispatch('loadHeader', 'Fuzzy clustering');
       if (this.$store.getters.getRows.length === 0) {
         this.$swal({
           type: 'warning',
           allowOutsideClick: false,
-          title: 'Znovu načítaj dáta.'
+          title: 'Please, try again.'
         }).then((result) => {
           if (result.value) {
             this.$router.push("dataInput");

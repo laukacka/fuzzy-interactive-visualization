@@ -5,10 +5,9 @@
       <b-input-group-append >
       </b-input-group-append>
     </b-input-group>
-    <h6>Vlož web adresu (URL). Načítané môžu byť len dáta typu arff, csv, json, txt a xls.</h6>
-    <!--TODO rovnake tlacitko na vymazanie suboru -> do Base -> BaseButton-->
-    <b-button class="loadButtons" variant="danger" @click="file = ''">Vymazať súbor</b-button>
-    <b-button v-if="file !== ''" @click="loadFile(file)" class="loadButtons" variant="success">Ďalej</b-button>
+    <h6>Insert web address (URL). Files with following types can be loaded: .arff, .csv, .json, .txt, and .xls.</h6>
+    <b-button v-if="file !== ''" class="loadButtons" variant="danger" @click="file = ''">Clear</b-button>
+    <b-button v-if="file !== ''" @click="loadFile(file)" class="loadButtons" variant="success">Next</b-button>
   </div>
 </template>
 

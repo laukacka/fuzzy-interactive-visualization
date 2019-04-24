@@ -17,7 +17,7 @@ export const loadFile = {
           this.$swal({
             type: 'success',
             confirmButtonColor: '#1bd60b',
-            title: 'Súbor bol úspešne načítaný.'
+            title: 'File was successfully loaded.'
           }).then((result) => {
             if (result.value) {
               this.$router.push("methods");
@@ -26,7 +26,7 @@ export const loadFile = {
         } else {
           this.$swal({
             type: 'error',
-            title: 'Súbor má nesprávny typ!'
+            title: 'File has incorrect type!'
           });
           this.file = '';
           this.emitToParent();
@@ -34,7 +34,7 @@ export const loadFile = {
       } else {
         this.$swal({
           type: 'warning',
-          title: 'Nebol vložený žiadny súbor!'
+          title: 'No file found!'
         })
       }
     }

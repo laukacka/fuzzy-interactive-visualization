@@ -5,13 +5,13 @@
                  v-model="file"
                  size="lg"
                  :state="Boolean(file)"
-                 browse-text='Prehľadávať'
+                 browse-text='Browse'
                  v-bind:placeholder="nameOfPlaceHolder"
                  v-bind:drop-placeholder="nameOfDropPlaceHolder"
     ></b-form-file>
-    <h6>Načítané môžu byť len súbory typu .arff, .csv, .json, .txt a .xls.</h6>
-    <b-button class="loadButtons" variant="danger" @click="file = ''">Vymazať súbor</b-button>
-    <b-button v-if="file !== ''" variant="success" @click="loadFile(file)" class="loadButtons">Ďalej</b-button>
+    <h6>Files with following types can be loaded: .arff, .csv, .json, .txt, and .xls.</h6>
+    <b-button v-if="file !== ''" class="loadButtons" variant="danger" @click="file = ''">Clear</b-button>
+    <b-button v-if="file !== ''" variant="success" @click="loadFile(file)" class="loadButtons">Next</b-button>
   </div>
 </template>
 
@@ -26,8 +26,8 @@
         successfullyLoad: false,
         file: '',
         dragAndDropCapable: false,
-        nameOfPlaceHolder: 'Potiahni súbor sem...',
-        nameOfDropPlaceHolder: 'Pusti súbor...'
+        nameOfPlaceHolder: 'Drag file here..',
+        nameOfDropPlaceHolder: 'Drop file..'
       }
     },
     mounted() {
@@ -80,6 +80,6 @@
   }
 
   .loadButtons {
-    margin: 10px 0 10px 0;
+    margin: 15px 0 15px 0;
   }
 </style>

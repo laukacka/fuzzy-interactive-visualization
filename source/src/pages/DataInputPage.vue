@@ -1,42 +1,40 @@
 <template>
   <div>
-    <b-container>
-      <b-row >
-        <b-col md="4">
-          <router-link to="/"><i class="fas fa-angle-double-left fa-3x backArrow" title="Domov"></i></router-link>
-        </b-col>
-        <b-col md="4" offset-md="4" v-if="showForwardArrow">
-          <router-link to="/methods"><i class="fas fa-angle-double-right fa-3x forwardArrow" title="Metódy"></i></router-link>
-        </b-col>
-      </b-row>
-    </b-container>
-    <!--TODO -> centrovanie na stred dokoncit!!!-->
-    <b-container fluid class="inputContainer">
-      <b-row v-if="fromChild === ''">
-        <b-col md="2" offset-md="5">
+    <div class="arrow-left">
+      <router-link to="/"><i class="fas fa-angle-double-left fa-3x backArrow" title="Home"></i></router-link>
+    </div>
+
+    <div class="arrow-right" v-if="showForwardArrow">
+      <router-link to="/methods"><i class="fas fa-angle-double-right fa-3x forwardArrow" title="Methods"></i>
+      </router-link>
+    </div>
+
+    <b-container  fluid class="input-container">
+      <b-row v-if="fromChild === ''" align-v="center" align-h="center">
+        <b-col md="8" >
           <i class="fas fa-arrow-down fa-3x arrow " aria-hidden="true"></i>
         </b-col>
       </b-row>
-      <b-row v-else>
-        <b-col md="2" offset-md="5">
+      <b-row v-else align-v="center" align-h="center">
+        <b-col>
           <i class="fas fa-check fa-3x"></i>
         </b-col>
       </b-row>
-      <b-row>
-        <b-col md="4" offset-md="4">
-          <h3>Načítanie dát</h3>
+      <b-row align-v="center" align-h="center">
+        <b-col md="8" >
+          <h3>Loading data</h3>
         </b-col>
       </b-row>
-      <b-row>
-        <b-col md="6" offset-md="3">
+      <b-row align-v="center" align-h="center">
+        <b-col md="8" >
           <b-button class="buttons" v-for="button in buttons" variant='outline-dark'
                     v-on:click='currentLoadComponent = button.component'>
             {{button.name}}
           </b-button>
         </b-col>
       </b-row>
-      <b-row>
-        <b-col md="6" offset-md="3">
+      <b-row align-v="center" align-h="center">
+        <b-col md="6">
           <component v-bind:is='currentLoadComponent' v-on:childToParent="onChildAction" id="component"></component>
         </b-col>
       </b-row>
@@ -60,7 +58,7 @@
         currentLoadComponent: 'LoadFromFile',
         buttons: [
           {
-            name: 'Súbor',
+            name: 'File',
             variant: 'primary',
             component: 'LoadFromFile'
           },
@@ -70,7 +68,7 @@
             component: 'LoadFromURL'
           },
           {
-            name: 'Demo dáta',
+            name: 'Samples',
             variant: 'warning',
             component: 'LoadSamples'
           }
@@ -90,8 +88,9 @@
       }
     },
     mounted() {
-      this.$store.dispatch('loadHeader', 'Interaktívna vizualizácia');
+      this.$store.dispatch('loadHeader', 'Interactive Visualization');
       this.showForwardArrow = this.$store.getters.getRows.length > 0;
+      this.$store.dispatch("loadIsShownArrow", true);
     }
   }
 </script>
@@ -99,6 +98,20 @@
 <style scoped>
   .fa-check {
     color: green;
+  }
+
+  .input-container{
+    width: 100%;
+    margin-top: 90px;
+  }
+
+  .arrow-right {
+    text-align: left !important;
+    position: fixed;
+    top: 0;
+    margin-left: 60%;
+    margin-top: 24px;
+    width: 100%;
   }
 
   h3 {
@@ -117,10 +130,6 @@
     margin: 2px 5px 2px 5px;
   }
 
-  .inputContainer {
-    margin-top: 100px;
-  }
-
   .arrow {
     animation: arrowSlide 1s ease-in-out infinite;
   }
@@ -132,11 +141,7 @@
   }
 
   .forwardArrow {
-    position: absolute;
-    right: 0;
     color: black;
-    margin-right: 10px;
-    margin-top: 10px;
   }
 
   .forwardArrow:hover {

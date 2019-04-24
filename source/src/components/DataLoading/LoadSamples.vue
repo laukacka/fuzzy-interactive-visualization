@@ -6,8 +6,8 @@
     </b-button>
     <b-row>
       <b-col>
-        <b-button class="loadButtons" variant="danger" @click="file = ''">Vymazať súbor</b-button>
-        <b-button v-if="file !== ''" @click="loadFile(file)" class="loadButtons" variant="success">Ďalej </b-button>
+        <b-button v-if="file !== ''" class="loadButtons" variant="danger" @click="file = ''">Clear</b-button>
+        <b-button v-if="file !== ''" @click="loadFile(file)" class="loadButtons" variant="success">Next</b-button>
       </b-col>
     </b-row>
   </div>
@@ -29,30 +29,11 @@
             variant: 'dark',
             file: 'https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json'
           },
-          {
-            name: 'TODO',
+          /*{
+            name: 'GLASS',
             variant: 'dark',
-            file: ''
-          },
-          {
-            name: 'TODO2',
-            variant: 'dark',
-            file: ''
-          }, {
-            name: 'TODO3',
-            variant: 'dark',
-            file: ''
-          },
-          {
-            name: 'TODO4',
-            variant: 'dark',
-            file: ''
-          },
-          {
-            name: 'TODO5',
-            variant: 'dark',
-            file: ''
-          }
+            file: 'https://pkgstore.datahub.io/machine-learning/glass/glass_json/data/fc1a0e26e9f16393680fcf32eefa8230/glass_json.json'
+          }*/
         ]
       }
     },
@@ -75,20 +56,13 @@
               this.loadHeaders();
             }).catch(error => console.log(error.response));
             break;
-          case '':
+          case '.arff':
 
             break;
-          case '':
-
-            break;
-          case '':
-
-            break;
-          case '':
+          case '.csv':
 
             break;
           default:
-
         }
       },
       loadHeaders() {

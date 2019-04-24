@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 const state = {
   header: '',
+  isShownArrow: false,
   rows: [],
   columns: [],
   membershipFunction: [],
@@ -27,6 +28,10 @@ const mutations = {
   LOAD_CLUSTERS(state, payload) {
     state.clusters = payload;
   }
+  ,
+  LOAD_ISSHOWNARROW(state, payload) {
+    state.isShownArrow = payload;
+  }
 };
 
 const actions = {
@@ -44,6 +49,9 @@ const actions = {
   },
   loadClusters(context, clusters) {
     context.commit("LOAD_CLUSTERS", clusters);
+  },
+  loadIsShownArrow(context, isShownArrow) {
+    context.commit("LOAD_ISSHOWNARROW", isShownArrow);
   }
 };
 
@@ -62,6 +70,9 @@ const getters = {
   },
   getClusters(state) {
     return state.clusters;
+  },
+  getIsShownArrow(state){
+    return state.isShownArrow;
   }
 };
 

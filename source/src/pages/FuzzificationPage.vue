@@ -1,20 +1,16 @@
 <template>
   <div>
-    <b-container>
-      <b-row>
-        <b-col>
-          <router-link to="/methods"><i class="fas fa-angle-double-left fa-3x backArrow" title="Metódy"></i>
-          </router-link>
-        </b-col>
-      </b-row>
-    </b-container>
+    <div class="arrow-left">
+      <router-link to="/methods"><i class="fas fa-angle-double-left fa-3x backArrow" title="Methods"></i>
+      </router-link>
+    </div>
 
     <b-container class="fuzzificationContainer">
       <b-row align-v="center" align-h="center" class="coefficientRow">
         <b-col v-if="firstTimeAccess">
           <b-row>
             <b-col>
-              <h5>Z ktorého stĺpca chceš vypočítať funkciu príslušnosti?</h5>
+              <h5>Choose a column for visualization of fuzzy membership function:</h5>
             </b-col>
           </b-row>
           <b-row>
@@ -37,13 +33,13 @@
         <b-col md="5" class="coefficientContainer" v-if="showCoefficients">
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col sm="10">
-              <h6>Zadaj parametre funkcie príslušnosti pre <b>{{ attributes[attributeIndex][0] }}</b>:</h6>
+              <h6>Enter a parameters of fuzzy membership function for <b>{{ attributes[attributeIndex][0] }}</b>:</h6>
             </b-col>
           </b-row>
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col sm="3">
-              <label>Koeficient a:</label>
+              <label>Coefficient a:</label>
             </b-col>
             <b-col sm="8">
               <b-form-input type="number" v-model="coefficientA" min="0" oninput="if (value < 0 ) {value = ''} "></b-form-input>
@@ -52,7 +48,7 @@
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col sm="3">
-              <label>Koeficient b:</label>
+              <label>Coefficient b:</label>
             </b-col>
             <b-col sm="8">
               <b-form-input type="number" v-model="coefficientB" min="0"
@@ -62,7 +58,7 @@
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col sm="3">
-              <label>Koeficient c:</label>
+              <label>Coefficient c:</label>
             </b-col>
             <b-col sm="8">
               <b-form-input type="number" v-model="coefficientC" min="0"
@@ -72,7 +68,7 @@
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col sm="3">
-              <label>Koeficient d:</label>
+              <label>Coefficient d:</label>
             </b-col>
             <b-col sm="8">
               <b-form-input type="number" v-model="coefficientD" min="0"
@@ -82,7 +78,7 @@
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col sm="3">
-              <label>Názov funkcie: </label>
+              <label>Name of function: </label>
             </b-col>
             <b-col sm="8">
               <b-form-input type="text" v-model="labelFunction"></b-form-input>
@@ -92,7 +88,7 @@
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col>
               <b-button variant="secondary" v-if="showColorButton" id="colorButton"
-                        @click="showColorPicker = !showColorPicker">Zmeniť farbu
+                        @click="showColorPicker = !showColorPicker">Change color
               </b-button>
               <chrome v-if="showColorPicker" style="margin: 5px auto" v-model="color"></chrome>
             </b-col>
@@ -101,9 +97,9 @@
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col>
               <b-button variant="secondary" @click="start" id="drawButton" :disabled="maxXValue === '' || coefficientA === '' ||
-               coefficientB === '' || coefficientC === '' || labelFunction === ''" title="Koeficienty musia byť len kladné čísla.">Pridaj funkciu
+               coefficientB === '' || coefficientC === '' || labelFunction === ''">Add function
               </b-button>
-              <h6>Vyplnené musia byť aspoň koeficienty a, b, c a názov funkcie!</h6>
+              <h6>Coefficients (a, b, c) and function name have to be filled.</h6>
             </b-col>
           </b-row>
         </b-col>
@@ -133,7 +129,7 @@
     <b-container class="fuzzificationButtons" v-if="!firstTimeAccess">
       <b-row align-v="center" align-h="center">
         <b-col md="4" v-if="showChangeCoefficients" class="fuzzificationButton">
-          <b-dropdown variant="secondary" text="Zmeň koeficienty funkcie" dropdown>
+          <b-dropdown variant="secondary" text="Change coefficients of function" dropdown>
             <b-dropdown-item-button v-for="myFunction in membershipFunction[0].functions"
                                     @click="changeCoefficients(myFunction.label)">
               {{myFunction.label}}
@@ -142,13 +138,13 @@
         </b-col>
 
         <b-col md="4">
-          <b-button variant="secondary" @click="changeAttribute" class="fuzzificationButton">Zmeň atribút</b-button>
+          <b-button variant="secondary" @click="changeAttribute" class="fuzzificationButton">Change attribute</b-button>
         </b-col>
         <!-- <b-col>
            <b-button @click="mapPointsOnFunction">Namapuj body na funkciu</b-button>
          </b-col>-->
         <b-col md="4" v-if="showChangeCoefficients" class="fuzzificationButton">
-          <b-button variant="secondary" @click="showSlider = !showSlider">Zmeň x-ovú os</b-button>
+          <b-button variant="secondary" @click="showSlider = !showSlider">Change x axis</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -276,7 +272,7 @@
           this.$swal({
             type: 'warning',
             allowOutsideClick: false,
-            title: 'Funkcia s názvom ' + '"' + this.labelFunction + '"' + ' už existuje.'
+            title: 'Function with name ' + '"' + this.labelFunction + '"' + ' already exist.'
           }).then((result) => {
             if (result.value) {
               this.labelFunction = '';
@@ -286,7 +282,7 @@
         }
         this.showColorButton = false;
         this.showColorPicker = false;
-        if (document.getElementById('drawButton').innerText === 'Zmeniť funkciu') {
+        if (document.getElementById('drawButton').innerText === 'Change function') {
           let myFunction = this.membershipFunction[0].functions[this.indexLabel];
           myFunction.coefficientA = this.coefficientA;
           myFunction.coefficientB = this.coefficientB;
@@ -294,7 +290,7 @@
           myFunction.coefficientD = this.coefficientD;
           myFunction.label = this.labelFunction;
           myFunction.borderColor = this.color.hex;
-          document.getElementById('drawButton').innerText = 'Pridaj funkciu';
+          document.getElementById('drawButton').innerText = 'Add function';
         } else {
           this.createFunction();
         }
@@ -361,7 +357,7 @@
         this.coefficientD = myFunction.coefficientD;
         this.labelFunction = myFunction.label;
         this.indexLabel = myIndex;
-        document.getElementById('drawButton').innerText = 'Zmeniť funkciu';
+        document.getElementById('drawButton').innerText = 'Change function';
         this.showColorButton = true;
         this.data.datasets = this.membershipFunction[0].functions;
         this.$store.dispatch("loadMembershipFunction", this.membershipFunction);
@@ -534,7 +530,7 @@
        },*/
     },
     mounted() {
-      this.$store.dispatch('loadHeader', 'Fuzzifikácia');
+      this.$store.dispatch('loadHeader', 'Fuzzification');
       let membershipFunction = this.$store.getters.getMembershipFunction;
       this.firstTimeAccess = membershipFunction.length === 0;
       if (!this.firstTimeAccess) {
@@ -548,7 +544,7 @@
         this.$swal({
           type: 'warning',
           allowOutsideClick: false,
-          title: 'Znovu načítaj dáta.'
+          title: 'Please, try again.'
         }).then((result) => {
           if (result.value) {
             this.$router.push("dataInput");

@@ -5,17 +5,17 @@
       :rows="this.$store.getters.getRows"
       styleClass="vgt-responsive"
       :lineNumbers="true"
-      :search-options="{ enabled: true, placeholder: 'Vyhľadaj v tabulke' }"
+      :search-options="{ enabled: true, placeholder: 'Find... ' }"
       :pagination-options="{ enabled: true,  position: 'bottom' }"
       :selectOptions="{
             enabled: true,
             selectOnCheckboxOnly: false,
             selectionInfoClass: 'alert alert-info m-b-0 no-rounded-corner',
             selectionText: '',
-            clearSelectionText: 'vyčisti označené',
+            clearSelectionText: 'clear selected ... ',
 			  }">
     </vue-good-table>
-    <b-button class="setParametersButton" variant="outline-info" @click="setParameters">Zmeniť názov stĺpca</b-button>
+    <b-button class="setParametersButton" variant="outline-info" @click="setParameters">Change column name</b-button>
   </div>
 </template>
 
@@ -34,12 +34,12 @@
         let indexOfColumn;
         let columns = this.$store.getters.getColumns;
         this.$swal({
-          title: 'Vyberte číslo stĺpca, ktorý chcete zmeniť:',
+          title: 'Choose index of a column:',
           type: 'question',
-          confirmButtonText: 'Vybrať',
+          confirmButtonText: 'Confirm',
           cancelButtonColor: '#d33',
           confirmButtonColor: '#1bd60b',
-          cancelButtonText: 'Zrušiť',
+          cancelButtonText: 'Cancel',
           showCancelButton: true,
           showCloseButton: true,
           input: 'range',
@@ -55,10 +55,10 @@
             this.$swal({
               input: 'text',
               inputValue: columns[indexOfColumn - 1].label,
-              confirmButtonText: 'Zmeniť',
+              confirmButtonText: 'Confirm',
               confirmButtonColor: '#1bd60b',
               cancelButtonColor: '#d33',
-              cancelButtonText: 'Zrušiť',
+              cancelButtonText: 'Cancel',
               showCancelButton: true,
               showCloseButton: true,
             }).then((result) => {

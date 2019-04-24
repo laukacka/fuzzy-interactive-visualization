@@ -1,34 +1,29 @@
 <template>
   <div>
-    <b-container>
-      <b-row>
-        <b-col>
-          <router-link to="/dataInput"><i class="fas fa-angle-double-left fa-3x backArrow" title="Načítanie dát"></i>
-          </router-link>
-        </b-col>
-      </b-row>
-    </b-container>
+    <div class="arrow-left">
+      <router-link to="/dataInput"><i class="fas fa-angle-double-left fa-3x backArrow" title="Loading data"></i>
+      </router-link>
+    </div>
     <b-container class="methodsContainer">
       <b-row>
         <b-col>
-          <h3>Čo si prajete vykonať s načítanými dátami? </h3>
+          <h3>What do you want to do with the loaded data?</h3>
         </b-col>
       </b-row>
       <b-row>
-        <!--TODO -> buttony dokoncit nejak rozumne.. a centrovanie na stred!!-->
-        <b-col offset-md="1" md="2">
+        <b-col cols="4">
           <router-link to="/fuzzification">
-            <b-button class="buttons" variant="secondary">Fuzzifikácia</b-button>
+            <b-button class="buttons" variant="secondary">Fuzzification</b-button>
           </router-link>
         </b-col>
-        <b-col offset-md="2" md="2">
+        <b-col cols="4">
           <router-link to="/fuzzyClustering">
-            <b-button class="buttons" variant="warning">Fuzzy zhlukovanie</b-button>
+            <b-button class="buttons" variant="warning">Fuzzy clustering</b-button>
           </router-link>
-        </b-col>
-        <b-col offset-md="2" md="2">
+        </b-col >
+        <b-col cols="4">
           <router-link to="/statistics">
-            <b-button class="buttons" variant="secondary">Pôvodné dáta</b-button>
+            <b-button class="buttons" variant="secondary">Original data</b-button>
           </router-link>
         </b-col>
       </b-row>
@@ -43,12 +38,12 @@
       return {}
     },
     mounted() {
-      this.$store.dispatch('loadHeader', 'Interaktívna vizualizácia');
+      this.$store.dispatch('loadHeader', 'Interactive visualization');
       if (this.$store.getters.getRows.length === 0) {
         this.$swal({
           type: 'warning',
           allowOutsideClick: false,
-          title: 'Znovu načítaj dáta.'
+          title: 'Please, try again.'
         }).then((result) => {
           if (result.value) {
             this.$router.push("dataInput");
@@ -61,9 +56,9 @@
 
 <style scoped>
   .buttons {
-    margin: 5px;
-    height: 120px;
-    width: 120px;
+    height: 100px;
+    width: 100%;
+    font-size: small;
   }
 
   .methodsContainer {

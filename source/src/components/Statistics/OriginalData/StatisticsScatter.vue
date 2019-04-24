@@ -1,17 +1,16 @@
 <template>
   <div>
-    <b-row align-v="center">
+    <b-row align-h="center" align-v="center">
       <b-col md="4">
-        <b-button class="setParametersButtons" variant="outline-info" @click="changeNamesOfAxis">Zmeniť názvy osí
+        <b-button class="setParametersButtons" variant="outline-info" @click="changeNamesOfAxis">Change axis names
         </b-button>
       </b-col>
       <b-col md="4">
-        <b-button class="setParametersButtons" variant="outline-info" @click="changeColorOfClusters">Zmeniť farbu
-          zhlukov
+        <b-button class="setParametersButtons" variant="outline-info" @click="changeColorOfClusters">Change clusters color
         </b-button>
       </b-col>
       <b-col md="4">
-        <b-button class="setParametersButtons" variant="outline-info" @click="changeParameters">Zmeniť parametre
+        <b-button class="setParametersButtons" variant="outline-info" @click="changeParameters">Change parameters
         </b-button>
       </b-col>
     </b-row>
@@ -21,7 +20,7 @@
           <label>
             <b-form-select v-model="nameClusterColorChange" class="formSelect">
               <template slot="first">
-                <option disabled>-- Vyber zhluk --</option>
+                <option disabled>-- Choose cluster --</option>
               </template>
               <option v-for="cluster in typesOfClusters">
                 {{ cluster }}
@@ -29,18 +28,18 @@
             </b-form-select>
           </label>
         </b-row>
-        <b-row align-v="center" align-h="center" v-if="nameClusterColorChange !== '-- Vyber zhluk --'">
-          <b-button variant="outline-info" @click="updateColorClusters">Zmeň farbu</b-button>
+        <b-row align-v="center" align-h="center" v-if="nameClusterColorChange !== '-- Choose cluster --'">
+          <b-button variant="outline-info" @click="updateColorClusters">Change color</b-button>
         </b-row>
       </b-col>
-      <b-col md="5" v-if="nameClusterColorChange !== '-- Vyber zhluk --'">
-        <h6>Vyber farbu:</h6>
+      <b-col md="5" v-if="nameClusterColorChange !== '-- Choose cluster --'">
+        <h6>Choose color:</h6>
         <chrome style="margin: auto" v-model="color"></chrome>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row align-v="center" align-h="center" style="margin-top: 20px; ">
       <b-col>
-        <scatter :key="reupdateGraph" :chart-data="data" :options="options" class="scatter"></scatter>
+        <scatter :key="reupdateGraph" :chart-data="data" :options="options" class="scatter hack"></scatter>
       </b-col>
     </b-row>
   </div>
@@ -60,15 +59,17 @@
       return {
         data: {
           datasets: [],
+
         },
         options: {
           scales: {
             xAxes: [],
-            yAxes: []
+            yAxes: [],
           },
           animation: {
             duration: 0
-          }
+          },
+          responsive: false,
         },
         columns: this.$store.getters.getColumns,
         typesOfClusters: null,
@@ -281,8 +282,8 @@
           showCloseButton: true,
           confirmButtonColor: '#1bd60b',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Zmeniť',
-          cancelButtonText: 'Zrušiť'
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel'
         }).then((result) => {
           console.log(result);
 
@@ -301,7 +302,7 @@
         });
       },
       changeColorOfClusters() {
-        this.nameClusterColorChange = '-- Vyber zhluk --';
+        this.nameClusterColorChange = '-- Choose cluster --';
         this.clickOnChangeColor = !this.clickOnChangeColor;
       },
       changeParameters() {
@@ -314,23 +315,23 @@
             max: columns.length,
             step: 1
           },
-          confirmButtonText: 'Ďalej',
+          confirmButtonText: 'Next',
           allowOutsideClick: false,
           confirmButtonColor: '#1bd60b',
           progressSteps: ['1', '2', '3'],
           backdrop: `rgba(0, 0, 0, 0.8)`
         }).queue([
           {
-            title: 'Číslo stĺpca pre X-OVÚ OS:',
+            title: 'Index of X-axis:',
             inputValue: this.xLabel + 1,
           },
           {
-            title: 'Číslo stĺpca pre Y-OVÚ OS:',
+            title: 'Index of Y-axis:',
             inputValue: this.yLabel + 1,
 
           },
           {
-            title: 'Číslo stĺpca pre ZHLUKY:',
+            title: 'Index of clusters:',
             inputValue: this.indexCluster + 1,
           }
         ]).then((result) => {
@@ -339,7 +340,7 @@
             this.yLabel = result.value[1] - 1;
             this.indexCluster = result.value[2] - 1;
             this.$swal({
-              title: 'Hotovo!',
+              title: 'Done!',
               type: 'success',
               confirmButtonColor: '#1bd60b',
               backdrop: `rgba(0, 0, 0, 0.8)`
@@ -374,6 +375,12 @@
 </script>
 
 <style scoped>
+  .hack{
+    display: inline !important;
+  }
+  .sialenstvo{
+    background-color: red;
+  }
   .setParametersButtons {
     margin-bottom: 15px;
   }
@@ -392,5 +399,6 @@
   .scatter {
     margin-top: 10px;
     margin-bottom: 10px;
+    display: inline !important;
   }
 </style>
