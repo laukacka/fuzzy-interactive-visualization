@@ -5,14 +5,14 @@
       :rows="this.$store.getters.getRows"
       styleClass="vgt-responsive"
       :lineNumbers="true"
-      :search-options="{ enabled: true, placeholder: 'Find... ' }"
+      :search-options="{ enabled: true, placeholder: 'Find..' }"
       :pagination-options="{ enabled: true,  position: 'bottom' }"
       :selectOptions="{
             enabled: true,
             selectOnCheckboxOnly: false,
             selectionInfoClass: 'alert alert-info m-b-0 no-rounded-corner',
             selectionText: '',
-            clearSelectionText: 'clear selected ... ',
+            clearSelectionText: 'Clear selected..',
 			  }">
     </vue-good-table>
     <b-button class="setParametersButton" variant="outline-info" @click="setParameters">Change column name</b-button>
@@ -78,7 +78,5 @@
     margin-top: 15px;
   }
 
-  .statisticsTable {
-    margin-top: 100px;
-  }
+
 </style>

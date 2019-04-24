@@ -17,6 +17,7 @@ export const loadFile = {
           this.$swal({
             type: 'success',
             confirmButtonColor: '#1bd60b',
+            allowOutsideClick: false,
             title: 'File was successfully loaded.'
           }).then((result) => {
             if (result.value) {

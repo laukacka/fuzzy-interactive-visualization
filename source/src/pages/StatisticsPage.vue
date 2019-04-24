@@ -10,35 +10,33 @@
       </router-link>
     </div>
 
-    <b-container v-if="!showTable && !showGraph" class="methodsContainer">
-      <b-row>
+    <b-container v-if="!showTable && !showGraph">
+      <b-row align-v="center" align-h="center">
         <b-col>
           <h3> Choose a method for data visualization: </h3>
         </b-col>
       </b-row>
-      <b-row>
-        <b-col offset-md="2" md="3">
+      <b-row align-v="center" align-h="center">
+        <b-col md="3" cols="6">
           <b-button class="tableGraphButtons" variant="info" @click="showTable = true">Table
           </b-button>
         </b-col>
-        <b-col offset-md="2" md="3">
+        <b-col offset-md="2" md="3" cols="6">
           <b-button class="tableGraphButtons" variant="info" @click="showGraph = true">Graph</b-button>
         </b-col>
       </b-row>
     </b-container>
 
     <b-container v-if="showTable">
-      <b-row>
-        <b-col offset-md="2" md="8">
+      <b-row align-v="center" align-h="center">
+        <b-col md="8">
           <statistic-table :columns="this.$store.getters.getColumns"></statistic-table>
         </b-col>
       </b-row>
     </b-container>
 
-    <b-container style="margin-top: 30px" v-if="showGraph"  >
-
-          <statistics-scatter ></statistics-scatter> <!--v-on:childToParent="onChildAction"-->
-
+    <b-container style="margin-top: 30px" v-if="showGraph">
+      <statistics-scatter></statistics-scatter> <!--v-on:childToParent="onChildAction"-->
     </b-container>
   </div>
 </template>
@@ -84,12 +82,9 @@
 </script>
 
 <style scoped>
-
-
   .tableGraphButtons {
-    width: 120px;
+    width: 100%;
     height: 120px;
-    margin: 5px;
   }
 
   h3 {
@@ -99,9 +94,5 @@
 
   h3:hover {
     color: #06aa19;
-  }
-
-  .methodsContainer {
-    margin-top: 100px;
   }
 </style>

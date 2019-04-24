@@ -6,7 +6,7 @@
             integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
             crossorigin="anonymous">
       <router-link to="/">
-        <img src="./assets/logo.png" alt="logo" title="Domov">
+        <img src="./assets/logo.png" alt="logo" title="Home">
       </router-link>
       <h4 class="header-text">{{ this.$store.getters.getHeader }}</h4>
     </div>
@@ -27,10 +27,7 @@
   export default {
     name: 'App',
     data() {
-      return {
-      }
-    },
-    mounted() {
+      return {}
     }
   }
 </script>
@@ -54,8 +51,8 @@
     width: 100%;
   }
 
-  .header-text{
-      margin-top: 20px;
+  .header-text {
+    margin-top: 20px;
   }
 
   img {
@@ -68,7 +65,7 @@
     display: grid;
   }
 
-  span{
+  span {
     margin-top: auto;
     margin-bottom: auto;
   }

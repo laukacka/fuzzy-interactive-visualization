@@ -387,7 +387,6 @@
 
   .changeColor {
     margin: 15px 5px 15px 5px;
-
     padding: 10px;
   }
 

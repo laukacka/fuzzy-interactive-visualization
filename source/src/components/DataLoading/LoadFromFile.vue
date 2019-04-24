@@ -8,10 +8,11 @@
                  browse-text='Browse'
                  v-bind:placeholder="nameOfPlaceHolder"
                  v-bind:drop-placeholder="nameOfDropPlaceHolder"
+                 title=""
     ></b-form-file>
     <h6>Files with following types can be loaded: .arff, .csv, .json, .txt, and .xls.</h6>
-    <b-button v-if="file !== ''" class="loadButtons" variant="danger" @click="file = ''">Clear</b-button>
-    <b-button v-if="file !== ''" variant="success" @click="loadFile(file)" class="loadButtons">Next</b-button>
+      <b-button v-if="file !== ''" class="loadButtons" variant="danger" @click="file = ''">Clear</b-button>
+      <b-button v-if="file !== ''" variant="success" @click="loadFile(file)" class="loadButtons">Next</b-button>
   </div>
 </template>
 

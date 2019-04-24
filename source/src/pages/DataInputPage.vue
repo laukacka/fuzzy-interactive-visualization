@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div class="arrow-left">
-      <router-link to="/"><i class="fas fa-angle-double-left fa-3x backArrow" title="Home"></i></router-link>
-    </div>
+      <div class="arrow-left">
+        <router-link to="/"><i class="fas fa-angle-double-left fa-3x backArrow" title="Home"></i></router-link>
+      </div>
 
-    <div class="arrow-right" v-if="showForwardArrow">
-      <router-link to="/methods"><i class="fas fa-angle-double-right fa-3x forwardArrow" title="Methods"></i>
-      </router-link>
-    </div>
+      <div class="arrow-right" v-if="showForwardArrow">
+        <router-link to="/methods"><i class="fas fa-angle-double-right fa-3x forwardArrow" title="Methods"></i>
+        </router-link>
+      </div>
 
-    <b-container  fluid class="input-container">
+    <b-container fluid class="input-container">
       <b-row v-if="fromChild === ''" align-v="center" align-h="center">
-        <b-col md="8" >
+        <b-col md="8">
           <i class="fas fa-arrow-down fa-3x arrow " aria-hidden="true"></i>
         </b-col>
       </b-row>
@@ -21,12 +21,12 @@
         </b-col>
       </b-row>
       <b-row align-v="center" align-h="center">
-        <b-col md="8" >
+        <b-col md="8">
           <h3>Loading data</h3>
         </b-col>
       </b-row>
       <b-row align-v="center" align-h="center">
-        <b-col md="8" >
+        <b-col md="8">
           <b-button class="buttons" v-for="button in buttons" variant='outline-dark'
                     v-on:click='currentLoadComponent = button.component'>
             {{button.name}}
@@ -88,7 +88,7 @@
       }
     },
     mounted() {
-      this.$store.dispatch('loadHeader', 'Interactive Visualization');
+      this.$store.dispatch('loadHeader', ' ');
       this.showForwardArrow = this.$store.getters.getRows.length > 0;
       this.$store.dispatch("loadIsShownArrow", true);
     }
@@ -100,7 +100,7 @@
     color: green;
   }
 
-  .input-container{
+  .input-container {
     width: 100%;
     margin-top: 90px;
   }
@@ -109,9 +109,9 @@
     text-align: right;
     position: fixed;
     top: 0;
-    margin-left: -10px;
+    right: 10px;
     margin-top: 24px;
-    width: 100%;
+    width: 50px;
   }
 
   h3 {

@@ -10,17 +10,17 @@
       </router-link>
     </div>
 
-    <b-container v-if="!showRadviz && !showCoordinates" class="methodsContainer">
-      <b-row>
+    <b-container v-if="!showRadviz && !showCoordinates">
+      <b-row align-v="center" align-h="center">
         <b-col>
           <h3> Choose a method for data visualization: </h3>
         </b-col>
       </b-row>
-      <b-row>
-        <b-col offset-md="2" md="3">
+      <b-row align-v="center" align-h="center">
+        <b-col md="3" cols="6">
           <b-button class="radvizCoordinatesButtons" variant="danger" @click="showRadviz = true">Radviz</b-button>
         </b-col>
-        <b-col offset-md="2" md="3">
+        <b-col offset-md="2" md="3" cols="6">
           <b-button class="radvizCoordinatesButtons" variant="danger" @click="showCoordinates = true">Parallel Coordinates
           </b-button>
         </b-col>
@@ -85,9 +85,8 @@
 
 <style scoped>
   .radvizCoordinatesButtons {
-    width: 120px;
+    width: 100%;
     height: 120px;
-    margin: 5px;
   }
 
   h3 {
@@ -97,9 +96,5 @@
 
   h3:hover {
     color: #06aa19;
-  }
-
-  .methodsContainer {
-    margin-top: 100px;
   }
 </style>

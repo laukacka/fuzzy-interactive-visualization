@@ -33,7 +33,7 @@
         <b-col md="5" class="coefficientContainer" v-if="showCoefficients">
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col sm="10">
-              <h6>Enter a parameters of fuzzy membership function for <b>{{ attributes[attributeIndex][0] }}</b>:</h6>
+              <h6>Enter the parameters of fuzzy membership function for <b>{{ attributes[attributeIndex][0] }}</b>:</h6>
             </b-col>
           </b-row>
 
@@ -42,7 +42,7 @@
               <label>Coefficient a:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientA" min="0" oninput="if (value < 0 ) {value = ''} "></b-form-input>
+              <b-form-input type="number" v-model="coefficientA" min="0"></b-form-input>
             </b-col>
           </b-row>
 
@@ -51,8 +51,7 @@
               <label>Coefficient b:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientB" min="0"
-                            oninput="if (value < 0 ) {value = ''} "></b-form-input>
+              <b-form-input type="number" v-model="coefficientB" min="0"></b-form-input>
             </b-col>
           </b-row>
 
@@ -61,8 +60,7 @@
               <label>Coefficient c:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientC" min="0"
-                            oninput="if (value < 0 ) {value = ''} "></b-form-input>
+              <b-form-input type="number" v-model="coefficientC" min="0"></b-form-input>
             </b-col>
           </b-row>
 
@@ -71,8 +69,7 @@
               <label>Coefficient d:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientD" min="0"
-                            oninput="if (value < 0 ) {value = ''} "></b-form-input>
+              <b-form-input type="number" v-model="coefficientD" min="0"></b-form-input>
             </b-col>
           </b-row>
 

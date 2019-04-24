@@ -2,19 +2,19 @@
   <div>
     <b-container id="home-container">
       <b-row align-v="center" align-h="center">
-        <b-col >
+        <b-col>
           <h3 class="welcomeText">Welcome! </h3>
         </b-col>
       </b-row>
 
       <b-row align-v="center" align-h="center">
         <b-col md="6">
-          <p id="home-text">
-             to the interactive visualization of data acquired from algorithms of fuzzification and fuzzy clustering.  </p>
+          <h5>to the interactive visualization of data acquired from algorithms of fuzzification and fuzzy
+            clustering. </h5>
         </b-col>
       </b-row>
       <b-row align-v="center" align-h="center">
-        <b-col md="3" >
+        <b-col md="3">
           <router-link to="/dataInput">
             <b-button id="startButton" variant="success">Get Started!</b-button>
           </router-link>
@@ -33,9 +33,7 @@
         sliding: null,
       }
     },
-    methods: {
-
-    },
+    methods: {},
     mounted() {
       this.$store.dispatch('loadHeader', ' ');
       this.$store.dispatch("loadIsShownArrow", false);
@@ -56,17 +54,19 @@
     margin-bottom: 20px;
   }
 
-  h3{
-      margin-bottom: 50px;
+  h3 {
+    margin-bottom: 50px;
   }
 
-  #home-container{
+  #home-container {
     margin: auto;
+  }
+
+  h5 {
+    font-size: 18px;
   }
 
   #startButton {
     margin-top: 30px;
   }
-
-
 </style>
