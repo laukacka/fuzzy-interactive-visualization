@@ -106,10 +106,10 @@
   }
 
   .arrow-right {
-    text-align: left !important;
+    text-align: right;
     position: fixed;
     top: 0;
-    margin-left: 60%;
+    margin-left: -10px;
     margin-top: 24px;
     width: 100%;
   }
