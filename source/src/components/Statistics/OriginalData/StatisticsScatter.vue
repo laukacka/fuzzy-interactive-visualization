@@ -39,7 +39,7 @@
     </b-row>
     <b-row align-v="center" align-h="center" style="margin-top: 20px; ">
       <b-col>
-        <scatter :key="reupdateGraph" :chart-data="data" :options="options" class="scatter hack"></scatter>
+        <scatter :key="reupdateGraph" :chart-data="data" :options="options" class="scatter"></scatter>
       </b-col>
     </b-row>
   </div>
@@ -68,8 +68,7 @@
           },
           animation: {
             duration: 0
-          },
-          responsive: false,
+          }
         },
         columns: this.$store.getters.getColumns,
         typesOfClusters: null,
@@ -77,7 +76,7 @@
         clusters: this.$store.getters.getClusters,
         colorPallet: [],
         isChangingColorCluster: '',
-        nameClusterColorChange: '-- Vyber zhluk --',
+        nameClusterColorChange: '-- Choose cluster --',
         color: {
           hex: '#194d33',
           hsl: {h: 150, s: 0.5, l: 0.2, a: 1},
@@ -95,11 +94,6 @@
         clickOnChangeColor: false
       }
     },
-    /*watch: {
-      color: function () {
-        this.updateColorClusters();
-      }
-    },*/
     methods: {
       start() {
         this.dataEntries = this.assignAllDataEntries();
@@ -223,7 +217,6 @@
         }
       },
       updateColorClusters: function () {
-        console.log('ooch');
         try {
           if (this.color != null) {
             if (this.color.hex != null) {
@@ -375,12 +368,6 @@
 </script>
 
 <style scoped>
-  .hack{
-    display: inline !important;
-  }
-  .sialenstvo{
-    background-color: red;
-  }
   .setParametersButtons {
     margin-bottom: 15px;
   }

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <vue-good-table class="statisticsTable"
-      :columns="columns"
+    <vue-good-table
+      :columns="this.$store.getters.getColumns"
       :rows="this.$store.getters.getRows"
       styleClass="vgt-responsive"
       :lineNumbers="true"
@@ -22,9 +22,6 @@
 <script>
   export default {
     name: "StatisticTable",
-    props: {
-      columns: Array
-    },
     data() {
       return {
       }

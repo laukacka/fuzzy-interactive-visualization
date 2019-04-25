@@ -20,7 +20,7 @@
           </b-row>
           <b-row>
             <b-col>
-              <b-dropdown variant="secondary" text="Stĺpce" dropdown>
+              <b-dropdown variant="secondary" text="Columns" dropdown>
                 <b-dropdown-item-button v-for="column in this.$store.getters.getColumns"
                                         @click="setLineChart(column.label)">
                   {{column.label}}

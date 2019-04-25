@@ -30,13 +30,15 @@
     <b-container v-if="showTable">
       <b-row align-v="center" align-h="center">
         <b-col md="8">
-          <statistic-table :columns="this.$store.getters.getColumns"></statistic-table>
+          <statistic-table></statistic-table>
         </b-col>
       </b-row>
     </b-container>
 
     <b-container style="margin-top: 30px" v-if="showGraph">
+      <b-col md="8">
       <statistics-scatter></statistics-scatter> <!--v-on:childToParent="onChildAction"-->
+      </b-col>
     </b-container>
   </div>
 </template>

@@ -1,46 +1,46 @@
 <template>
   <div>
-    <div class="arrow-left" v-if="(showRadviz || showCoordinates)" @click="showButtons">
+    <div class="arrow-left" v-if="(showRadviz || showCoordinates || showTable)" @click="showButtons">
       <router-link to="/fuzzyClustering"><i class="fas fa-angle-double-left fa-3x backArrow"
                                             title="Choose a way to view original data"></i></router-link>
     </div>
 
-    <div class="arrow-left" v-if="!showRadviz && !showCoordinates">
+    <div class="arrow-left" v-if="!showRadviz && !showCoordinates && !showTable">
       <router-link to="/methods"><i class="fas fa-angle-double-left fa-3x backArrow" title="Methods"></i>
       </router-link>
     </div>
 
-    <b-container v-if="!showRadviz && !showCoordinates">
+    <b-container v-if="!showRadviz && !showCoordinates && !showTable">
       <b-row align-v="center" align-h="center">
         <b-col>
           <h3> Choose a method for data visualization: </h3>
         </b-col>
       </b-row>
       <b-row align-v="center" align-h="center">
-        <b-col md="3" cols="6">
+        <b-col md="3" cols="4" style="padding: 0 5px 0 10px">
           <b-button class="radvizCoordinatesButtons" variant="danger" @click="showRadviz = true">Radviz</b-button>
         </b-col>
-        <b-col offset-md="2" md="3" cols="6">
-          <b-button class="radvizCoordinatesButtons" variant="danger" @click="showCoordinates = true">Parallel Coordinates
+        <b-col md="3" cols="4" style="padding: 0 5px 0 10px">
+          <b-button class="radvizCoordinatesButtons" variant="danger" @click="showTable = true">Table</b-button>
+        </b-col>
+        <b-col md="3" cols="4" style="padding: 0 10px 0 10px">
+          <b-button class="radvizCoordinatesButtons" variant="danger" @click="showCoordinates = true">Parallel
+            Coordinates
           </b-button>
         </b-col>
       </b-row>
     </b-container>
 
     <b-container v-if="showRadviz">
-      <b-row>
-        <b-col offset-md="2" md="8">
-          <fuzzy-clustering-radviz></fuzzy-clustering-radviz>
-        </b-col>
-      </b-row>
+      <fuzzy-clustering-radviz></fuzzy-clustering-radviz>
     </b-container>
 
-    <b-container style="margin-top: 3%" v-if="showCoordinates">
-      <b-row>
-        <b-col offset-md="2" md="8">
-          <fuzzy-clustering-parallel-coordinates></fuzzy-clustering-parallel-coordinates>
-        </b-col>
-      </b-row>
+    <b-container v-if="showTable">
+      <fuzzy-clustering-table></fuzzy-clustering-table>
+    </b-container>
+
+    <b-container v-if="showCoordinates">
+      <fuzzy-clustering-parallel-coordinates></fuzzy-clustering-parallel-coordinates>
     </b-container>
   </div>
 </template>
@@ -49,21 +49,24 @@
   import FuzzyClusteringRadviz from "@/components/FuzzyClustering/Radviz/FuzzyClusteringRadviz";
   import FuzzyClusteringParallelCoordinates
     from "@/components/FuzzyClustering/ParallelCoordinators/FuzzyClusteringParallelCoordinates";
+  import FuzzyClusteringTable from "@/components/FuzzyClustering/FuzzyClusteringTable";
 
   export default {
     name: "FuzzyClusteringPage",
-    components: {FuzzyClusteringParallelCoordinates, FuzzyClusteringRadviz},
+    components: {FuzzyClusteringTable, FuzzyClusteringParallelCoordinates, FuzzyClusteringRadviz},
     data() {
       return {
         name: 'Fuzzy Clustering',
         showRadviz: false,
-        showCoordinates: false
+        showCoordinates: false,
+        showTable: false
       }
     },
     methods: {
       showButtons() {
         this.showRadviz = false;
         this.showCoordinates = false;
+        this.showTable = false;
       },
     },
     mounted() {
