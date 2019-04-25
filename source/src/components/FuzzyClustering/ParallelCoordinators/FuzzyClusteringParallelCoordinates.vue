@@ -2,20 +2,26 @@
   <div>
     <b-row>
       <b-col id="coordinates">
-
+ {{d3}}
       </b-col>
     </b-row>
   </div>
 </template>
-
 <script>
-  import * as d3 from 'd3';
-
   export default {
     name: "FuzzyClusteringParallelCoordinates",
     data() {
       return {
         columns: this.$store.getters.getColumns,
+        margin : '',
+        width: '',
+        height: '',
+        x: '',
+        y: '',
+        dragging: '',
+        line : '',
+        axis: '',
+        svg: '',
       }
     },
     methods: {
@@ -99,26 +105,24 @@
                     })
                     .style("fill", "black")
                 })*/
-        var margin = {top: 30, right: 10, bottom: 10, left: 10},
-          width = 960 - margin.left - margin.right,
-          height = 500 - margin.top - margin.bottom;
+          this.margin = {top: 30, right: 10, bottom: 10, left: 10};
+          this.width = 960 - this.margin.left - this.margin.right;
+          this.height = 500 - this.margin.top - this.margin.bottom;
 
-        var x = d3.scale.ordinal().rangePoints([0, width], 1),
-          y = {},
-          dragging = {};
+          this.x = {};  //this.d3.scale.ordinal().rangePoints([0, this.width], 1);
+          this.y = {};
+          this.dragging = {};
 
-        var line = d3.svg.line(),
-          axis = d3.svg.axis().orient("left"),
-          background,
-          foreground;
+          this.line = this.d3.svg.line();
+          this.axis = this.d3.svg.axis().orient("left");
 
-        var svg = d3.select("coordinates").append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
+        this.svg = this.d3.select("coordinates").append("svg")
+          .attr("width", this.width + this.margin.left + this.margin.right)
+          .attr("height", this.height + this.margin.top + this.margin.bottom)
           .append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+          .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
 
-        d3.csv("cars.csv", function (error, cars) {
+        this.d3.csv("cars.csv", function (error, cars) {
 
           // Extract the list of dimensions and create a scale for each.
           x.domain(dimensions = d3.keys(cars[0]).filter(function (d) {
@@ -245,7 +249,7 @@
       }
     },
     mounted() {
-      this.start();
+      //this.start();
     }
   }
 </script>
