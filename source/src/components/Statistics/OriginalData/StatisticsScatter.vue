@@ -38,7 +38,7 @@
       </b-col>
     </b-row>
     <b-row align-v="center" align-h="center" style="margin-top: 20px; ">
-      <b-col>
+      <b-col class="sialena">
         <scatter :key="reupdateGraph" :chart-data="data" :options="options" class="scatter"></scatter>
       </b-col>
     </b-row>
@@ -385,6 +385,10 @@
   .scatter {
     margin-top: 10px;
     margin-bottom: 10px;
-    display: inline !important;
   }
+
+  .sialena{
+    background-color: green;
+  }
+
 </style>
