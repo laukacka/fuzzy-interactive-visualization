@@ -21,7 +21,7 @@
 
 <script>
   export default {
-    name: "StatisticTable",
+    name: "OriginalDataTable",
     data() {
       return {
       }
@@ -66,6 +66,9 @@
           }
         })
       }
+    },
+    mounted() {
+      this.$store.dispatch('loadHeader', 'Original data - Table');
     }
   }
 </script>

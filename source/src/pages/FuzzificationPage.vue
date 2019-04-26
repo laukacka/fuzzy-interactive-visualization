@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="arrow-left">
-      <router-link to="/methods"><i class="fas fa-angle-double-left fa-3x backArrow" title="Methods"></i>
+      <router-link to="/methods"><i class="fas fa-angle-double-left fa-3x backArrow"
+                                    title="Methods for data visualization"></i>
       </router-link>
     </div>
 
@@ -20,7 +21,7 @@
           </b-row>
           <b-row>
             <b-col>
-              <b-dropdown variant="secondary" text="Columns" dropdown>
+              <b-dropdown variant="outline-primary" text="Columns" dropdown>
                 <b-dropdown-item-button v-for="column in this.$store.getters.getColumns"
                                         @click="setLineChart(column.label)">
                   {{column.label}}
@@ -31,7 +32,7 @@
         </b-col>
 
         <b-col md="5" class="coefficientContainer" v-if="showCoefficients">
-          <b-row align-v="center" align-h="center" class="coefficientRow">
+          <b-row align-v="center" align-h="center" class="coefficientRow" style="margin-bottom: 10px">
             <b-col sm="10">
               <h6>Enter the parameters of fuzzy membership function for <b>{{ attributes[attributeIndex][0] }}</b>:</h6>
             </b-col>
@@ -42,7 +43,7 @@
               <label>Coefficient a:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientA" min="0"></b-form-input>
+              <b-form-input type="number" v-model="coefficientA"></b-form-input>
             </b-col>
           </b-row>
 
@@ -51,7 +52,7 @@
               <label>Coefficient b:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientB" min="0"></b-form-input>
+              <b-form-input type="number" v-model="coefficientB"></b-form-input>
             </b-col>
           </b-row>
 
@@ -60,7 +61,7 @@
               <label>Coefficient c:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientC" min="0"></b-form-input>
+              <b-form-input type="number" v-model="coefficientC"></b-form-input>
             </b-col>
           </b-row>
 
@@ -69,7 +70,7 @@
               <label>Coefficient d:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientD" min="0"></b-form-input>
+              <b-form-input type="number" v-model="coefficientD"></b-form-input>
             </b-col>
           </b-row>
 
@@ -84,7 +85,7 @@
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col>
-              <b-button variant="secondary" v-if="showColorButton" id="colorButton"
+              <b-button variant="outline-primary" v-if="showColorButton" id="colorButton"
                         @click="showColorPicker = !showColorPicker">Change color
               </b-button>
               <chrome v-if="showColorPicker" style="margin: 5px auto" v-model="color"></chrome>
@@ -93,30 +94,30 @@
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col>
-              <b-button variant="secondary" @click="start" id="drawButton" :disabled="maxXValue === '' || coefficientA === '' ||
+              <b-button variant="outline-primary" @click="start" id="drawButton" :disabled="maxXValue === '' || coefficientA === '' ||
                coefficientB === '' || coefficientC === '' || labelFunction === ''">Add function
               </b-button>
+            </b-col>
+          </b-row>
+          <b-row align-v="center" align-h="center" class="coefficientRow">
+            <b-col>
               <h6>Coefficients (a, b, c) and function name have to be filled.</h6>
             </b-col>
           </b-row>
         </b-col>
 
-        <b-col md="6" offset-md="1">
+        <b-col md="6" offset-md="1" class="fuzzification-chart">
           <b-row>
             <b-col>
-              <b-row>
-                <b-col>
-                  <fuzzification-line-chart id="lineChart" :key="reupdateChart" :data="data"
-                                            :options="options"></fuzzification-line-chart>
-                </b-col>
-              </b-row>
+              <fuzzification-line-chart id="lineChart" :key="reupdateChart" :data="data"
+                                        :options="options"></fuzzification-line-chart>
+            </b-col>
+          </b-row>
 
-              <b-row v-if="showSlider" align-v="center" align-h="center">
-                <b-col md="11">
-                  <vue-slider :tooltip-placement="'bottom'" v-bind="slider" v-model="slider.value" :key="reupdateSlider"
-                              @change="updateXAxis(slider.value)"></vue-slider>
-                </b-col>
-              </b-row>
+          <b-row v-if="showSlider" align-v="center" align-h="center">
+            <b-col md="11">
+              <vue-slider :tooltip-placement="'bottom'" v-bind="slider" v-model="slider.value" :key="reupdateSlider"
+                          @change="updateXAxis(slider.value)"></vue-slider>
             </b-col>
           </b-row>
         </b-col>
@@ -126,7 +127,7 @@
     <b-container class="fuzzificationButtons" v-if="!firstTimeAccess">
       <b-row align-v="center" align-h="center">
         <b-col md="4" v-if="showChangeCoefficients" class="fuzzificationButton">
-          <b-dropdown variant="secondary" text="Change coefficients of function" dropdown>
+          <b-dropdown variant="outline-primary" text="Change coefficients of function" dropdown>
             <b-dropdown-item-button v-for="myFunction in membershipFunction[0].functions"
                                     @click="changeCoefficients(myFunction.label)">
               {{myFunction.label}}
@@ -135,13 +136,12 @@
         </b-col>
 
         <b-col md="4">
-          <b-button variant="secondary" @click="changeAttribute" class="fuzzificationButton">Change attribute</b-button>
+          <b-button variant="outline-primary" @click="changeAttribute" class="fuzzificationButton">Change attribute
+          </b-button>
         </b-col>
-        <!-- <b-col>
-           <b-button @click="mapPointsOnFunction">Namapuj body na funkciu</b-button>
-         </b-col>-->
+
         <b-col md="4" v-if="showChangeCoefficients" class="fuzzificationButton">
-          <b-button variant="secondary" @click="showSlider = !showSlider">Change x axis</b-button>
+          <b-button variant="outline-primary" @click="showSlider = !showSlider">Change x axis</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -163,14 +163,6 @@
           datasets: []
         },
         options: {
-          /*events: ['click'],
-          /*onClick: function (evt, item) {
-            console.log(evt);
-            alert('zvoleny: ' + item[0]._datasetIndex);
-            this.updateChart();
-            this.clickedLineChartNo = item[0]._datasetIndex;
-            //return item[0]._datasetIndex;
-          },*/
           lineTension: 0,
           responsive: true,
           maintainAspectRatio: false,
@@ -311,6 +303,9 @@
         this.labelFunction = '';
       },
       checkSimilarFunctions() {
+        if (document.getElementById('drawButton').innerText === 'Change function') {
+          return false;
+        }
         for (let i = 0; i < this.membershipFunction[0].functions.length; i++) {
           if (this.membershipFunction[0].functions[i].label === this.labelFunction) {
             return true;
@@ -515,16 +510,6 @@
         }
         return mu;
       },
-      /* onClickAtLine(item, event) {
-         event.preventDefault();
-         alert('klikli sme');
-        // function (evt, item) {
-         console.log(event);
-           console.log(item);
-           return Math.random();
-          // alert(item[0]._model.backgroundColor);
-       //  },*!/
-       },*/
     },
     mounted() {
       this.$store.dispatch('loadHeader', 'Fuzzification');
@@ -533,7 +518,7 @@
       if (!this.firstTimeAccess) {
         this.data.datasets = membershipFunction[0].functions;
         this.setLineChart(membershipFunction[0].title);
-        if  (membershipFunction[0].functions.length > 0) {
+        if (membershipFunction[0].functions.length > 0) {
           this.showChangeCoefficients = true;
         }
       }
@@ -559,9 +544,16 @@
   }
 
   .coefficientContainer {
+    padding: 10px;
+  }
+
+  .coefficientContainer, .fuzzification-chart {
     border: 2px solid #0f193c;
     border-radius: 5px;
-    padding: 10px;
+  }
+
+  .fuzzification-chart {
+    padding: 35px 20px 35px 20px;
   }
 
   .coefficientRow {
@@ -585,7 +577,12 @@
   }
 
   .fuzzificationButton {
+    margin-top: 5px;
     margin-bottom: 5px;
+  }
+
+  label {
+    margin: 0;
   }
 
   h6 {

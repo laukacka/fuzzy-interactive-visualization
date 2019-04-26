@@ -5,7 +5,7 @@
       </div>
 
       <div class="arrow-right" v-if="showForwardArrow">
-        <router-link to="/methods"><i class="fas fa-angle-double-right fa-3x forwardArrow" title="Methods"></i>
+        <router-link to="/methods"><i class="fas fa-angle-double-right fa-3x forwardArrow" title="Methods for data visualization"></i>
         </router-link>
       </div>
 

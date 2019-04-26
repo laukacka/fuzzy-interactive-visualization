@@ -50,7 +50,7 @@
   import {Chrome} from 'vue-color';
 
   export default {
-    name: "StatisticsScatter",
+    name: "OriginalDataScatter",
     components: {
       Scatter,
       Chrome
@@ -348,6 +348,7 @@
       }
     },
     mounted() {
+      this.$store.dispatch('loadHeader', 'Original data - Scatter');
       let clusters = this.$store.getters.getClusters;
       if (clusters.length === 0) {
         this.changeParameters();

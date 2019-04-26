@@ -1,15 +1,14 @@
 <template>
   <div>
     <b-row align-v="center" align-h="center">
-      <b-col md="4">
+      <b-col md="4" class="table-checkbox">
         <b-form-group label="Choose the attributes:">
-          <b-form-checkbox
+          <b-form-checkbox style="text-align: left"
             v-for="column in this.$store.getters.getColumns"
             v-model="selected"
             :key="column.label"
             :value="column.label"
-            name="flavour-3a"
-
+            stacked
           >
             {{ column.label }}
           </b-form-checkbox>
@@ -17,7 +16,7 @@
         {{selected}}
       </b-col>
 
-      <b-col offset-md="1" md="7">
+      <b-col offset-md="1" md="7" class="table-fuzzy">
         <vue-good-table :key="updateTableKey"
           :columns="columns"
           :rows="this.$store.getters.getRows"
@@ -43,10 +42,9 @@
     name: "FuzzyClusteringTable",
     data() {
       return {
-        columns: this.$store.getters.getColumns,
+        columns: [],
         selected: [],
         updateTableKey: false,
-
       }
     },
     watch: {
@@ -59,7 +57,7 @@
         let localColumns = [];
         for (let i = 0; i < this.$store.getters.getColumns.length; i++) {
           for (let j = 0; j < this.selected.length; j++) {
-            if (this.$store.getters.getColumns[i].field === this.selected[j]) {
+            if (this.$store.getters.getColumns[i].label === this.selected[j]) {
               localColumns.push(this.$store.getters.getColumns[i]);
             }
           }
@@ -69,11 +67,19 @@
       }
     },
     mounted() {
+      this.$store.dispatch('loadHeader', 'Fuzzy clustering - Table');
       this.columns = this.$store.getters.getColumns;
+      for (let i = 0; i < this.columns.length; i++) {
+        this.selected.push(this.columns[i].label);
+      }
     }
   }
 </script>
 
 <style scoped>
-
+.table-checkbox, .table-fuzzy {
+  border: 2px solid #0f193c;
+  border-radius: 5px;
+  padding: 10px;
+}
 </style>

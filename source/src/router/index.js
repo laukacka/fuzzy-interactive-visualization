@@ -8,7 +8,7 @@ import DataInputPage from "@/pages/DataInputPage"
 import MethodsPage from "@/pages/MethodsPage"
 import FuzzificationPage from "@/pages/FuzzificationPage"
 import FuzzyClusteringPage from "@/pages/FuzzyClusteringPage"
-import StatisticsPage from "@/pages/StatisticsPage"
+import OriginalDataPage from "@/pages/OriginalDataPage"
 
 Vue.use(Router);
 
@@ -55,9 +55,9 @@ export default new Router({
       component: FuzzyClusteringPage
     },
     {
-      path: '/statistics',
-      name: 'StatisticsPage',
-      component: StatisticsPage
+      path: '/originalData',
+      name: 'OriginalDataPage',
+      component: OriginalDataPage
     }
   ]
 });

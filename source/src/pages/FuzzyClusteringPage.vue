@@ -2,11 +2,11 @@
   <div>
     <div class="arrow-left" v-if="(showRadviz || showCoordinates || showTable)" @click="showButtons">
       <router-link to="/fuzzyClustering"><i class="fas fa-angle-double-left fa-3x backArrow"
-                                            title="Choose a way to view original data"></i></router-link>
+                                            title="Choose a method for data visualization"></i></router-link>
     </div>
 
     <div class="arrow-left" v-if="!showRadviz && !showCoordinates && !showTable">
-      <router-link to="/methods"><i class="fas fa-angle-double-left fa-3x backArrow" title="Methods"></i>
+      <router-link to="/methods"><i class="fas fa-angle-double-left fa-3x backArrow" title="Methods for data visualization"></i>
       </router-link>
     </div>
 
@@ -67,6 +67,7 @@
         this.showRadviz = false;
         this.showCoordinates = false;
         this.showTable = false;
+        this.$store.dispatch('loadHeader', 'Fuzzy clustering');
       },
     },
     mounted() {
