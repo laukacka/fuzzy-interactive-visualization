@@ -1,40 +1,37 @@
 <template>
-  <div>
-    <b-row align-v="center" align-h="center">
-      <b-col md="4" class="table-checkbox">
-        <b-form-group label="Choose the attributes:">
-          <b-form-checkbox style="text-align: left"
-            v-for="column in this.$store.getters.getColumns"
-            v-model="selected"
-            :key="column.label"
-            :value="column.label"
-            stacked
-          >
-            {{ column.label }}
-          </b-form-checkbox>
-        </b-form-group>
-        {{selected}}
-      </b-col>
+  <b-row align-v="center" align-h="center">
+    <b-col md="4" class="table-checkbox">
+      <b-form-group label="Choose the attributes:">
+        <b-form-checkbox
+                         v-for="column in this.$store.getters.getColumns"
+                         v-model="selected"
+                         :key="column.label"
+                         :value="column.label"
+        >
+          {{ column.label }}
+        </b-form-checkbox>
+      </b-form-group>
+      {{selected}}
+    </b-col>
 
-      <b-col offset-md="1" md="7" class="table-fuzzy">
-        <vue-good-table :key="updateTableKey"
-          :columns="columns"
-          :rows="this.$store.getters.getRows"
-          styleClass="vgt-responsive"
-          :lineNumbers="true"
-          :search-options="{ enabled: true, placeholder: 'Find..' }"
-          :pagination-options="{ enabled: true,  position: 'bottom' }"
-          :selectOptions="{
+    <b-col md="7" class="table-fuzzy">
+      <vue-good-table :key="updateTableKey"
+                      :columns="columns"
+                      :rows="this.$store.getters.getRows"
+                      styleClass="vgt-responsive"
+                      :lineNumbers="true"
+                      :search-options="{ enabled: true, placeholder: 'Find..' }"
+                      :pagination-options="{ enabled: true,  position: 'bottom' }"
+                      :selectOptions="{
             enabled: true,
             selectOnCheckboxOnly: false,
             selectionInfoClass: 'alert alert-info m-b-0 no-rounded-corner',
             selectionText: '',
             clearSelectionText: 'Clear selected..',
 			  }">
-        </vue-good-table>
-      </b-col>
-    </b-row>
-  </div>
+      </vue-good-table>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
@@ -77,9 +74,26 @@
 </script>
 
 <style scoped>
-.table-checkbox, .table-fuzzy {
-  border: 2px solid #0f193c;
-  border-radius: 5px;
-  padding: 10px;
-}
+  .table-checkbox {
+    border: 2px solid #0f193c;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .table-checkbox {
+    margin: 5px;
+  }
+
+  .table-fuzzy {
+    padding-right: 10px;
+    padding-left: 10px;
+    margin: 5px 5px 5px 30px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .table-fuzzy {
+      margin-left: 5px;
+    }
+  }
+
 </style>

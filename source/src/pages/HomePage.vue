@@ -3,7 +3,7 @@
     <b-container id="home-container">
       <b-row align-v="center" align-h="center">
         <b-col>
-          <h3 class="welcomeText">Welcome! </h3>
+          <h3 class="welcomeText">Welcome!</h3>
         </b-col>
       </b-row>
 
@@ -59,6 +59,13 @@
   }
 
   #home-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 32%;
     margin: auto;
   }
 

@@ -8,7 +8,7 @@
 
     <b-container class="fuzzificationContainer">
       <b-row align-v="center" align-h="center" class="coefficientRow">
-        <b-col v-if="firstTimeAccess">
+        <b-col v-if="firstTimeAccess" class="fuzzificationQuestion">
           <b-row>
             <b-col>
               <h5>Choose a column for visualization of fuzzy membership function:</h5>
@@ -34,12 +34,13 @@
         <b-col md="5" class="coefficientContainer" v-if="showCoefficients">
           <b-row align-v="center" align-h="center" class="coefficientRow" style="margin-bottom: 10px">
             <b-col sm="10">
-              <h6>Enter the parameters of fuzzy membership function for <b>{{ attributes[attributeIndex][0] }}</b>:</h6>
+              <h6>Enter the parameters of fuzzy membership function for: <b style="color: red">{{
+                attributes[attributeIndex][0] }}</b></h6>
             </b-col>
           </b-row>
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
-            <b-col sm="3">
+            <b-col sm="4">
               <label>Coefficient a:</label>
             </b-col>
             <b-col sm="8">
@@ -48,7 +49,7 @@
           </b-row>
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
-            <b-col sm="3">
+            <b-col sm="4">
               <label>Coefficient b:</label>
             </b-col>
             <b-col sm="8">
@@ -57,7 +58,7 @@
           </b-row>
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
-            <b-col sm="3">
+            <b-col sm="4">
               <label>Coefficient c:</label>
             </b-col>
             <b-col sm="8">
@@ -66,7 +67,7 @@
           </b-row>
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
-            <b-col sm="3">
+            <b-col sm="4">
               <label>Coefficient d:</label>
             </b-col>
             <b-col sm="8">
@@ -75,7 +76,7 @@
           </b-row>
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
-            <b-col sm="3">
+            <b-col sm="4">
               <label>Name of function: </label>
             </b-col>
             <b-col sm="8">
@@ -101,7 +102,7 @@
           </b-row>
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col>
-              <h6>Coefficients (a, b, c) and function name have to be filled.</h6>
+              <h6>Coefficients a, b, c and function name have to be filled.</h6>
             </b-col>
           </b-row>
         </b-col>
@@ -127,7 +128,7 @@
     <b-container class="fuzzificationButtons" v-if="!firstTimeAccess">
       <b-row align-v="center" align-h="center">
         <b-col md="4" v-if="showChangeCoefficients" class="fuzzificationButton">
-          <b-dropdown variant="outline-primary" text="Change coefficients of function" dropdown>
+          <b-dropdown variant="outline-primary" text="Change function" dropdown>
             <b-dropdown-item-button v-for="myFunction in membershipFunction[0].functions"
                                     @click="changeCoefficients(myFunction.label)">
               {{myFunction.label}}
@@ -135,8 +136,8 @@
           </b-dropdown>
         </b-col>
 
-        <b-col md="4">
-          <b-button variant="outline-primary" @click="changeAttribute" class="fuzzificationButton">Change attribute
+        <b-col md="4" class="fuzzificationButton">
+          <b-button variant="outline-primary" @click="changeAttribute">Change attribute
           </b-button>
         </b-col>
 
@@ -539,21 +540,30 @@
 
 <style scoped>
   .fuzzificationContainer {
-    margin-top: 80px;
-    margin-bottom: 10px;
+   margin-top: 50px;
   }
 
   .coefficientContainer {
-    padding: 10px;
+
   }
 
-  .coefficientContainer, .fuzzification-chart {
+  .coefficientContainer {
     border: 2px solid #0f193c;
     border-radius: 5px;
+    padding: 15px;
+    margin: 5px;
+  }
+
+  .fuzzificationQuestion {
+    border: 2px solid #0f193c;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
   }
 
   .fuzzification-chart {
     padding: 35px 20px 35px 20px;
+    margin: 5px;
   }
 
   .coefficientRow {
@@ -572,8 +582,8 @@
   }
 
   .fuzzificationButtons {
-    margin-top: 35px;
-    margin-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 15px;
   }
 
   .fuzzificationButton {
@@ -587,5 +597,16 @@
 
   h6 {
     margin: 5px 0 0 0;
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 768px) {
+    .fuzzificationContainer {
+      margin-top: 15px;
+    }
+
+    .fuzzificationButtons {
+      margin-top: 10px;
+    }
   }
 </style>

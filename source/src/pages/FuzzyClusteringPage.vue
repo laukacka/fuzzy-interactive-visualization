@@ -6,11 +6,12 @@
     </div>
 
     <div class="arrow-left" v-if="!showRadviz && !showCoordinates && !showTable">
-      <router-link to="/methods"><i class="fas fa-angle-double-left fa-3x backArrow" title="Methods for data visualization"></i>
+      <router-link to="/methods"><i class="fas fa-angle-double-left fa-3x backArrow"
+                                    title="Methods for data visualization"></i>
       </router-link>
     </div>
 
-    <b-container v-if="!showRadviz && !showCoordinates && !showTable">
+    <b-container v-if="!showRadviz && !showCoordinates && !showTable" class="fuzzyClusteringContainer">
       <b-row align-v="center" align-h="center">
         <b-col>
           <h3> Choose a method for data visualization: </h3>
@@ -31,15 +32,15 @@
       </b-row>
     </b-container>
 
-    <b-container v-if="showRadviz">
+    <b-container v-if="showRadviz" class="fuzzyClusteringContainer2">
       <fuzzy-clustering-radviz></fuzzy-clustering-radviz>
     </b-container>
 
-    <b-container v-if="showTable">
+    <b-container v-if="showTable" class="fuzzyClusteringContainer2">
       <fuzzy-clustering-table></fuzzy-clustering-table>
     </b-container>
 
-    <b-container v-if="showCoordinates">
+    <b-container v-if="showCoordinates" class="fuzzyClusteringContainer2">
       <fuzzy-clustering-parallel-coordinates></fuzzy-clustering-parallel-coordinates>
     </b-container>
   </div>
@@ -100,5 +101,27 @@
 
   h3:hover {
     color: #06aa19;
+  }
+
+  .fuzzyClusteringContainer, .fuzzyClusteringContainer2 {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 32%;
+    margin: auto;
+  }
+
+  @media screen and (max-width: 768px) {
+    .fuzzyClusteringContainer2 {
+      position: unset;
+      top: unset;
+      bottom: unset;
+      left: unset;
+      right: unset;
+      margin-top: 30px;
+    }
   }
 </style>

@@ -63,5 +63,6 @@
     border: 2px solid #0f193c;
     border-radius: 5px;
     padding: 10px;
+    margin: 5px;
   }
 </style>

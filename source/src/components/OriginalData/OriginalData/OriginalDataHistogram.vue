@@ -1,13 +1,8 @@
 <template>
-  <div>
     <b-container>
-      <b-row v-if="!showHistogram" class="histogram-text">
-        <b-col>
+      <b-row v-if="!showHistogram" align-v="center" align-h="center" class="dropdown-histogram-wrapper">
+        <b-col md="6" class="dropdown-histogram" cols="9" lg="5">
           <h5>Choose an attribute for histogram:</h5>
-        </b-col>
-      </b-row>
-      <b-row v-if="!showHistogram">
-        <b-col>
           <b-dropdown variant="outline-info" text="Attributes" dropdown>
             <b-dropdown-item-button v-for="column in this.$store.getters.getColumns"
                                     @click="setHistogram(column.id)">
@@ -17,13 +12,12 @@
         </b-col>
       </b-row>
 
-      <b-row v-if="showHistogram">
-        <b-col>
+      <b-row v-if="showHistogram" align-v="center" align-h="center" class="histogram-wrapper">
+        <b-col md="9">
           <bar-chart :key="reupdateHistogram" :data="data" :options="options"></bar-chart>
         </b-col>
       </b-row>
     </b-container>
-  </div>
 </template>
 
 <script>
@@ -94,7 +88,26 @@
 </script>
 
 <style scoped>
-.histogram-text {
-  margin-bottom: 20px;
-}
+  .dropdown-histogram {
+    border: 2px solid #0f193c;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .histogram-wrapper{
+      margin-top: 50px;
+    }
+  }
+
+  .dropdown-histogram-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 32%;
+    margin: auto;
+  }
 </style>

@@ -1,17 +1,18 @@
 <template>
   <div>
-      <div class="arrow-left">
-        <router-link to="/"><i class="fas fa-angle-double-left fa-3x backArrow" title="Home"></i></router-link>
-      </div>
+    <div class="arrow-left">
+      <router-link to="/"><i class="fas fa-angle-double-left fa-3x backArrow" title="Home"></i></router-link>
+    </div>
 
-      <div class="arrow-right" v-if="showForwardArrow">
-        <router-link to="/methods"><i class="fas fa-angle-double-right fa-3x forwardArrow" title="Methods for data visualization"></i>
-        </router-link>
-      </div>
+    <div class="arrow-right" v-if="showForwardArrow">
+      <router-link to="/methods"><i class="fas fa-angle-double-right fa-3x forwardArrow"
+                                    title="Methods for data visualization"></i>
+      </router-link>
+    </div>
 
-    <b-container fluid class="input-container">
+    <b-container class="input-container">
       <b-row v-if="fromChild === ''" align-v="center" align-h="center">
-        <b-col md="8">
+        <b-col md="8" sm="8">
           <i class="fas fa-arrow-down fa-3x arrow " aria-hidden="true"></i>
         </b-col>
       </b-row>
@@ -21,12 +22,12 @@
         </b-col>
       </b-row>
       <b-row align-v="center" align-h="center">
-        <b-col md="8">
+        <b-col md="8" sm="8">
           <h3>Loading data</h3>
         </b-col>
       </b-row>
       <b-row align-v="center" align-h="center">
-        <b-col md="8">
+        <b-col md="8" sm="8">
           <b-button class="buttons" v-for="button in buttons" variant='outline-dark'
                     v-on:click='currentLoadComponent = button.component'>
             {{button.name}}
@@ -34,7 +35,7 @@
         </b-col>
       </b-row>
       <b-row align-v="center" align-h="center">
-        <b-col md="6">
+        <b-col md="8" sm="8">
           <component v-bind:is='currentLoadComponent' v-on:childToParent="onChildAction" id="component"></component>
         </b-col>
       </b-row>
@@ -101,8 +102,14 @@
   }
 
   .input-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     width: 100%;
-    margin-top: 90px;
+    height: 40%;
+    margin: auto;
   }
 
   .arrow-right {

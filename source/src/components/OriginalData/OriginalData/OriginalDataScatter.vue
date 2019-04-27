@@ -1,48 +1,54 @@
 <template>
-  <div>
+  <b-container>
     <b-row align-h="center" align-v="center">
-      <b-col md="4">
-        <b-button class="setParametersButtons" variant="outline-info" @click="changeNamesOfAxis">Change axis names
-        </b-button>
-      </b-col>
-      <b-col md="4">
-        <b-button class="setParametersButtons" variant="outline-info" @click="changeColorOfClusters">Change clusters color
-        </b-button>
-      </b-col>
-      <b-col md="4">
-        <b-button class="setParametersButtons" variant="outline-info" @click="changeParameters">Change parameters
-        </b-button>
+      <b-col md="9" class="allSetParametersButtons">
+        <b-row align-h="center" align-v="center">
+          <b-col md="4">
+            <b-button class="setParametersButtons" variant="outline-info" @click="changeNamesOfAxis">Change axis names
+            </b-button>
+          </b-col>
+          <b-col md="4">
+            <b-button class="setParametersButtons" variant="outline-info" @click="changeColorOfClusters">Change clusters
+              color
+            </b-button>
+          </b-col>
+          <b-col md="4">
+            <b-button class="setParametersButtons" variant="outline-info" @click="changeParameters">Change parameters
+            </b-button>
+          </b-col>
+        </b-row>
+        <b-row align-v="center" align-h="center" class="changeColor" v-if="clickOnChangeColor">
+          <b-col md="5">
+            <b-row align-v="center" align-h="center">
+              <label style="text-align: center; margin: 0">
+                <b-form-select v-model="nameClusterColorChange" class="formSelect" style="text-align: center; margin: 0">
+                  <template slot="first">
+                    <option disabled>-- Choose cluster --</option>
+                  </template>
+                  <option v-for="cluster in typesOfClusters">
+                    {{ cluster }}
+                  </option>
+                </b-form-select>
+              </label>
+            </b-row>
+            <b-row align-v="center" align-h="center" v-if="nameClusterColorChange !== '-- Choose cluster --'">
+              <b-button variant="outline-info" @click="updateColorClusters" style="margin-top: 10px">Change color</b-button>
+            </b-row>
+          </b-col>
+          <b-col md="5" v-if="nameClusterColorChange !== '-- Choose cluster --'">
+            <h6>Choose color:</h6>
+            <chrome style="margin: auto" v-model="color"></chrome>
+          </b-col>
+        </b-row>
       </b-col>
     </b-row>
-    <b-row align-v="center" align-h="center" class="changeColor" v-if="clickOnChangeColor">
-      <b-col md="5" offset-md="1">
-        <b-row align-v="center" align-h="center">
-          <label>
-            <b-form-select v-model="nameClusterColorChange" class="formSelect">
-              <template slot="first">
-                <option disabled>-- Choose cluster --</option>
-              </template>
-              <option v-for="cluster in typesOfClusters">
-                {{ cluster }}
-              </option>
-            </b-form-select>
-          </label>
-        </b-row>
-        <b-row align-v="center" align-h="center" v-if="nameClusterColorChange !== '-- Choose cluster --'">
-          <b-button variant="outline-info" @click="updateColorClusters">Change color</b-button>
-        </b-row>
-      </b-col>
-      <b-col md="5" v-if="nameClusterColorChange !== '-- Choose cluster --'">
-        <h6>Choose color:</h6>
-        <chrome style="margin: auto" v-model="color"></chrome>
-      </b-col>
-    </b-row>
-    <b-row align-v="center" align-h="center" style="margin-top: 20px; ">
-      <b-col>
+
+    <b-row align-v="center" align-h="center">
+      <b-col md="8" style="padding: 0;">
         <scatter :key="reupdateGraph" :chart-data="data" :options="options" class="scatter"></scatter>
       </b-col>
     </b-row>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -62,6 +68,7 @@
 
         },
         options: {
+          maintainAspectRatio: false,
           scales: {
             xAxes: [],
             yAxes: [],
@@ -369,22 +376,38 @@
 </script>
 
 <style scoped>
+  .allSetParametersButtons {
+    border: 2px solid #0f193c;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+  }
+
   .setParametersButtons {
-    margin-bottom: 15px;
+    margin: 5px;
   }
 
   .changeColor {
-    margin: 15px 5px 15px 5px;
     padding: 10px;
   }
 
   .formSelect {
     max-width: 200px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 
   .scatter {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding: 10px;
+    margin: 10px 5px 10px 5px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .changeColor {
+      margin-top: 0;
+    }
+  }
+
+  h6 {
+    margin-top: 5px;
   }
 </style>

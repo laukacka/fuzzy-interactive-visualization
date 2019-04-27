@@ -1,30 +1,31 @@
 <template>
-  <div>
-    <vue-good-table
-      :columns="this.$store.getters.getColumns"
-      :rows="this.$store.getters.getRows"
-      styleClass="vgt-responsive"
-      :lineNumbers="true"
-      :search-options="{ enabled: true, placeholder: 'Find..' }"
-      :pagination-options="{ enabled: true,  position: 'bottom' }"
-      :selectOptions="{
+  <b-row align-v="center" align-h="center">
+    <b-col md="10">
+      <vue-good-table
+        :columns="this.$store.getters.getColumns"
+        :rows="this.$store.getters.getRows"
+        styleClass="vgt-responsive"
+        :lineNumbers="true"
+        :search-options="{ enabled: true, placeholder: 'Find..' }"
+        :pagination-options="{ enabled: true,  position: 'bottom' }"
+        :selectOptions="{
             enabled: true,
             selectOnCheckboxOnly: false,
             selectionInfoClass: 'alert alert-info m-b-0 no-rounded-corner',
             selectionText: '',
             clearSelectionText: 'Clear selected..',
 			  }">
-    </vue-good-table>
-    <b-button class="setParametersButton" variant="outline-info" @click="setParameters">Change column name</b-button>
-  </div>
+      </vue-good-table>
+      <b-button class="setParametersButton" variant="outline-info" @click="setParameters">Change column name</b-button>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
   export default {
     name: "OriginalDataTable",
     data() {
-      return {
-      }
+      return {}
     },
     methods: {
       setParameters() {
@@ -77,6 +78,4 @@
   .setParametersButton {
     margin-top: 15px;
   }
-
-
 </style>

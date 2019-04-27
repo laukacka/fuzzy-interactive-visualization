@@ -4,7 +4,7 @@
       <router-link to="/dataInput"><i class="fas fa-angle-double-left fa-3x backArrow" title="Loading data"></i>
       </router-link>
     </div>
-    <b-container>
+    <b-container class="method-container">
       <b-row>
         <b-col>
           <h3>What do you want to do with the loaded data?</h3>
@@ -55,6 +55,17 @@
 </script>
 
 <style scoped>
+  .method-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 40%;
+    margin: auto;
+  }
+
   .buttons {
     height: 120px;
     width: 100%;

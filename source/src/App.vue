@@ -1,25 +1,19 @@
 <template>
   <div id="app">
-    <div class="header">
-      <link rel="stylesheet"
-            href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
-            integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-            crossorigin="anonymous">
-      <link rel="stylesheet" href="awesome-bootstrap-checkbox.css"/>
-      <router-link to="/">
-        <img src="./assets/logo.png" alt="logo" title="Home">
-      </router-link>
-      <h4 class="header-text">{{ this.$store.getters.getHeader }}</h4>
-    </div>
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+          crossorigin="anonymous">
+    <router-link to="/">
+      <img src="./assets/logo.png" alt="logo" title="Home">
+    </router-link>
+    <h4>{{ this.$store.getters.getHeader }}</h4>
 
-    <div class="my-body">
-      <span>
-        <router-view/>
-      </span>
-    </div>
+      <router-view/>
 
     <p class="footer">
-      Created by: <a href="mailto:jana.laukova5@gmail.com">Laukova</a>, Supervisor: <a href="https://chovancova.sk">Chovancova</a>
+      &copy; {{new Date().getFullYear()}} <a href="mailto:jana.laukova5@gmail.com">Laukova</a>, Supervisor: <a
+      href="https://chovancova.sk">Chovancova</a>
     </p>
   </div>
 </template>
@@ -29,31 +23,17 @@
     name: 'App',
     data() {
       return {}
+    },
+    mounted() {
     }
   }
 </script>
 
 <style>
-  body, html {
-    height: 100%;
-    display: grid;
-  }
-
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    text-align: center;
-    color: rgb(0, 0, 0);
-    margin-top: 10px;
-  }
-
-  .header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-  }
-
-  .header-text {
-    margin-top: 20px;
+  body {
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 35px;
   }
 
   img {
@@ -61,14 +41,9 @@
     width: 200px;
   }
 
-  .my-body {
-    height: 100%;
-    display: grid;
-  }
-
-  span {
-    margin-top: auto;
-    margin-bottom: auto;
+  h4:hover {
+    text-shadow: 2px 1px rgba(0, 0, 0, 0.41);
+    font-size: 25px;
   }
 
   h4 {
@@ -76,17 +51,18 @@
     cursor: context-menu;
   }
 
-  h4:hover {
-    text-shadow: 2px 1px rgba(0, 0, 0, 0.41);
-    font-size: 25px;
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    text-align: center;
+    color: rgb(0, 0, 0);
   }
 
   .footer {
-    position: fixed;
-    left: 0;
+    position: absolute;
     bottom: 0;
     width: 100%;
+    height: 10px;
     text-align: center;
-    font-size: 12px;
+    font-size: 13px;
   }
 </style>

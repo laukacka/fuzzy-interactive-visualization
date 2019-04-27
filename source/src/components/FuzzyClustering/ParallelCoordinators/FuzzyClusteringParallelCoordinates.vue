@@ -1,25 +1,23 @@
 <template>
-  <div>
-    <b-row>
-      <b-col md="4" class="coordinates-checkbox">
-        <b-form-group label="Choose the attributes:">
-          <b-form-checkbox style="text-align: left"
-                           v-for="column in this.$store.getters.getColumns"
-                           v-model="selected"
-                           :key="column.label"
-                           :value="column.label"
-                           stacked
-          >
-            {{ column.label }}
-          </b-form-checkbox>
-        </b-form-group>
-        {{selected}}
-      </b-col>
-      <b-col offset-md="1" md="7" id="coordinates" class="coordinates-graph">
+  <b-row>
+    <b-col md="4" class="coordinates-checkbox">
+      <b-form-group label="Choose the attributes:">
+        <b-form-checkbox style="text-align: left"
+                         v-for="column in this.$store.getters.getColumns"
+                         v-model="selected"
+                         :key="column.label"
+                         :value="column.label"
+                         stacked
+        >
+          {{ column.label }}
+        </b-form-checkbox>
+      </b-form-group>
+      {{selected}}
+    </b-col>
+    <b-col offset-md="1" md="7" id="coordinates" class="coordinates-graph">
 
-      </b-col>
-    </b-row>
-  </div>
+    </b-col>
+  </b-row>
 </template>
 <script>
   export default {
@@ -29,13 +27,13 @@
         columns: [],
         selected: [],
 
-        margin : '',
+        margin: '',
         width: '',
         height: '',
         x: '',
         y: '',
         dragging: '',
-        line : '',
+        line: '',
         axis: '',
         svg: '',
       }
@@ -126,16 +124,16 @@
                     })
                     .style("fill", "black")
                 })*/
-          this.margin = {top: 30, right: 10, bottom: 10, left: 10};
-          this.width = 960 - this.margin.left - this.margin.right;
-          this.height = 500 - this.margin.top - this.margin.bottom;
+        this.margin = {top: 30, right: 10, bottom: 10, left: 10};
+        this.width = 960 - this.margin.left - this.margin.right;
+        this.height = 500 - this.margin.top - this.margin.bottom;
 
-          this.x = {};  //this.d3.scale.ordinal().rangePoints([0, this.width], 1);
-          this.y = {};
-          this.dragging = {};
+        this.x = {};  //this.d3.scale.ordinal().rangePoints([0, this.width], 1);
+        this.y = {};
+        this.dragging = {};
 
-          this.line = this.d3.svg.line();
-          this.axis = this.d3.svg.axis().orient("left");
+        this.line = this.d3.svg.line();
+        this.axis = this.d3.svg.axis().orient("left");
 
         this.svg = this.d3.select("coordinates").append("svg")
           .attr("width", this.width + this.margin.left + this.margin.right)
@@ -297,5 +295,6 @@
     border: 2px solid #0f193c;
     border-radius: 5px;
     padding: 10px;
+    margin: 5px;
   }
 </style>
