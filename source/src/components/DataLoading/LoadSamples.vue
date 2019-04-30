@@ -16,6 +16,9 @@
 <script>
   import axios from 'axios';
   import {loadFile} from "@/mixins/loadFile";
+  //import cars_csv from '@/assets/datasets/cars.csv';
+  //import glass_csv from '@/assets/datasets/glass.csv';
+  //import iris_json from '@/assets/datasets/iris.json';
 
   export default {
     name: "LoadSamples",
@@ -25,15 +28,25 @@
         file: '',
         buttons: [
           {
+            name: 'CARS',
+            variant: 'dark',
+            file: 'https://vega.github.io/vega-datasets/data/cars.json'
+          },
+          {
+            name: 'GLASS',
+            variant: 'dark',
+            file: 'https://pkgstore.datahub.io/machine-learning/glass/glass_json/data/fc1a0e26e9f16393680fcf32eefa8230/glass_json.json'
+          },
+          {
             name: 'IRIS',
             variant: 'dark',
             file: 'https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json'
           },
-          /*{
-            name: 'GLASS',
+          {
+            name: 'WINE',
             variant: 'dark',
             file: 'https://pkgstore.datahub.io/machine-learning/glass/glass_json/data/fc1a0e26e9f16393680fcf32eefa8230/glass_json.json'
-          }*/
+          },
         ]
       }
     },
@@ -50,17 +63,33 @@
         switch (suffix) {
           case '.json':
             this.emitToParent();
-            axios.get(this.file).then(response => {
+            let store = this.$store;
+            let me = this;
+            d3.json(this.file, function (rows) {
+              store.dispatch("loadRows", rows);
+              me.loadHeaders();
+            });
+            /*axios.get(this.file).then(response => {
               let rows = response.data;
               this.$store.dispatch("loadRows", rows);
               this.loadHeaders();
-            }).catch(error => console.log(error.response));
+            }).catch(error => console.log(error.response));*/
             break;
           case '.arff':
 
             break;
           case '.csv':
+            this.emitToParent();
+            let store3 = this.$store;
+            let me3 = this;
+            d3.csv('@/assets/datasets/cars.csv', function (data) {
+              let rows = data;
+              store3.dispatch("loadRows", rows);
+              me3.loadHeaders();
+              console.log(data);
+              console.log('data v d3.csv');
 
+            });
             break;
           default:
         }
@@ -79,6 +108,8 @@
           };
           columns.push(column);
         }
+        console.log(columns);
+
         this.$store.dispatch("loadColumns", columns);
         //localStorage.columns = columns;
       },

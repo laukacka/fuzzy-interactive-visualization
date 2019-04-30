@@ -15,12 +15,16 @@
       {{selected}}
     </b-col>
     <b-col offset-md="1" md="7" id="radviz" class="radviz-graph">
-
+      <button type="button"   v-on:click="klik()" class="btn btn-info m-r-5 m-b-5">Prekresli</button>
+      <div class="container"></div>
+      <div id="tooltip"></div>
     </b-col>
   </b-row>
 </template>
 
 <script>
+  var dimensions = ["sepalLength", "sepalWidth", "petalLength", "petalWidth"];
+
   export default {
     name: "FuzzyClusteringRadviz",
     data() {
@@ -46,6 +50,40 @@
         }
         this.columns = localColumns;
         this.updateTableKey = !this.updateTableKey;
+      },
+      klik () {
+        let radvizScript = document.createElement("script");
+        radvizScript.setAttribute(
+          "src",
+          "https://rawgit.com/biovisualize/radviz/master/radviz-min.js"
+        );
+        document.head.appendChild(radvizScript);
+        var radviz = radvizComponent().config({
+          el: document.querySelector(".container"),
+          colorAccessor: function(d) {
+            return d["species"];
+          },
+          dimensions: dimensions,
+          size: 500,
+          margin: 100,
+          useRepulsion: true,
+          drawLinks: true,
+          tooltipFormatter: function(d) {
+            return (
+              "<h1>" +
+              d.species +
+              "</h1>" +
+              dimensions
+                .map(function(dB) {
+                  return dB + ": " + d[dB];
+                })
+                .join("<br />")
+            );
+          }
+        });
+
+        radviz.render(this.$store.getters.getRows);
+
       }
     },
     mounted() {
@@ -54,6 +92,13 @@
       for (let i = 0; i < this.columns.length; i++) {
         this.selected.push(this.columns[i].label);
       }
+      let radvizScript = document.createElement("script");
+      radvizScript.setAttribute(
+        "src",
+        "https://rawgit.com/biovisualize/radviz/master/radviz-min.js"
+      );
+      document.head.appendChild(radvizScript);
+
     }
   }
 </script>
@@ -65,4 +110,48 @@
     padding: 10px;
     margin: 5px;
   }
+
+   .visualizatioon > .panel {
+     stroke: rgba(246, 232, 132, 0.79);
+     fill: white;
+   }
+
+  .bg {
+    fill: white;
+  }
+
+  .link {
+    stroke: silver;
+    stroke-opacity: 0.05;
+  }
+
+  .dot {
+    fill-opacity: 0.5;
+  }
+
+  .label-node {
+    fill: silver;
+  }
+
+  .active {
+    stroke: black;
+  }
+
+  .label {
+    fill: gray;
+    pointer-events: none;
+  }
+
+  #tooltip {
+    font-size: 12px;
+    margin-top: 22px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 4px;
+  }
+
+  #tooltip h1 {
+    font-size: 14px;
+    margin: 0;
+  }
+
 </style>

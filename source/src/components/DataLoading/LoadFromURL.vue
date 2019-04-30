@@ -42,6 +42,7 @@
             break;
           case '.json': //https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json
             axios.get(this.file).then(response => {
+
               let rows = response.data;
               this.$store.dispatch("loadRows", rows);
               //localStorage.rows = rows;

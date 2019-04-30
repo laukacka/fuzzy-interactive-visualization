@@ -11,7 +11,6 @@
           {{ column.label }}
         </b-form-checkbox>
       </b-form-group>
-      {{selected}}
     </b-col>
 
     <b-col md="7" class="table-fuzzy">

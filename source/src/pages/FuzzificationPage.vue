@@ -8,7 +8,7 @@
 
     <b-container class="fuzzificationContainer">
       <b-row align-v="center" align-h="center" class="coefficientRow">
-        <b-col v-if="firstTimeAccess" class="fuzzificationQuestion">
+        <b-col md="6" cols="10" v-if="firstTimeAccess" class="fuzzificationQuestion">
           <b-row>
             <b-col>
               <h5>Choose a column for visualization of fuzzy membership function:</h5>
@@ -34,8 +34,7 @@
         <b-col md="5" class="coefficientContainer" v-if="showCoefficients">
           <b-row align-v="center" align-h="center" class="coefficientRow" style="margin-bottom: 10px">
             <b-col sm="10">
-              <h6>Enter the parameters of fuzzy membership function for: <b style="color: red">{{
-                attributes[attributeIndex][0] }}</b></h6>
+              <h6>Enter the parameters of fuzzy membership function for: <b style="color: red">{{ attribute }}</b></h6>
             </b-col>
           </b-row>
 
@@ -107,7 +106,7 @@
           </b-row>
         </b-col>
 
-        <b-col md="6" offset-md="1" class="fuzzification-chart">
+        <b-col md="6" offset-md="1" class="fuzzification-chart" v-if="showGraph">
           <b-row>
             <b-col>
               <fuzzification-line-chart id="lineChart" :key="reupdateChart" :data="data"
@@ -244,6 +243,7 @@
         firstTimeAccess: false,
         showChangeCoefficients: false,
         showColorButton: false,
+        showGraph: false,
         indexLabel: 0,
         colorPallet: []
       }
@@ -270,6 +270,7 @@
           });
           return;
         }
+        this.showGraph = true;
         this.showColorButton = false;
         this.showColorPicker = false;
         if (document.getElementById('drawButton').innerText === 'Change function') {
@@ -316,6 +317,7 @@
       },
       changeAttribute() {
         this.clearInputs();
+        this.showGraph = false;
         this.showSlider = false;
         this.showColorButton = false;
         this.$store.dispatch('loadMembershipFunction', []);
@@ -540,25 +542,21 @@
 
 <style scoped>
   .fuzzificationContainer {
-   margin-top: 50px;
-  }
-
-  .coefficientContainer {
-
+    margin-top: 50px;
   }
 
   .coefficientContainer {
     border: 2px solid #0f193c;
     border-radius: 5px;
     padding: 15px;
-    margin: 5px;
+    margin: 5px 10px 5px 10px;
   }
 
   .fuzzificationQuestion {
     border: 2px solid #0f193c;
     border-radius: 5px;
     padding: 10px;
-    margin: 5px;
+    margin: 14% 5px 5px 5px;
   }
 
   .fuzzification-chart {
@@ -607,6 +605,19 @@
 
     .fuzzificationButtons {
       margin-top: 10px;
+    }
+
+    .fuzzificationQuestion {
+      margin: 25% 5px 5px 5px;
+
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+
+    .fuzzificationQuestion {
+      margin: 40% 5px 5px 5px;
+
     }
   }
 </style>

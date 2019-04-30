@@ -1,19 +1,19 @@
 <template>
   <b-container>
     <b-row align-h="center" align-v="center">
-      <b-col md="9" class="allSetParametersButtons">
+      <b-col md="9" cols="8" class="allSetParametersButtons">
         <b-row align-h="center" align-v="center">
           <b-col md="4">
-            <b-button class="setParametersButtons" variant="outline-info" @click="changeNamesOfAxis">Change axis names
+            <b-button class="setParametersButtons" variant="info" @click="changeNamesOfAxis">Change axis names
             </b-button>
           </b-col>
           <b-col md="4">
-            <b-button class="setParametersButtons" variant="outline-info" @click="changeColorOfClusters">Change clusters
+            <b-button class="setParametersButtons" variant="info" @click="changeColorOfClusters">Change clusters
               color
             </b-button>
           </b-col>
           <b-col md="4">
-            <b-button class="setParametersButtons" variant="outline-info" @click="changeParameters">Change parameters
+            <b-button class="setParametersButtons" variant="info" @click="changeParameters">Change parameters
             </b-button>
           </b-col>
         </b-row>
@@ -32,7 +32,7 @@
               </label>
             </b-row>
             <b-row align-v="center" align-h="center" v-if="nameClusterColorChange !== '-- Choose cluster --'">
-              <b-button variant="outline-info" @click="updateColorClusters" style="margin-top: 10px">Change color</b-button>
+              <b-button variant="info" @click="updateColorClusters" style="margin-top: 10px">Change color</b-button>
             </b-row>
           </b-col>
           <b-col md="5" v-if="nameClusterColorChange !== '-- Choose cluster --'">
@@ -65,9 +65,10 @@
       return {
         data: {
           datasets: [],
-
         },
         options: {
+          //aspectRatio: 1,
+          responsive: true,
           maintainAspectRatio: false,
           scales: {
             xAxes: [],
@@ -275,8 +276,8 @@
         this.isChangingColorCluster = false;
         this.$swal({
           html:
-            'Os x: <input type="text" name="inputNewXAxes"><br><br>' +
-            'Os y: <input type="text" name="inputNewYAxes">',
+            'Axis x: <input type="text" name="inputNewXAxes"><br><br>' +
+            'Axis y: <input type="text" name="inputNewYAxes">',
           focusConfirm: true,
           showCancelButton: true,
           showCloseButton: true,
@@ -315,6 +316,7 @@
             max: columns.length,
             step: 1
           },
+          padding: 30,
           confirmButtonText: 'Next',
           allowOutsideClick: false,
           confirmButtonColor: '#1bd60b',
@@ -355,7 +357,7 @@
       }
     },
     mounted() {
-      this.$store.dispatch('loadHeader', 'Original data - Scatter');
+      this.$store.dispatch('loadHeader', 'Original data - Scatter plot');
       let clusters = this.$store.getters.getClusters;
       if (clusters.length === 0) {
         this.changeParameters();
@@ -379,8 +381,8 @@
   .allSetParametersButtons {
     border: 2px solid #0f193c;
     border-radius: 5px;
-    padding: 10px;
-    margin: 5px;
+    padding: 5px;
+    margin: 0 5px 5px 5px;
   }
 
   .setParametersButtons {
@@ -397,8 +399,8 @@
   }
 
   .scatter {
-    padding: 10px;
-    margin: 10px 5px 10px 5px;
+    padding: 0 15px 0 10px;
+    margin: 10px 15px 5px 10px;
   }
 
   @media screen and (max-width: 768px) {

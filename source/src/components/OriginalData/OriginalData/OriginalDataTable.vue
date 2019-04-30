@@ -16,7 +16,7 @@
             clearSelectionText: 'Clear selected..',
 			  }">
       </vue-good-table>
-      <b-button class="setParametersButton" variant="outline-info" @click="setParameters">Change column name</b-button>
+      <b-button class="setParametersButton" variant="info" @click="setParameters">Change column name</b-button>
     </b-col>
   </b-row>
 </template>

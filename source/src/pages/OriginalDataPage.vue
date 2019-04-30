@@ -31,7 +31,7 @@
             </b-col>
 
             <b-col md="3" cols="4" style="padding: 0 10px 0 10px">
-              <b-button class="tableGraphButtons" variant="info" @click="showGraph = true">Graph</b-button>
+              <b-button class="tableGraphButtons" variant="info" @click="showGraph = true">Scatter plot</b-button>
             </b-col>
           </b-row>
         </b-col>
@@ -123,7 +123,7 @@
   }
 
   @media screen and (min-width: 768px) {
-    .originalDataContainer3 {
+    .originalDataContainer3, .originalDataContainer2 {
       position: unset;
       top: unset;
       bottom: unset;

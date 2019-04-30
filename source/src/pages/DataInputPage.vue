@@ -28,14 +28,14 @@
       </b-row>
       <b-row align-v="center" align-h="center">
         <b-col md="8" sm="8">
-          <b-button class="buttons" v-for="button in buttons" variant='outline-dark'
+          <b-button class="buttons" v-for="button in buttons" variant='secondary'
                     v-on:click='currentLoadComponent = button.component'>
             {{button.name}}
           </b-button>
         </b-col>
       </b-row>
       <b-row align-v="center" align-h="center">
-        <b-col md="8" sm="8">
+        <b-col md="8" cols="10">
           <component v-bind:is='currentLoadComponent' v-on:childToParent="onChildAction" id="component"></component>
         </b-col>
       </b-row>
@@ -108,7 +108,7 @@
     left: 0;
     right: 0;
     width: 100%;
-    height: 40%;
+    height: 50%;
     margin: auto;
   }
 
