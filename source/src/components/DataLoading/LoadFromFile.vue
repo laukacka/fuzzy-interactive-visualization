@@ -40,7 +40,9 @@
       }
     },
     methods: {
-      loadData(suffix) {
+      loadData(suffix, fileData, callback) {
+        callback = callback || function(){};
+        var parserFunction = function(x){return x;};
         ////TODO switch podla suffix na nacitanie roznych typov suborov - dokoncit
         switch(suffix) {
           case '.arff':
@@ -49,7 +51,7 @@
 
             break;
           case '.json':
-
+            parserFunction = JSON.parse;
             break;
           case '.txt':
 
@@ -60,9 +62,19 @@
           default:
 
         }
+        this.loadTextFromFile(fileData, parserFunction, callback);
       },
       emitToParent() {
         this.$emit('childToParent', this.file);
+      },
+      loadTextFromFile(fileData, parserFunction, callback){
+        var reader = new FileReader();
+        reader.onload = function(evt){
+          var parsedFile = parserFunction(evt.target.result);
+          // TODO - do something with parsed file
+          callback(parsedFile);
+        };
+        reader.readAsText(fileData);
       }
     }
   }

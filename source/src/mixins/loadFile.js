@@ -11,7 +11,10 @@ export const loadFile = {
           suffix = data.name.slice(indexOfDot, data.name.length);
         }
         if (suffix === '.arff' || suffix === '.csv' || suffix === '.json' || suffix === '.txt' || suffix === '.xls') {
-          this.loadData(suffix);
+          this.loadData(suffix, data, function(loadedAndParsedContent){
+            console.log(loadedAndParsedContent);
+            // TODO - loading of file is asynchronous, so add here code that should be executed after file is parsed
+          });
           this.$store.dispatch("loadMembershipFunction", []);
           this.$store.dispatch("loadClusters", []);
           this.$swal({
