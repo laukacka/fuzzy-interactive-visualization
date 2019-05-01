@@ -127,6 +127,10 @@
     margin: 2px 5px 2px 5px;
   }
 
+  .buttons:hover {
+    border: 3px solid red;
+  }
+
   .loadButtons {
     margin: 10px 0 10px 0;
   }

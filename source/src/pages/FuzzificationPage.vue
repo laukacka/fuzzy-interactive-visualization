@@ -21,7 +21,7 @@
           </b-row>
           <b-row>
             <b-col>
-              <b-dropdown variant="outline-primary" text="Columns" dropdown>
+              <b-dropdown variant="primary" text="Attributes" dropdown>
                 <b-dropdown-item-button v-for="column in this.$store.getters.getColumns"
                                         @click="setLineChart(column.label)">
                   {{column.label}}
@@ -85,7 +85,7 @@
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col>
-              <b-button variant="outline-primary" v-if="showColorButton" id="colorButton"
+              <b-button variant="primary" v-if="showColorButton" id="colorButton"
                         @click="showColorPicker = !showColorPicker">Change color
               </b-button>
               <chrome v-if="showColorPicker" style="margin: 5px auto" v-model="color"></chrome>
@@ -94,8 +94,8 @@
 
           <b-row align-v="center" align-h="center" class="coefficientRow">
             <b-col>
-              <b-button variant="outline-primary" @click="start" id="drawButton" :disabled="maxXValue === '' || coefficientA === '' ||
-               coefficientB === '' || coefficientC === '' || labelFunction === ''">Add function
+              <b-button variant="primary" @click="start" id="drawButton" :disabled="maxXValue === '' || coefficientA === '' ||
+               coefficientB === '' || coefficientC === '' || labelFunction === ''">Confirm
               </b-button>
             </b-col>
           </b-row>
@@ -115,7 +115,7 @@
           </b-row>
 
           <b-row v-if="showSlider" align-v="center" align-h="center">
-            <b-col md="11">
+            <b-col md="11" cols="10">
               <vue-slider :tooltip-placement="'bottom'" v-bind="slider" v-model="slider.value" :key="reupdateSlider"
                           @change="updateXAxis(slider.value)"></vue-slider>
             </b-col>
@@ -126,8 +126,8 @@
 
     <b-container class="fuzzificationButtons" v-if="!firstTimeAccess">
       <b-row align-v="center" align-h="center">
-        <b-col md="4" v-if="showChangeCoefficients" class="fuzzificationButton">
-          <b-dropdown variant="outline-primary" text="Change function" dropdown>
+        <b-col md="3" v-if="showChangeCoefficients">
+          <b-dropdown variant="primary" text="Change function" dropdown class="fuzzificationButton">
             <b-dropdown-item-button v-for="myFunction in membershipFunction[0].functions"
                                     @click="changeCoefficients(myFunction.label)">
               {{myFunction.label}}
@@ -135,13 +135,18 @@
           </b-dropdown>
         </b-col>
 
-        <b-col md="4" class="fuzzificationButton">
-          <b-button variant="outline-primary" @click="changeAttribute">Change attribute
+        <b-col md="3">
+          <b-button variant="primary" class="fuzzificationButton" @click="changeAttribute">Change attribute
           </b-button>
         </b-col>
 
-        <b-col md="4" v-if="showChangeCoefficients" class="fuzzificationButton">
-          <b-button variant="outline-primary" @click="showSlider = !showSlider">Change x axis</b-button>
+        <b-col md="3" v-if="showChangeCoefficients">
+          <b-button variant="primary" class="fuzzificationButton" @click="showSlider = !showSlider">Change x axis
+          </b-button>
+        </b-col>
+
+        <b-col md="3" v-if="showChangeCoefficients">
+          <b-button variant="primary" class="fuzzificationButton" @click=addFunction()>Add function</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -215,6 +220,7 @@
         labelFunction: '',
         reupdateChart: false,
         reupdateSlider: false,
+        isAddingFunction: false,
         color: {
           hex: '#cc2417',
           hsl: {h: 150, s: 0.5, l: 0.2, a: 1},
@@ -273,7 +279,8 @@
         this.showGraph = true;
         this.showColorButton = false;
         this.showColorPicker = false;
-        if (document.getElementById('drawButton').innerText === 'Change function') {
+        this.showCoefficients = false;
+        if (!this.isAddingFunction) {
           let myFunction = this.membershipFunction[0].functions[this.indexLabel];
           myFunction.coefficientA = this.coefficientA;
           myFunction.coefficientB = this.coefficientB;
@@ -281,7 +288,6 @@
           myFunction.coefficientD = this.coefficientD;
           myFunction.label = this.labelFunction;
           myFunction.borderColor = this.color.hex;
-          document.getElementById('drawButton').innerText = 'Add function';
         } else {
           this.createFunction();
         }
@@ -291,6 +297,7 @@
         this.updateChart();
         this.clearInputs();
         this.showChangeCoefficients = true;
+        this.isAddingFunction = false;
       },
       updateXAxis(value) {
         this.options.scales.xAxes[0].ticks.min = value[0];
@@ -305,7 +312,7 @@
         this.labelFunction = '';
       },
       checkSimilarFunctions() {
-        if (document.getElementById('drawButton').innerText === 'Change function') {
+        if (!this.isAddingFunction) {
           return false;
         }
         for (let i = 0; i < this.membershipFunction[0].functions.length; i++) {
@@ -323,6 +330,7 @@
         this.$store.dispatch('loadMembershipFunction', []);
         this.membershipFunction = [];
         this.firstTimeAccess = true;
+        this.isAddingFunction = true;
         this.showCoefficients = false;
         this.data.datasets = [];
         this.options.scales.xAxes[0].ticks.min = 0;
@@ -336,7 +344,13 @@
         this.updateChart();
 
       },
+      addFunction() {
+        this.clearInputs();
+        this.showCoefficients = !this.showCoefficients;
+        this.isAddingFunction = !this.isAddingFunction;
+      },
       changeCoefficients(functionLabel) {
+        this.showCoefficients = true;
         let myFunction = '';
         let myIndex = -1;
         for (let i = 0; i < this.membershipFunction[0].functions.length; i++) {
@@ -352,13 +366,9 @@
         this.coefficientD = myFunction.coefficientD;
         this.labelFunction = myFunction.label;
         this.indexLabel = myIndex;
-        document.getElementById('drawButton').innerText = 'Change function';
         this.showColorButton = true;
         this.data.datasets = this.membershipFunction[0].functions;
         this.$store.dispatch("loadMembershipFunction", this.membershipFunction);
-      },
-      mapPointsOnFunction() {
-        this.showScatterPlot = !this.showScatterPlot;
       },
       setLineChart(columnLabel) {
         this.attribute = columnLabel;
@@ -523,7 +533,15 @@
         this.setLineChart(membershipFunction[0].title);
         if (membershipFunction[0].functions.length > 0) {
           this.showChangeCoefficients = true;
+          this.showCoefficients = false;
+          this.showGraph = true;
+        } else {
+          this.showCoefficients = true;
+          this.showGraph = false;
+          this.isAddingFunction = true;
         }
+      } else {
+        this.isAddingFunction = true;
       }
       if (this.$store.getters.getRows.length === 0) {
         this.$swal({
@@ -609,7 +627,10 @@
 
     .fuzzificationQuestion {
       margin: 25% 5px 5px 5px;
+    }
 
+    .fuzzification-chart {
+      padding-bottom: 15px;
     }
   }
 

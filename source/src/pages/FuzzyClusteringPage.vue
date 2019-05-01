@@ -94,6 +94,10 @@
     height: 120px;
   }
 
+  .radvizCoordinatesButtons:hover {
+    border: 3px solid black;
+  }
+
   h3 {
     cursor: context-menu;
     margin-bottom: 50px;

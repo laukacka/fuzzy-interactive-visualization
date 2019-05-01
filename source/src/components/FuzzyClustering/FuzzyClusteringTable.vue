@@ -1,15 +1,15 @@
 <template>
   <b-row align-v="center" align-h="center">
-    <b-col md="4" class="table-checkbox">
-      <b-form-group label="Choose the attributes:">
-        <b-form-checkbox
-                         v-for="column in this.$store.getters.getColumns"
-                         v-model="selected"
-                         :key="column.label"
-                         :value="column.label"
-        >
-          {{ column.label }}
-        </b-form-checkbox>
+    <b-col md="4" cols="10" class="table-checkbox">
+      <b-form-group label="Choose the attributes:" >
+          <b-form-checkbox style="text-align: left"
+            v-for="column in this.$store.getters.getColumns"
+            v-model="selected"
+            :key="column.label"
+            :value="column.label"
+          >
+            {{ column.label }}
+          </b-form-checkbox>
       </b-form-group>
     </b-col>
 
@@ -22,7 +22,7 @@
                       :search-options="{ enabled: true, placeholder: 'Find..' }"
                       :pagination-options="{ enabled: true,  position: 'bottom' }"
                       :selectOptions="{
-            enabled: true,
+            enabled: false,
             selectOnCheckboxOnly: false,
             selectionInfoClass: 'alert alert-info m-b-0 no-rounded-corner',
             selectionText: '',

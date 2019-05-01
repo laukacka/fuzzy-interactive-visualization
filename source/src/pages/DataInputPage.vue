@@ -134,7 +134,11 @@
   }
 
   .buttons {
-    margin: 2px 5px 2px 5px;
+    margin: 5px;
+  }
+
+  .buttons:hover {
+    border: 1px solid red;
   }
 
   .arrow {

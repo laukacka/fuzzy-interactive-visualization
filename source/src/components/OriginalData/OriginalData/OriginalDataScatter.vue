@@ -8,12 +8,12 @@
             </b-button>
           </b-col>
           <b-col md="4">
-            <b-button class="setParametersButtons" variant="info" @click="changeColorOfClusters">Change clusters
-              color
+            <b-button class="setParametersButtons" variant="info" @click="changeParameters">Change parameters
             </b-button>
           </b-col>
           <b-col md="4">
-            <b-button class="setParametersButtons" variant="info" @click="changeParameters">Change parameters
+            <b-button class="setParametersButtons" variant="info" @click="changeColorOfClusters">Change clusters
+              color
             </b-button>
           </b-col>
         </b-row>
@@ -32,7 +32,7 @@
               </label>
             </b-row>
             <b-row align-v="center" align-h="center" v-if="nameClusterColorChange !== '-- Choose cluster --'">
-              <b-button variant="info" @click="updateColorClusters" style="margin-top: 10px">Change color</b-button>
+              <b-button class="changeColorButton" variant="info" @click="updateColorClusters" style="margin-top: 10px">Change color</b-button>
             </b-row>
           </b-col>
           <b-col md="5" v-if="nameClusterColorChange !== '-- Choose cluster --'">
@@ -386,6 +386,10 @@
   }
 
   .setParametersButtons {
+    margin: 5px;
+  }
+
+  .changeColorButton {
     margin: 5px;
   }
 

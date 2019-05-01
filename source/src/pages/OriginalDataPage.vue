@@ -138,6 +138,10 @@
     height: 120px;
   }
 
+  .tableGraphButtons:hover {
+    border: 3px solid red;
+  }
+
   h3 {
     cursor: context-menu;
     margin-bottom: 50px;

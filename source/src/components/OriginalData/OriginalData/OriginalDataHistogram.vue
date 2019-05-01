@@ -3,7 +3,7 @@
     <b-row v-if="!showHistogram" align-v="center" align-h="center" class="dropdown-histogram-wrapper">
       <b-col md="6" class="dropdown-histogram" cols="9" lg="5">
         <h5>Choose an attribute for histogram:</h5>
-        <b-dropdown variant="info" text="Attributes" dropdown>
+        <b-dropdown class="dropdown-histogram-button" variant="info" text="Attributes" dropdown>
           <b-dropdown-item-button v-for="column in this.$store.getters.getColumns"
                                   @click="setHistogram(column.id)">
             {{column.label}}
@@ -20,7 +20,7 @@
 
     <b-row v-if="showHistogram" align-v="center" align-h="center" class="changeButton">
       <b-col md="8">
-        <b-button variant="info" @click="showSlider = !showSlider">Change number of columns</b-button>
+        <b-button class="numberColumnsButton" variant="info" @click="showSlider = !showSlider">Change number of columns</b-button>
       </b-col>
     </b-row>
 
@@ -180,6 +180,10 @@
     border: 2px solid #0f193c;
     border-radius: 5px;
     padding: 10px;
+  }
+
+  .dropdown-histogram-button {
+    margin: 10px;
   }
 
   .histogram-wrapper {

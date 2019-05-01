@@ -72,6 +72,10 @@
     padding: 0;
   }
 
+  .buttons:hover {
+    border: 3px solid red;
+  }
+
   h3 {
     cursor: context-menu;
     margin-bottom: 50px;
