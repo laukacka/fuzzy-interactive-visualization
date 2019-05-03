@@ -10,7 +10,6 @@ import store from "./store/store"
 import BootstrapVue from 'bootstrap-vue'
 import VueNVD3 from 'vue-nvd3'
 import VueGoodTablePlugin from 'vue-good-table';
-import VueCarousel from '@chenfengyuan/vue-carousel';
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueSlider from 'vue-slider-component';
 
@@ -36,7 +35,6 @@ Vue.use(VueNVD3);
 Vue.use(VueGoodTablePlugin);
 Vue.use(VueAxios, axios);
 Vue.use(VueSweetalert2);
-Vue.component(VueCarousel.name, VueCarousel);
 Vue.component('vue-slider', VueSlider);
 
 /* eslint-disable no-new */

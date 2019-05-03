@@ -108,8 +108,7 @@
           };
           columns.push(column);
         }
-        console.log(columns);
-
+        //console.log(columns);
         this.$store.dispatch("loadColumns", columns);
         //localStorage.columns = columns;
       },

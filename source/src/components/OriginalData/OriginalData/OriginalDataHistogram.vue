@@ -4,7 +4,7 @@
       <b-col md="6" class="dropdown-histogram" cols="9" lg="5">
         <h5>Choose an attribute for histogram:</h5>
         <b-dropdown class="dropdown-histogram-button" variant="info" text="Attributes" dropdown>
-          <b-dropdown-item-button v-for="column in this.$store.getters.getColumns"
+          <b-dropdown-item-button v-for="column in columns"
                                   @click="setHistogram(column.id)">
             {{column.label}}
           </b-dropdown-item-button>
@@ -20,7 +20,7 @@
 
     <b-row v-if="showHistogram" align-v="center" align-h="center" class="changeButton">
       <b-col md="8">
-        <b-button class="numberColumnsButton" variant="info" @click="showSlider = !showSlider">Change number of columns</b-button>
+        <b-button class="numberColumnsButton" variant="info" @click="showSlider = !showSlider">Change number of intervals</b-button>
       </b-col>
     </b-row>
 
@@ -61,6 +61,7 @@
         min: '',
         max: '',
         showSlider: false,
+        columns: [],
         slider: {
           value: 10,
           min: 1,
@@ -71,7 +72,7 @@
           useKeyboard: true,
           tooltip: 'always',
           formatter: '¥{value}',
-          mergeFormatter: '¥{value1} ~ ¥{value2}'
+          mergeFormatter: '¥{value1} ~ ¥{value}'
         },
       }
     },
@@ -105,34 +106,31 @@
       updateNumberOfColumns(value) {
         this.range = value;
 
-        this.metoda();
+        this.method();
       },
-      metoda() {
+      method() {
         let osX = []; // range (od - do)
         let osY = []; // range hodnot s danymi poctami co sa napocitaju
         this.data.labels = [];
-        let value = (this.max - this.min) / this.range;
-
-        let value2 = this.min;
-
-        value = Math.round((value) * 100) / 100;
+        let lengthOfInterval = (this.max - this.min) / this.range;
+        lengthOfInterval = Math.round((lengthOfInterval) * 100) / 100;
+        let value = this.min;
+        
         for (let i = 0; i < this.range; i++) {
-          value2 += value;
-          value2 = Math.round((value2) * 100) / 100;
-          osX.push(value2);
+          let valueBottom = value;
+          value += lengthOfInterval;
+          value = Math.round((value) * 100) / 100;
+          osX.push(value);
           osY.push(0);
-
-          this.data.labels.push(value2);
+          this.data.labels.push(valueBottom + ' - ' + value);
         }
 
         //data - vsetky co mas
         // y os - je pocet kotry mas
         // potrebujes zistit, kkolko ich tam vlastne mas
-
         for (let i = 0; i < this.originalData.length; i++) {
           var bod = this.originalData[i];
           //prechadzam kazdy ob a snazim sa zistit do ktoreho chievika sa zapocita
-
           if (osX[0] > bod) {
             osY[0] = osY[0] + 1;
           } else if (osX[this.range] < bod) {
@@ -145,10 +143,7 @@
             }
           }
         }
-
-
         this.data.datasets[0].data = osY;
-
         this.reupdateHistogram = !this.reupdateHistogram;
       },
       setHistogram(columnID) {
@@ -161,7 +156,7 @@
         this.min = Math.min.apply(null, this.originalData);
         this.max = Math.max.apply(null, this.originalData);
 
-        this.metoda();
+        this.method();
 
         this.slider.max = this.dataEntries.length;
         this.reupdateHistogram = !this.reupdateHistogram;
@@ -170,6 +165,16 @@
     },
     mounted() {
       this.$store.dispatch('loadHeader', 'Original data - Histogram');
+      let columns = this.$store.getters.getColumns;
+      let file = this.$store.getters.getRows;
+      let row = file[0];
+      let objectRow = Object.entries(row);
+      this.columns = [];
+      for (let i = 0; i < objectRow.length; i++) {
+        if (typeof objectRow[i][1] === 'number') {
+          this.columns.push(columns[i]);
+        }
+      }
       this.reupdateHistogram = !this.reupdateHistogram;
     }
   }

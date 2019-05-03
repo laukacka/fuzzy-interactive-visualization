@@ -22,7 +22,7 @@
           <b-row>
             <b-col>
               <b-dropdown variant="primary" text="Attributes" dropdown>
-                <b-dropdown-item-button v-for="column in this.$store.getters.getColumns"
+                <b-dropdown-item-button v-for="column in columns"
                                         @click="setLineChart(column.label)">
                   {{column.label}}
                 </b-dropdown-item-button>
@@ -31,7 +31,7 @@
           </b-row>
         </b-col>
 
-        <b-col md="5" class="coefficientContainer" v-if="showCoefficients">
+        <b-col md="5" cols="10" class="coefficientContainer" v-if="showCoefficients">
           <b-row align-v="center" align-h="center" class="coefficientRow" style="margin-bottom: 10px">
             <b-col sm="10">
               <h6>Enter the parameters of fuzzy membership function for: <b style="color: red">{{ attribute }}</b></h6>
@@ -43,7 +43,7 @@
               <label>Coefficient a:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientA"></b-form-input>
+              <b-form-input type="number" step="any" v-model="coefficientA"></b-form-input>
             </b-col>
           </b-row>
 
@@ -52,7 +52,7 @@
               <label>Coefficient b:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientB"></b-form-input>
+              <b-form-input type="number" step="any" v-model="coefficientB"></b-form-input>
             </b-col>
           </b-row>
 
@@ -61,7 +61,7 @@
               <label>Coefficient c:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientC"></b-form-input>
+              <b-form-input type="number" step="any" v-model="coefficientC"></b-form-input>
             </b-col>
           </b-row>
 
@@ -70,7 +70,7 @@
               <label>Coefficient d:</label>
             </b-col>
             <b-col sm="8">
-              <b-form-input type="number" v-model="coefficientD"></b-form-input>
+              <b-form-input type="number" step="any" v-model="coefficientD"></b-form-input>
             </b-col>
           </b-row>
 
@@ -182,6 +182,7 @@
           },
           elements: {
             line: {
+              cubicInterpolationMode: 'default',
               tension: 0, // disables bezier curves
             },
             point: {
@@ -251,7 +252,8 @@
         showColorButton: false,
         showGraph: false,
         indexLabel: 0,
-        colorPallet: []
+        colorPallet: [],
+        columns: []
       }
     },
     methods: {
@@ -526,8 +528,31 @@
     },
     mounted() {
       this.$store.dispatch('loadHeader', 'Fuzzification');
+      if (this.$store.getters.getRows.length === 0) {
+        this.$swal({
+          type: 'warning',
+          allowOutsideClick: false,
+          title: 'Please, try again.'
+        }).then((result) => {
+          if (result.value) {
+            this.$router.push("dataInput");
+          }
+        })
+      }
       let membershipFunction = this.$store.getters.getMembershipFunction;
       this.firstTimeAccess = membershipFunction.length === 0;
+
+      let columns = this.$store.getters.getColumns;
+      let file = this.$store.getters.getRows;
+      let row = file[0];
+      let objectRow = Object.entries(row);
+      this.columns = [];
+      for (let i = 0; i < objectRow.length; i++) {
+        if (typeof objectRow[i][1] === 'number') {
+          this.columns.push(columns[i]);
+        }
+      }
+
       if (!this.firstTimeAccess) {
         this.data.datasets = membershipFunction[0].functions;
         this.setLineChart(membershipFunction[0].title);
@@ -542,17 +567,6 @@
         }
       } else {
         this.isAddingFunction = true;
-      }
-      if (this.$store.getters.getRows.length === 0) {
-        this.$swal({
-          type: 'warning',
-          allowOutsideClick: false,
-          title: 'Please, try again.'
-        }).then((result) => {
-          if (result.value) {
-            this.$router.push("dataInput");
-          }
-        })
       }
     }
   }

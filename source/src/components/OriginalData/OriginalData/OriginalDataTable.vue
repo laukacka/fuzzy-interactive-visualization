@@ -9,14 +9,14 @@
         :search-options="{ enabled: true, placeholder: 'Find..' }"
         :pagination-options="{ enabled: true,  position: 'bottom' }"
         :selectOptions="{
-            enabled: true,
+            enabled: false,
             selectOnCheckboxOnly: false,
             selectionInfoClass: 'alert alert-info m-b-0 no-rounded-corner',
             selectionText: '',
             clearSelectionText: 'Clear selected..',
 			  }">
       </vue-good-table>
-      <b-button class="setParametersButton" variant="info" @click="setParameters">Change column name</b-button>
+      <b-button class="setParametersButton" variant="info" @click="setParameters">Change attribute name</b-button>
     </b-col>
   </b-row>
 </template>
@@ -32,7 +32,7 @@
         let indexOfColumn;
         let columns = this.$store.getters.getColumns;
         this.$swal({
-          title: 'Choose index of a column:',
+          title: 'Select attribute index:',
           type: 'question',
           confirmButtonText: 'Confirm',
           cancelButtonColor: '#d33',

@@ -19,13 +19,13 @@
       </b-row>
       <b-row align-v="center" align-h="center">
         <b-col md="3" cols="4" style="padding: 0 5px 0 10px">
-          <b-button class="radvizCoordinatesButtons" variant="danger" @click="showRadviz = true">Radviz</b-button>
+          <b-button class="radvizCoordinatesButtons" variant="warning" @click="showTable = true">Table</b-button>
         </b-col>
         <b-col md="3" cols="4" style="padding: 0 5px 0 10px">
-          <b-button class="radvizCoordinatesButtons" variant="danger" @click="showTable = true">Table</b-button>
+          <b-button class="radvizCoordinatesButtons" variant="warning" @click="showRadviz = true">Radviz</b-button>
         </b-col>
         <b-col md="3" cols="4" style="padding: 0 10px 0 10px">
-          <b-button class="radvizCoordinatesButtons" variant="danger" @click="showCoordinates = true">Parallel
+          <b-button class="radvizCoordinatesButtons" variant="warning" @click="showCoordinates = true">Parallel
             Coordinates
           </b-button>
         </b-col>
@@ -95,7 +95,7 @@
   }
 
   .radvizCoordinatesButtons:hover {
-    border: 3px solid black;
+    border: 3px solid #cc111b;
   }
 
   h3 {
@@ -107,7 +107,7 @@
     color: #06aa19;
   }
 
-  .fuzzyClusteringContainer, .fuzzyClusteringContainer2 {
+  .fuzzyClusteringContainer {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -118,14 +118,13 @@
     margin: auto;
   }
 
+  .fuzzyClusteringContainer2 {
+    margin-top: 40px;
+  }
+
   @media screen and (max-width: 768px) {
     .fuzzyClusteringContainer2 {
-      position: unset;
-      top: unset;
-      bottom: unset;
-      left: unset;
-      right: unset;
-      margin-top: 30px;
+      margin-top: 20px;
     }
   }
 </style>

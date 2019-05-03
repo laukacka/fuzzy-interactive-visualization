@@ -18,7 +18,7 @@
         </b-col>
         <b-col md="3" cols="4" style="padding: 0 5px 0 10px">
           <router-link to="/fuzzyClustering">
-            <b-button class="buttons" variant="warning">Fuzzy clustering</b-button>
+            <b-button class="buttons" variant="secondary">Fuzzy clustering</b-button>
           </router-link>
         </b-col >
         <b-col md="3" cols="4" style="padding: 0 10px 0 10px">

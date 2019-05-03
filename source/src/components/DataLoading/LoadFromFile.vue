@@ -11,8 +11,8 @@
                  title=""
     ></b-form-file>
     <h6>Files with following types can be loaded: .arff, .csv, .json, .txt, and .xls.</h6>
-      <b-button v-if="file !== ''" class="loadButtons" variant="danger" @click="file = ''">Clear</b-button>
-      <b-button v-if="file !== ''" variant="success" @click="loadFile(file)" class="loadButtons">Next</b-button>
+    <b-button v-if="file !== ''" class="loadButtons" variant="danger" @click="file = ''">Clear</b-button>
+    <b-button v-if="file !== ''" variant="success" @click="loadFile(file)" class="loadButtons">Next</b-button>
   </div>
 </template>
 
@@ -40,9 +40,7 @@
       }
     },
     methods: {
-      loadData(suffix, fileData, callback) {
-        callback = callback || function(){};
-        var parserFunction = function(x){return x;};
+      loadData(suffix) {
         ////TODO switch podla suffix na nacitanie roznych typov suborov - dokoncit
         switch(suffix) {
           case '.arff':
@@ -51,7 +49,7 @@
 
             break;
           case '.json':
-            parserFunction = JSON.parse;
+
             break;
           case '.txt':
 
@@ -62,19 +60,9 @@
           default:
 
         }
-        this.loadTextFromFile(fileData, parserFunction, callback);
       },
       emitToParent() {
         this.$emit('childToParent', this.file);
-      },
-      loadTextFromFile(fileData, parserFunction, callback){
-        var reader = new FileReader();
-        reader.onload = function(evt){
-          var parsedFile = parserFunction(evt.target.result);
-          // TODO - do something with parsed file
-          callback(parsedFile);
-        };
-        reader.readAsText(fileData);
       }
     }
   }

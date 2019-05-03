@@ -12,10 +12,9 @@
           {{ column.label }}
         </b-form-checkbox>
       </b-form-group>
-      {{selected}}
     </b-col>
     <b-col offset-md="1" md="7" id="radviz" class="radviz-graph">
-      <button type="button"   v-on:click="klik()" class="btn btn-info m-r-5 m-b-5">Prekresli</button>
+      <button type="button" v-on:click="klik()" class="btn btn-info m-r-5 m-b-5">Prekresli</button>
       <div class="container"></div>
       <div id="tooltip"></div>
     </b-col>
@@ -52,14 +51,9 @@
         this.updateTableKey = !this.updateTableKey;
       },
       klik () {
-        let radvizScript = document.createElement("script");
-        radvizScript.setAttribute(
-          "src",
-          "https://rawgit.com/biovisualize/radviz/master/radviz-min.js"
-        );
-        document.head.appendChild(radvizScript);
+
         var radviz = radvizComponent().config({
-          el: document.querySelector(".container"),
+          el: document.querySelector("#radviz"),
           colorAccessor: function(d) {
             return d["species"];
           },
@@ -81,9 +75,7 @@
             );
           }
         });
-
         radviz.render(this.$store.getters.getRows);
-
       }
     },
     mounted() {
@@ -98,7 +90,6 @@
         "https://rawgit.com/biovisualize/radviz/master/radviz-min.js"
       );
       document.head.appendChild(radvizScript);
-
     }
   }
 </script>
