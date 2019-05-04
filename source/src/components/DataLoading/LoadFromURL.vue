@@ -14,6 +14,7 @@
 <script>
   import axios from 'axios';
   import {loadFile} from "@/mixins/loadFile";
+  var glTemp = [];
 
   export default {
     name: "LoadFromURL",
@@ -32,16 +33,29 @@
       }
     },
     methods: {
+      readCSV() {
+        return d3.csv(this.file, function (data) {
+         // console.log(data);
+          glTemp = data;
+          return Object.assign({}, glTemp);;
+        })
+      },
       loadData(suffix) {
         //TODO switch podla suffix na nacitanie roznych typov suborov - dokoncit
         switch (suffix) {
           case '.arff':
             break;
           case '.csv':
-            d3.csv(this.file, function (data) {
-              console.log(data);
+               var temp =  this.readCSV();
+              alert("gltem " + glTemp.length)
+                if(glTemp.length > 0){
+                  alert('gltemp' + glTemp.length )
+                  console.log(glTemp)
+                  this.$store.dispatch("loadRows", glTemp);
+                  this.loadHeaders();
+                  //tuto je problem
 
-            });
+                }
             break;
           case '.json': //https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json
             axios.get(this.file).then(response => {
