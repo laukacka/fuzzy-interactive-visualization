@@ -49,9 +49,9 @@
 </template>
 
 <script>
-  import OriginalDataTable from "@/components/OriginalData/OriginalData/OriginalDataTable";
-  import OriginalDataScatter from "@/components/OriginalData/OriginalData/OriginalDataScatter";
-  import OriginalDataHistogram from "@/components/OriginalData/OriginalData/OriginalDataHistogram";
+  import OriginalDataTable from "../components/OriginalData/OriginalDataTable";
+  import OriginalDataScatter from "../components/OriginalData/OriginalDataScatter";
+  import OriginalDataHistogram from "../components/OriginalData/OriginalDataHistogram";
 
   export default {
     name: "OriginalDataPage",

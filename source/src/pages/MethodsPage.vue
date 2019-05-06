@@ -62,8 +62,21 @@
     left: 0;
     right: 0;
     width: 100%;
-    height: 27%;
+    height: 30%;
     margin: auto;
+  }
+
+  @media screen and (max-width: 768px) {
+    .method-container {
+      position: unset;
+      top: unset;
+      bottom: unset;
+      left: unset;
+      right: unset;
+      width: unset;
+      height: unset;
+      margin-top: 100px;
+    }
   }
 
   .buttons {
@@ -78,7 +91,7 @@
 
   h3 {
     cursor: context-menu;
-    margin-bottom: 50px;
+    margin-bottom: 45px;
   }
 
   h3:hover {

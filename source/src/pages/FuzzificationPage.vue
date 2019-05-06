@@ -11,7 +11,7 @@
         <b-col md="6" cols="10" v-if="firstTimeAccess" class="fuzzificationQuestion">
           <b-row>
             <b-col>
-              <h5>Choose a column for visualization of fuzzy membership function:</h5>
+              <h5>Choose an attribute for visualization of fuzzy membership function:</h5>
             </b-col>
           </b-row>
           <b-row>
@@ -23,7 +23,7 @@
             <b-col>
               <b-dropdown variant="primary" text="Attributes" dropdown>
                 <b-dropdown-item-button v-for="column in columns"
-                                        @click="setLineChart(column.label)">
+                                        @click="setLineChart(column.label)" :key="column.label">
                   {{column.label}}
                 </b-dropdown-item-button>
               </b-dropdown>
@@ -129,7 +129,7 @@
         <b-col md="3" v-if="showChangeCoefficients">
           <b-dropdown variant="primary" text="Change function" dropdown class="fuzzificationButton">
             <b-dropdown-item-button v-for="myFunction in membershipFunction[0].functions"
-                                    @click="changeCoefficients(myFunction.label)">
+                                    @click="changeCoefficients(myFunction.label)" :key="myFunction.label">
               {{myFunction.label}}
             </b-dropdown-item-button>
           </b-dropdown>
@@ -154,7 +154,7 @@
 </template>
 
 <script>
-  import FuzzificationLineChart from "@/components/Fuzzification/FuzzificationLineChart";
+  import FuzzificationLineChart from "../components/Fuzzification/FuzzificationLineChart";
   import {Chrome} from 'vue-color';
 
   export default {
@@ -168,7 +168,7 @@
           datasets: []
         },
         options: {
-          lineTension: 0,
+          bezierCurve: false,
           responsive: true,
           maintainAspectRatio: false,
           hover: {
@@ -182,7 +182,7 @@
           },
           elements: {
             line: {
-              cubicInterpolationMode: 'default',
+              //cubicInterpolationMode: 'default',
               tension: 0, // disables bezier curves
             },
             point: {
@@ -460,7 +460,7 @@
           coefficientD: this.coefficientD,
           data: [],
           fill: false,
-          tension: 0
+          lineTension: 0
         };
         this.membershipFunction[0].functions.push(newFunction);
       },
@@ -592,7 +592,7 @@
   }
 
   .fuzzification-chart {
-    padding: 35px 20px 35px 20px;
+    padding: 20px 20px 20px 20px;
     margin: 5px;
   }
 
@@ -640,7 +640,7 @@
     }
 
     .fuzzificationQuestion {
-      margin: 25% 5px 5px 5px;
+      margin: 20% 5px 5px 5px;
     }
 
     .fuzzification-chart {
@@ -651,7 +651,7 @@
   @media screen and (max-width: 480px) {
 
     .fuzzificationQuestion {
-      margin: 40% 5px 5px 5px;
+      margin: 30% 5px 5px 5px;
 
     }
   }

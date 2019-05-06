@@ -1,30 +1,26 @@
 <template>
   <b-row align-h="center" align-v="center">
-    <b-col md="4" cols="10">
-      <b-row align-h="center" align-v="center">
-        <b-col md="11" cols="11" class="coordinates-checkbox">
-          <b-form-group label="Choose the attributes for visualization:" style="">
-            <b-form-checkbox style=""
-                             v-for="column in this.columns"
-                             v-model="selected"
-                             :key="column"
-                             :value="column"
-                             stacked>
-              {{ column }}
-            </b-form-checkbox>
-          </b-form-group>
-        </b-col>
-      </b-row>
-      <b-row align-h="center" align-v="center">
-        <b-col>
-          <h6></h6>
-         <!-- <b-button variant="warning" @click="changeColor">Change color</b-button>-->
-        </b-col>
-        <!--<b-col v-if="showColorPicker">
-          <chrome style="margin: auto" v-model="color"></chrome>
-        </b-col>-->
-      </b-row>
+    <b-col md="4" cols="10" class="coordinates-checkbox">
+      <b-form-group label="Select the attributes for Parallel coordinates:">
+        <b-form-checkbox style="text-align: left"
+                         v-for="column in this.columns"
+                         v-model="selected"
+                         :key="column"
+                         :value="column"
+                         stacked>
+          {{ column }}
+        </b-form-checkbox>
+      </b-form-group>
     </b-col>
+    <!--<b-row align-h="center" align-v="center">
+      <b-col>
+        <h6></h6>
+       &lt;!&ndash; <b-button variant="warning" @click="changeColor">Change color</b-button>&ndash;&gt;
+      </b-col>
+      &lt;!&ndash;<b-col v-if="showColorPicker">
+        <chrome style="margin: auto" v-model="color"></chrome>
+      </b-col>&ndash;&gt;
+    </b-row>-->
     <b-col offset-md="1" md="7" cols="11" id="coordinates" class="coordinates-graph">
 
     </b-col>
@@ -221,7 +217,6 @@
             }) ? null : "none";
           });
         }
-
       }
     },
     mounted() {
@@ -260,11 +255,11 @@
     font: 10px sans-serif;
   }*/
 
-  .brush .extent {
+ /* .brush .extent {
     fill-opacity: .3;
     stroke: #fff;
-    /* shape-rendering: crispEdges;*/
-  }
+    !* shape-rendering: crispEdges;*!
+  }*/
 
   .axis line,
   .axis path {

@@ -1,14 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HomePage from '@/pages/HomePage';
-import DemoTable from '@/components/DemoTable';
-import DemoCharts from '@/components/DemoCharts';
-import Example from "@/components/Example";
-import DataInputPage from "@/pages/DataInputPage"
-import MethodsPage from "@/pages/MethodsPage"
-import FuzzificationPage from "@/pages/FuzzificationPage"
-import FuzzyClusteringPage from "@/pages/FuzzyClusteringPage"
-import OriginalDataPage from "@/pages/OriginalDataPage"
+import HomePage from '../pages/HomePage';
+import DataInputPage from "../pages/DataInputPage"
+import MethodsPage from "../pages/MethodsPage"
+import FuzzificationPage from "../pages/FuzzificationPage"
+import FuzzyClusteringPage from "../pages/FuzzyClusteringPage"
+import OriginalDataPage from "../pages/OriginalDataPage"
 
 Vue.use(Router);
 
@@ -18,21 +15,6 @@ export default new Router({
       path: '/',
       name: 'HomePage',
       component: HomePage
-    },
-    {
-      path: '/demoTable',
-      name: 'DemoTable',
-      component: DemoTable
-    },
-    {
-      path: '/demoCharts',
-      name: 'DemoCharts',
-      component: DemoCharts
-    },
-    {
-      path: '/example',
-      name: 'Example',
-      component: Example
     },
     {
       path: '/dataInput',

@@ -49,7 +49,19 @@
 
             break;
           case '.json':
-
+            this.emitToParent();
+            let store = this.$store;
+            let me = this;
+            d3.json(this.file, function (rows) {
+              console.log(rows);
+              store.dispatch("loadRows", rows);
+              me.loadHeaders();
+            });
+            /*axios.get(this.file).then(response => {
+              let rows = response.data;
+              this.$store.dispatch("loadRows", rows);
+              this.loadHeaders();
+            }).catch(error => console.log(error.response));*/
             break;
           case '.txt':
 
@@ -63,7 +75,25 @@
       },
       emitToParent() {
         this.$emit('childToParent', this.file);
-      }
+      },
+      loadHeaders() {
+        let rows = this.$store.getters.getRows;
+        let columns = [];
+        let oneRowOfAllData = Object.entries(rows[0]);
+        for (let i = 0; i < oneRowOfAllData.length; i++) { //we create as many columns as we have items in oneRowOfAllData
+          let column = {
+            id: i,
+            label: oneRowOfAllData[i][0],
+            field: oneRowOfAllData[i][0],
+            tdClass: 'text-center text-nowrap',
+            thClass: 'text-center text-nowrap'
+          };
+          columns.push(column);
+        }
+        //console.log(columns);
+        this.$store.dispatch("loadColumns", columns);
+        //localStorage.columns = columns;
+      },
     }
   }
 </script>

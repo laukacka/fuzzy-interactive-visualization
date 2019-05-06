@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-button class="buttons" v-for="button in buttons" v-bind:variant='button.variant'
-              @click="file = button.file">
+              @click="file = button.file" :key="button.name">
       {{ button.name }}
     </b-button>
     <b-row>
@@ -16,9 +16,6 @@
 <script>
   import axios from 'axios';
   import {loadFile} from "@/mixins/loadFile";
-  //import cars_csv from '@/assets/datasets/cars.csv';
-  //import glass_csv from '@/assets/datasets/glass.csv';
-  //import iris_json from '@/assets/datasets/iris.json';
 
   export default {
     name: "LoadSamples",
@@ -30,12 +27,12 @@
           {
             name: 'CARS',
             variant: 'dark',
-            file: 'https://vega.github.io/vega-datasets/data/cars.json'
+            file: 'http://fuzzy.visualization.sk/datasets/cars.json'
           },
           {
             name: 'GLASS',
             variant: 'dark',
-            file: 'https://pkgstore.datahub.io/machine-learning/glass/glass_json/data/fc1a0e26e9f16393680fcf32eefa8230/glass_json.json'
+            file: 'http://fuzzy.visualization.sk/datasets/glass.json'
           },
           {
             name: 'IRIS',
@@ -45,7 +42,7 @@
           {
             name: 'WINE',
             variant: 'dark',
-            file: 'https://pkgstore.datahub.io/machine-learning/glass/glass_json/data/fc1a0e26e9f16393680fcf32eefa8230/glass_json.json'
+            file: 'http://fuzzy.visualization.sk/datasets/wine.json'
           },
         ]
       }
@@ -63,23 +60,23 @@
         switch (suffix) {
           case '.json':
             this.emitToParent();
-            let store = this.$store;
+            /*let store = this.$store;
             let me = this;
             d3.json(this.file, function (rows) {
               store.dispatch("loadRows", rows);
               me.loadHeaders();
-            });
-            /*axios.get(this.file).then(response => {
+            });*/
+            axios.get(this.file).then(response => {
               let rows = response.data;
               this.$store.dispatch("loadRows", rows);
               this.loadHeaders();
-            }).catch(error => console.log(error.response));*/
+            }).catch(error => console.log(error.response));
             break;
           case '.arff':
 
             break;
           case '.csv':
-            this.emitToParent();
+            /*this.emitToParent();
             let store3 = this.$store;
             let me3 = this;
             d3.csv('@/assets/datasets/cars.csv', function (data) {
@@ -88,8 +85,7 @@
               me3.loadHeaders();
               console.log(data);
               console.log('data v d3.csv');
-
-            });
+            });*/
             break;
           default:
         }

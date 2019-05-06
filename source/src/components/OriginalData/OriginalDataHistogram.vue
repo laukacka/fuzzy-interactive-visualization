@@ -5,7 +5,7 @@
         <h5>Choose an attribute for histogram:</h5>
         <b-dropdown class="dropdown-histogram-button" variant="info" text="Attributes" dropdown>
           <b-dropdown-item-button v-for="column in columns"
-                                  @click="setHistogram(column.id)">
+                                  @click="setHistogram(column.id)" :key="column.label">
             {{column.label}}
           </b-dropdown-item-button>
         </b-dropdown>
@@ -20,7 +20,9 @@
 
     <b-row v-if="showHistogram" align-v="center" align-h="center" class="changeButton">
       <b-col md="8">
-        <b-button class="numberColumnsButton" variant="info" @click="showSlider = !showSlider">Change number of intervals</b-button>
+        <b-button variant="info" @click="showSlider = !showSlider">Change number of
+          intervals
+        </b-button>
       </b-col>
     </b-row>
 
@@ -34,7 +36,7 @@
 </template>
 
 <script>
-  import BarChart from "@/components/vue-chartjs/BarChart";
+  import BarChart from "../vue-chartjs/BarChart";
 
   export default {
     name: "OriginalDataHistogram",
@@ -86,6 +88,7 @@
         return allData;
       },
       createDataset() {
+        this.data.datasets = [];
         let dataset = {
           label: this.$store.getters.getColumns[this.attributeIndex].label,
           borderWidth: 2,
@@ -115,31 +118,39 @@
         let lengthOfInterval = (this.max - this.min) / this.range;
         lengthOfInterval = Math.round((lengthOfInterval) * 100) / 100;
         let value = this.min;
-        
+
         for (let i = 0; i < this.range; i++) {
           let valueBottom = value;
           value += lengthOfInterval;
           value = Math.round((value) * 100) / 100;
-          osX.push(value);
-          osY.push(0);
-          this.data.labels.push(valueBottom + ' - ' + value);
+
+          if (i === 0) {
+            osX[0] = value;
+            this.data.labels.push(' - ' + value);
+          } else if (i === this.range - 1) {
+            osX[i] = valueBottom;
+            this.data.labels.push(valueBottom + ' - ');
+          } else {
+            osX[i] = value;
+            this.data.labels.push(valueBottom + ' - ' + value);
+          }
+          osY[i] = 0;
         }
 
         //data - vsetky co mas
         // y os - je pocet kotry mas
         // potrebujes zistit, kkolko ich tam vlastne mas
         for (let i = 0; i < this.originalData.length; i++) {
-          var bod = this.originalData[i];
-          //prechadzam kazdy ob a snazim sa zistit do ktoreho chievika sa zapocita
-          if (osX[0] > bod) {
+          let point = this.originalData[i];
+          //prechadzam kazdy bod a snazim sa zistit do ktoreho chievika sa zapocita
+          if (point < osX[0]) {
             osY[0] = osY[0] + 1;
-          } else if (osX[this.range] < bod) {
-            osY[this.range] = osY[this.range] + 1;
-          } else {
-            for (let j = 1; j < this.range; j++) {
-              if (bod >= osX[j - 1] && bod < osX[j]) {
-                osY[j] = osY[j] + 1;
-              }
+          } else if (osX[this.range - 1] <= point) {
+            osY[this.range - 1] = osY[this.range - 1] + 1;
+          }
+          for (let j = 1; j < this.range; j++) {
+            if (osX[j - 1] <= point && point <= osX[j]) {
+              osY[j] = osY[j] + 1;
             }
           }
         }
@@ -154,7 +165,7 @@
         this.data.labels = [];
 
         this.min = Math.min.apply(null, this.originalData);
-        this.max = Math.max.apply(null, this.originalData);
+        this.max = Math.max.apply(1000000000000000, this.originalData);
 
         this.method();
 
@@ -162,6 +173,9 @@
         this.reupdateHistogram = !this.reupdateHistogram;
         this.showHistogram = true;
       },
+    },
+    beforeCreate() {
+
     },
     mounted() {
       this.$store.dispatch('loadHeader', 'Original data - Histogram');
@@ -175,7 +189,6 @@
           this.columns.push(columns[i]);
         }
       }
-      this.reupdateHistogram = !this.reupdateHistogram;
     }
   }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <b-row align-v="center" align-h="center">
     <b-col md="4" cols="10" class="table-checkbox">
-      <b-form-group label="Choose the attributes:" >
+      <b-form-group label="Select the attributes for table:" >
         <b-form-checkbox style="text-align: left"
                          v-for="column in this.$store.getters.getColumns"
                          v-model="selected"

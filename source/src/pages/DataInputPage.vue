@@ -29,7 +29,7 @@
       <b-row align-v="center" align-h="center">
         <b-col md="8" sm="8">
           <b-button class="buttons" v-for="button in buttons" variant='secondary'
-                    v-on:click='currentLoadComponent = button.component'>
+                    v-on:click='currentLoadComponent = button.component' :key="button.name">
             {{button.name}}
           </b-button>
         </b-col>
@@ -44,9 +44,9 @@
 </template>
 
 <script>
-  import LoadFromFile from "@/components/DataLoading/LoadFromFile";
-  import LoadFromURL from "@/components/DataLoading/LoadFromURL";
-  import LoadSamples from "@/components/DataLoading/LoadSamples";
+  import LoadFromFile from "../components/DataLoading/LoadFromFile";
+  import LoadFromURL from "../components/DataLoading/LoadFromURL";
+  import LoadSamples from "../components/DataLoading/LoadSamples";
 
   export default {
     name: "DataInputPage",

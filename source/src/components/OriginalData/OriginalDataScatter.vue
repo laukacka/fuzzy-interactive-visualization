@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import Scatter from "@/components/vue-chartjs/Scatter";
+  import Scatter from "../vue-chartjs/Scatter";
   import {Chrome} from 'vue-color';
 
   export default {
@@ -403,8 +403,8 @@
   }
 
   .scatter {
-    padding: 0 15px 0 10px;
-    margin: 10px 15px 5px 10px;
+    padding: 0;
+    margin: 5px;
   }
 
   @media screen and (max-width: 768px) {

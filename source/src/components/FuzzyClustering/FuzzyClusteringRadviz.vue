@@ -1,20 +1,20 @@
 <template>
-  <b-row>
-    <b-col md="4" class="radviz-checkbox">
-      <b-form-group label="Choose the attributes:">
+  <b-row align-h="center" align-v="center">
+    <b-col md="4" cols="10" class="radviz-checkbox">
+      <b-form-group label="Select the attributes for Radviz:">
         <b-form-checkbox style="text-align: left"
-                         v-for="column in this.$store.getters.getColumns"
+                         v-for="column in this.columns"
                          v-model="selected"
-                         :key="column.label"
-                         :value="column.label"
+                         :key="column"
+                         :value="column"
                          stacked
         >
-          {{ column.label }}
+          {{ column }}
         </b-form-checkbox>
       </b-form-group>
     </b-col>
-    <b-col offset-md="1" md="7" id="radviz" class="radviz-graph">
-      <button type="button" v-on:click="klik()" class="btn btn-info m-r-5 m-b-5">Prekresli</button>
+    <b-col offset-md="1" md="7" cols="11" id="radviz" class="radviz-graph">
+      <button type="button" v-on:click="klik()" class="btn btn-info">Red</button>
       <div class="container"></div>
       <div id="tooltip"></div>
     </b-col>
@@ -34,7 +34,7 @@
     },
     watch: {
       selected: function () {
-        this.updateTable();
+        //this.updateTable();
       }
     },
     methods: {
@@ -51,13 +51,18 @@
         this.updateTableKey = !this.updateTableKey;
       },
       klik () {
-
+        let radvizScript = document.createElement("script");
+        radvizScript.setAttribute(
+          "src",
+          "https://rawgit.com/biovisualize/radviz/master/radviz-min.js"
+        );
+        document.head.appendChild(radvizScript);
         var radviz = radvizComponent().config({
           el: document.querySelector("#radviz"),
           colorAccessor: function(d) {
             return d["species"];
           },
-          dimensions: dimensions,
+          dimensions: this.selected,
           size: 500,
           margin: 100,
           useRepulsion: true,
@@ -80,16 +85,28 @@
     },
     mounted() {
       this.$store.dispatch('loadHeader', 'Radviz');
-      this.columns = this.$store.getters.getColumns;
-      for (let i = 0; i < this.columns.length; i++) {
-        this.selected.push(this.columns[i].label);
+
+      let file = this.$store.getters.getRows;
+      let row = file[0];
+      let objectRow = Object.entries(row);
+      this.columns = [];
+      for (let i = 0; i < objectRow.length; i++) {
+        if (typeof objectRow[i][1] === 'number') {
+          this.columns.push(objectRow[i][0]);
+        }
       }
+      this.selected = [];
+      for (let i = 0; i < this.columns.length; i++) {
+        this.selected.push(this.columns[i]);
+      }
+
       let radvizScript = document.createElement("script");
       radvizScript.setAttribute(
         "src",
         "https://rawgit.com/biovisualize/radviz/master/radviz-min.js"
       );
       document.head.appendChild(radvizScript);
+      //this.klik();
     }
   }
 </script>
@@ -102,10 +119,10 @@
     margin: 5px;
   }
 
-   .visualizatioon > .panel {
-     stroke: rgba(246, 232, 132, 0.79);
-     fill: white;
-   }
+  /*.visualizatioon > .panel {
+    stroke: black;
+    fill: white;
+  }
 
   .bg {
     fill: white;
@@ -131,7 +148,7 @@
   .label {
     fill: gray;
     pointer-events: none;
-  }
+  }*/
 
   #tooltip {
     font-size: 12px;
@@ -144,5 +161,4 @@
     font-size: 14px;
     margin: 0;
   }
-
 </style>

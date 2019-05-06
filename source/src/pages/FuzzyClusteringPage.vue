@@ -47,10 +47,9 @@
 </template>
 
 <script>
-  import FuzzyClusteringRadviz from "@/components/FuzzyClustering/Radviz/FuzzyClusteringRadviz";
-  import FuzzyClusteringParallelCoordinates
-    from "@/components/FuzzyClustering/ParallelCoordinators/FuzzyClusteringParallelCoordinates";
-  import FuzzyClusteringTable from "@/components/FuzzyClustering/FuzzyClusteringTable";
+  import FuzzyClusteringRadviz from "../components/FuzzyClustering/FuzzyClusteringRadviz";
+  import FuzzyClusteringParallelCoordinates from "../components/FuzzyClustering/FuzzyClusteringParallelCoordinates";
+  import FuzzyClusteringTable from "../components/FuzzyClustering/FuzzyClusteringTable";
 
   export default {
     name: "FuzzyClusteringPage",
