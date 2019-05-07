@@ -1,9 +1,18 @@
 # Fuzzy interactive visualization
 
-## Install
+## Install 
+```
 npm install 
 npm run dev
+```
 
-## Dist 
+## Run localhost:8080
+```
+npm run dev
+```
 
+## HTML + CSS + JS version 
+
+```
 npm run build
+```
