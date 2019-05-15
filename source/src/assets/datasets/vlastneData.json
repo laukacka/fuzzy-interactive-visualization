@@ -1,0 +1,1460 @@
+[
+  {
+    "vek": 39,
+    "vaha": 93,
+    "vyska": 167,
+    "trieda": 3
+  },
+  {
+    "vek": 37,
+    "vaha": 56,
+    "vyska": 178,
+    "trieda": 1
+  },
+  {
+    "vek": 44,
+    "vaha": 62,
+    "vyska": 180,
+    "trieda": 2
+  },
+  {
+    "vek": 22,
+    "vaha": 52,
+    "vyska": 173,
+    "trieda": 1
+  },
+  {
+    "vek": 34,
+    "vaha": 61,
+    "vyska": 159,
+    "trieda": 1
+  },
+  {
+    "vek": 40,
+    "vaha": 91,
+    "vyska": 163,
+    "trieda": 1
+  },
+  {
+    "vek": 23,
+    "vaha": 64,
+    "vyska": 174,
+    "trieda": 3
+  },
+  {
+    "vek": 45,
+    "vaha": 89,
+    "vyska": 171,
+    "trieda": 2
+  },
+  {
+    "vek": 26,
+    "vaha": 68,
+    "vyska": 159,
+    "trieda": 3
+  },
+  {
+    "vek": 35,
+    "vaha": 82,
+    "vyska": 153,
+    "trieda": 3
+  },
+  {
+    "vek": 33,
+    "vaha": 98,
+    "vyska": 180,
+    "trieda": 3
+  },
+  {
+    "vek": 39,
+    "vaha": 51,
+    "vyska": 150,
+    "trieda": 3
+  },
+  {
+    "vek": 24,
+    "vaha": 79,
+    "vyska": 157,
+    "trieda": 3
+  },
+  {
+    "vek": 25,
+    "vaha": 89,
+    "vyska": 173,
+    "trieda": 1
+  },
+  {
+    "vek": 45,
+    "vaha": 87,
+    "vyska": 175,
+    "trieda": 2
+  },
+  {
+    "vek": 37,
+    "vaha": 54,
+    "vyska": 163,
+    "trieda": 2
+  },
+  {
+    "vek": 25,
+    "vaha": 58,
+    "vyska": 176,
+    "trieda": 3
+  },
+  {
+    "vek": 29,
+    "vaha": 58,
+    "vyska": 159,
+    "trieda": 3
+  },
+  {
+    "vek": 38,
+    "vaha": 56,
+    "vyska": 162,
+    "trieda": 1
+  },
+  {
+    "vek": 41,
+    "vaha": 94,
+    "vyska": 161,
+    "trieda": 2
+  },
+  {
+    "vek": 35,
+    "vaha": 85,
+    "vyska": 178,
+    "trieda": 1
+  },
+  {
+    "vek": 38,
+    "vaha": 83,
+    "vyska": 160,
+    "trieda": 1
+  },
+  {
+    "vek": 43,
+    "vaha": 53,
+    "vyska": 162,
+    "trieda": 2
+  },
+  {
+    "vek": 50,
+    "vaha": 71,
+    "vyska": 154,
+    "trieda": 3
+  },
+  {
+    "vek": 32,
+    "vaha": 69,
+    "vyska": 150,
+    "trieda": 3
+  },
+  {
+    "vek": 28,
+    "vaha": 96,
+    "vyska": 158,
+    "trieda": 2
+  },
+  {
+    "vek": 34,
+    "vaha": 65,
+    "vyska": 152,
+    "trieda": 2
+  },
+  {
+    "vek": 30,
+    "vaha": 77,
+    "vyska": 163,
+    "trieda": 2
+  },
+  {
+    "vek": 29,
+    "vaha": 70,
+    "vyska": 166,
+    "trieda": 1
+  },
+  {
+    "vek": 29,
+    "vaha": 76,
+    "vyska": 169,
+    "trieda": 2
+  },
+  {
+    "vek": 30,
+    "vaha": 69,
+    "vyska": 172,
+    "trieda": 3
+  },
+  {
+    "vek": 45,
+    "vaha": 78,
+    "vyska": 162,
+    "trieda": 2
+  },
+  {
+    "vek": 49,
+    "vaha": 90,
+    "vyska": 151,
+    "trieda": 2
+  },
+  {
+    "vek": 21,
+    "vaha": 50,
+    "vyska": 176,
+    "trieda": 1
+  },
+  {
+    "vek": 48,
+    "vaha": 65,
+    "vyska": 166,
+    "trieda": 2
+  },
+  {
+    "vek": 22,
+    "vaha": 58,
+    "vyska": 155,
+    "trieda": 2
+  },
+  {
+    "vek": 36,
+    "vaha": 83,
+    "vyska": 167,
+    "trieda": 1
+  },
+  {
+    "vek": 31,
+    "vaha": 77,
+    "vyska": 167,
+    "trieda": 3
+  },
+  {
+    "vek": 31,
+    "vaha": 86,
+    "vyska": 151,
+    "trieda": 3
+  },
+  {
+    "vek": 31,
+    "vaha": 89,
+    "vyska": 175,
+    "trieda": 3
+  },
+  {
+    "vek": 40,
+    "vaha": 76,
+    "vyska": 161,
+    "trieda": 3
+  },
+  {
+    "vek": 45,
+    "vaha": 67,
+    "vyska": 158,
+    "trieda": 2
+  },
+  {
+    "vek": 34,
+    "vaha": 93,
+    "vyska": 166,
+    "trieda": 2
+  },
+  {
+    "vek": 48,
+    "vaha": 54,
+    "vyska": 170,
+    "trieda": 1
+  },
+  {
+    "vek": 30,
+    "vaha": 51,
+    "vyska": 168,
+    "trieda": 2
+  },
+  {
+    "vek": 36,
+    "vaha": 59,
+    "vyska": 167,
+    "trieda": 3
+  },
+  {
+    "vek": 36,
+    "vaha": 89,
+    "vyska": 169,
+    "trieda": 1
+  },
+  {
+    "vek": 31,
+    "vaha": 94,
+    "vyska": 156,
+    "trieda": 1
+  },
+  {
+    "vek": 49,
+    "vaha": 60,
+    "vyska": 172,
+    "trieda": 1
+  },
+  {
+    "vek": 46,
+    "vaha": 99,
+    "vyska": 171,
+    "trieda": 1
+  },
+  {
+    "vek": 21,
+    "vaha": 62,
+    "vyska": 170,
+    "trieda": 1
+  },
+  {
+    "vek": 24,
+    "vaha": 94,
+    "vyska": 162,
+    "trieda": 2
+  },
+  {
+    "vek": 35,
+    "vaha": 61,
+    "vyska": 179,
+    "trieda": 3
+  },
+  {
+    "vek": 20,
+    "vaha": 85,
+    "vyska": 160,
+    "trieda": 3
+  },
+  {
+    "vek": 25,
+    "vaha": 93,
+    "vyska": 180,
+    "trieda": 3
+  },
+  {
+    "vek": 48,
+    "vaha": 78,
+    "vyska": 180,
+    "trieda": 1
+  },
+  {
+    "vek": 33,
+    "vaha": 74,
+    "vyska": 178,
+    "trieda": 2
+  },
+  {
+    "vek": 25,
+    "vaha": 80,
+    "vyska": 160,
+    "trieda": 2
+  },
+  {
+    "vek": 34,
+    "vaha": 83,
+    "vyska": 166,
+    "trieda": 3
+  },
+  {
+    "vek": 36,
+    "vaha": 68,
+    "vyska": 165,
+    "trieda": 2
+  },
+  {
+    "vek": 40,
+    "vaha": 94,
+    "vyska": 177,
+    "trieda": 2
+  },
+  {
+    "vek": 38,
+    "vaha": 80,
+    "vyska": 164,
+    "trieda": 2
+  },
+  {
+    "vek": 28,
+    "vaha": 75,
+    "vyska": 168,
+    "trieda": 1
+  },
+  {
+    "vek": 40,
+    "vaha": 95,
+    "vyska": 155,
+    "trieda": 2
+  },
+  {
+    "vek": 32,
+    "vaha": 94,
+    "vyska": 169,
+    "trieda": 3
+  },
+  {
+    "vek": 33,
+    "vaha": 91,
+    "vyska": 165,
+    "trieda": 1
+  },
+  {
+    "vek": 21,
+    "vaha": 100,
+    "vyska": 176,
+    "trieda": 2
+  },
+  {
+    "vek": 31,
+    "vaha": 92,
+    "vyska": 174,
+    "trieda": 3
+  },
+  {
+    "vek": 35,
+    "vaha": 58,
+    "vyska": 159,
+    "trieda": 1
+  },
+  {
+    "vek": 31,
+    "vaha": 91,
+    "vyska": 151,
+    "trieda": 2
+  },
+  {
+    "vek": 41,
+    "vaha": 55,
+    "vyska": 160,
+    "trieda": 1
+  },
+  {
+    "vek": 43,
+    "vaha": 90,
+    "vyska": 157,
+    "trieda": 2
+  },
+  {
+    "vek": 37,
+    "vaha": 84,
+    "vyska": 180,
+    "trieda": 1
+  },
+  {
+    "vek": 30,
+    "vaha": 94,
+    "vyska": 159,
+    "trieda": 3
+  },
+  {
+    "vek": 32,
+    "vaha": 61,
+    "vyska": 158,
+    "trieda": 3
+  },
+  {
+    "vek": 22,
+    "vaha": 50,
+    "vyska": 159,
+    "trieda": 2
+  },
+  {
+    "vek": 33,
+    "vaha": 79,
+    "vyska": 169,
+    "trieda": 2
+  },
+  {
+    "vek": 44,
+    "vaha": 95,
+    "vyska": 178,
+    "trieda": 1
+  },
+  {
+    "vek": 36,
+    "vaha": 53,
+    "vyska": 180,
+    "trieda": 1
+  },
+  {
+    "vek": 43,
+    "vaha": 78,
+    "vyska": 176,
+    "trieda": 1
+  },
+  {
+    "vek": 26,
+    "vaha": 54,
+    "vyska": 168,
+    "trieda": 3
+  },
+  {
+    "vek": 43,
+    "vaha": 83,
+    "vyska": 167,
+    "trieda": 1
+  },
+  {
+    "vek": 28,
+    "vaha": 82,
+    "vyska": 164,
+    "trieda": 3
+  },
+  {
+    "vek": 31,
+    "vaha": 63,
+    "vyska": 170,
+    "trieda": 2
+  },
+  {
+    "vek": 29,
+    "vaha": 54,
+    "vyska": 159,
+    "trieda": 2
+  },
+  {
+    "vek": 47,
+    "vaha": 85,
+    "vyska": 160,
+    "trieda": 3
+  },
+  {
+    "vek": 33,
+    "vaha": 79,
+    "vyska": 174,
+    "trieda": 3
+  },
+  {
+    "vek": 30,
+    "vaha": 55,
+    "vyska": 165,
+    "trieda": 1
+  },
+  {
+    "vek": 44,
+    "vaha": 61,
+    "vyska": 174,
+    "trieda": 2
+  },
+  {
+    "vek": 33,
+    "vaha": 74,
+    "vyska": 157,
+    "trieda": 2
+  },
+  {
+    "vek": 44,
+    "vaha": 81,
+    "vyska": 160,
+    "trieda": 3
+  },
+  {
+    "vek": 42,
+    "vaha": 77,
+    "vyska": 154,
+    "trieda": 1
+  },
+  {
+    "vek": 26,
+    "vaha": 90,
+    "vyska": 153,
+    "trieda": 1
+  },
+  {
+    "vek": 25,
+    "vaha": 57,
+    "vyska": 160,
+    "trieda": 2
+  },
+  {
+    "vek": 50,
+    "vaha": 50,
+    "vyska": 170,
+    "trieda": 3
+  },
+  {
+    "vek": 39,
+    "vaha": 72,
+    "vyska": 163,
+    "trieda": 3
+  },
+  {
+    "vek": 27,
+    "vaha": 96,
+    "vyska": 172,
+    "trieda": 1
+  },
+  {
+    "vek": 27,
+    "vaha": 83,
+    "vyska": 168,
+    "trieda": 2
+  },
+  {
+    "vek": 49,
+    "vaha": 65,
+    "vyska": 180,
+    "trieda": 2
+  },
+  {
+    "vek": 38,
+    "vaha": 69,
+    "vyska": 165,
+    "trieda": 2
+  },
+  {
+    "vek": 38,
+    "vaha": 91,
+    "vyska": 175,
+    "trieda": 3
+  },
+  {
+    "vek": 26,
+    "vaha": 55,
+    "vyska": 161,
+    "trieda": 1
+  },
+  {
+    "vek": 26,
+    "vaha": 62,
+    "vyska": 159,
+    "trieda": 1
+  },
+  {
+    "vek": 44,
+    "vaha": 72,
+    "vyska": 150,
+    "trieda": 3
+  },
+  {
+    "vek": 35,
+    "vaha": 50,
+    "vyska": 178,
+    "trieda": 3
+  },
+  {
+    "vek": 32,
+    "vaha": 77,
+    "vyska": 160,
+    "trieda": 1
+  },
+  {
+    "vek": 21,
+    "vaha": 94,
+    "vyska": 153,
+    "trieda": 3
+  },
+  {
+    "vek": 43,
+    "vaha": 79,
+    "vyska": 168,
+    "trieda": 2
+  },
+  {
+    "vek": 43,
+    "vaha": 84,
+    "vyska": 160,
+    "trieda": 2
+  },
+  {
+    "vek": 21,
+    "vaha": 94,
+    "vyska": 163,
+    "trieda": 3
+  },
+  {
+    "vek": 37,
+    "vaha": 95,
+    "vyska": 176,
+    "trieda": 2
+  },
+  {
+    "vek": 23,
+    "vaha": 50,
+    "vyska": 164,
+    "trieda": 2
+  },
+  {
+    "vek": 50,
+    "vaha": 84,
+    "vyska": 161,
+    "trieda": 1
+  },
+  {
+    "vek": 29,
+    "vaha": 97,
+    "vyska": 179,
+    "trieda": 2
+  },
+  {
+    "vek": 38,
+    "vaha": 94,
+    "vyska": 174,
+    "trieda": 2
+  },
+  {
+    "vek": 41,
+    "vaha": 96,
+    "vyska": 164,
+    "trieda": 2
+  },
+  {
+    "vek": 46,
+    "vaha": 98,
+    "vyska": 176,
+    "trieda": 1
+  },
+  {
+    "vek": 43,
+    "vaha": 79,
+    "vyska": 159,
+    "trieda": 2
+  },
+  {
+    "vek": 50,
+    "vaha": 60,
+    "vyska": 157,
+    "trieda": 3
+  },
+  {
+    "vek": 37,
+    "vaha": 74,
+    "vyska": 169,
+    "trieda": 3
+  },
+  {
+    "vek": 38,
+    "vaha": 83,
+    "vyska": 167,
+    "trieda": 1
+  },
+  {
+    "vek": 39,
+    "vaha": 73,
+    "vyska": 153,
+    "trieda": 2
+  },
+  {
+    "vek": 28,
+    "vaha": 99,
+    "vyska": 153,
+    "trieda": 1
+  },
+  {
+    "vek": 41,
+    "vaha": 70,
+    "vyska": 170,
+    "trieda": 2
+  },
+  {
+    "vek": 27,
+    "vaha": 93,
+    "vyska": 150,
+    "trieda": 2
+  },
+  {
+    "vek": 28,
+    "vaha": 83,
+    "vyska": 165,
+    "trieda": 1
+  },
+  {
+    "vek": 45,
+    "vaha": 66,
+    "vyska": 156,
+    "trieda": 3
+  },
+  {
+    "vek": 44,
+    "vaha": 61,
+    "vyska": 158,
+    "trieda": 2
+  },
+  {
+    "vek": 30,
+    "vaha": 66,
+    "vyska": 177,
+    "trieda": 1
+  },
+  {
+    "vek": 50,
+    "vaha": 73,
+    "vyska": 171,
+    "trieda": 1
+  },
+  {
+    "vek": 26,
+    "vaha": 78,
+    "vyska": 164,
+    "trieda": 3
+  },
+  {
+    "vek": 40,
+    "vaha": 98,
+    "vyska": 164,
+    "trieda": 3
+  },
+  {
+    "vek": 47,
+    "vaha": 73,
+    "vyska": 152,
+    "trieda": 2
+  },
+  {
+    "vek": 20,
+    "vaha": 78,
+    "vyska": 169,
+    "trieda": 2
+  },
+  {
+    "vek": 22,
+    "vaha": 59,
+    "vyska": 152,
+    "trieda": 2
+  },
+  {
+    "vek": 42,
+    "vaha": 75,
+    "vyska": 173,
+    "trieda": 2
+  },
+  {
+    "vek": 34,
+    "vaha": 73,
+    "vyska": 152,
+    "trieda": 1
+  },
+  {
+    "vek": 22,
+    "vaha": 65,
+    "vyska": 151,
+    "trieda": 2
+  },
+  {
+    "vek": 28,
+    "vaha": 82,
+    "vyska": 158,
+    "trieda": 3
+  },
+  {
+    "vek": 30,
+    "vaha": 77,
+    "vyska": 161,
+    "trieda": 2
+  },
+  {
+    "vek": 34,
+    "vaha": 67,
+    "vyska": 151,
+    "trieda": 2
+  },
+  {
+    "vek": 47,
+    "vaha": 64,
+    "vyska": 152,
+    "trieda": 1
+  },
+  {
+    "vek": 49,
+    "vaha": 82,
+    "vyska": 157,
+    "trieda": 2
+  },
+  {
+    "vek": 28,
+    "vaha": 94,
+    "vyska": 163,
+    "trieda": 3
+  },
+  {
+    "vek": 40,
+    "vaha": 63,
+    "vyska": 158,
+    "trieda": 1
+  },
+  {
+    "vek": 35,
+    "vaha": 98,
+    "vyska": 160,
+    "trieda": 2
+  },
+  {
+    "vek": 22,
+    "vaha": 71,
+    "vyska": 179,
+    "trieda": 2
+  },
+  {
+    "vek": 39,
+    "vaha": 91,
+    "vyska": 164,
+    "trieda": 2
+  },
+  {
+    "vek": 42,
+    "vaha": 68,
+    "vyska": 163,
+    "trieda": 3
+  },
+  {
+    "vek": 31,
+    "vaha": 77,
+    "vyska": 172,
+    "trieda": 3
+  },
+  {
+    "vek": 31,
+    "vaha": 72,
+    "vyska": 163,
+    "trieda": 3
+  },
+  {
+    "vek": 46,
+    "vaha": 60,
+    "vyska": 174,
+    "trieda": 1
+  },
+  {
+    "vek": 24,
+    "vaha": 97,
+    "vyska": 151,
+    "trieda": 1
+  },
+  {
+    "vek": 37,
+    "vaha": 72,
+    "vyska": 174,
+    "trieda": 2
+  },
+  {
+    "vek": 39,
+    "vaha": 100,
+    "vyska": 173,
+    "trieda": 3
+  },
+  {
+    "vek": 36,
+    "vaha": 90,
+    "vyska": 166,
+    "trieda": 2
+  },
+  {
+    "vek": 36,
+    "vaha": 56,
+    "vyska": 177,
+    "trieda": 1
+  },
+  {
+    "vek": 30,
+    "vaha": 60,
+    "vyska": 154,
+    "trieda": 2
+  },
+  {
+    "vek": 37,
+    "vaha": 61,
+    "vyska": 153,
+    "trieda": 2
+  },
+  {
+    "vek": 39,
+    "vaha": 80,
+    "vyska": 160,
+    "trieda": 3
+  },
+  {
+    "vek": 26,
+    "vaha": 78,
+    "vyska": 154,
+    "trieda": 1
+  },
+  {
+    "vek": 20,
+    "vaha": 69,
+    "vyska": 166,
+    "trieda": 3
+  },
+  {
+    "vek": 41,
+    "vaha": 92,
+    "vyska": 161,
+    "trieda": 3
+  },
+  {
+    "vek": 25,
+    "vaha": 82,
+    "vyska": 152,
+    "trieda": 2
+  },
+  {
+    "vek": 30,
+    "vaha": 86,
+    "vyska": 168,
+    "trieda": 2
+  },
+  {
+    "vek": 34,
+    "vaha": 52,
+    "vyska": 156,
+    "trieda": 3
+  },
+  {
+    "vek": 32,
+    "vaha": 50,
+    "vyska": 170,
+    "trieda": 3
+  },
+  {
+    "vek": 39,
+    "vaha": 85,
+    "vyska": 158,
+    "trieda": 1
+  },
+  {
+    "vek": 29,
+    "vaha": 57,
+    "vyska": 176,
+    "trieda": 2
+  },
+  {
+    "vek": 31,
+    "vaha": 83,
+    "vyska": 164,
+    "trieda": 3
+  },
+  {
+    "vek": 44,
+    "vaha": 52,
+    "vyska": 159,
+    "trieda": 1
+  },
+  {
+    "vek": 46,
+    "vaha": 97,
+    "vyska": 178,
+    "trieda": 3
+  },
+  {
+    "vek": 38,
+    "vaha": 63,
+    "vyska": 176,
+    "trieda": 2
+  },
+  {
+    "vek": 50,
+    "vaha": 89,
+    "vyska": 171,
+    "trieda": 2
+  },
+  {
+    "vek": 39,
+    "vaha": 53,
+    "vyska": 176,
+    "trieda": 3
+  },
+  {
+    "vek": 40,
+    "vaha": 72,
+    "vyska": 164,
+    "trieda": 2
+  },
+  {
+    "vek": 32,
+    "vaha": 52,
+    "vyska": 168,
+    "trieda": 2
+  },
+  {
+    "vek": 31,
+    "vaha": 73,
+    "vyska": 167,
+    "trieda": 2
+  },
+  {
+    "vek": 23,
+    "vaha": 95,
+    "vyska": 165,
+    "trieda": 3
+  },
+  {
+    "vek": 39,
+    "vaha": 71,
+    "vyska": 172,
+    "trieda": 2
+  },
+  {
+    "vek": 35,
+    "vaha": 88,
+    "vyska": 166,
+    "trieda": 1
+  },
+  {
+    "vek": 24,
+    "vaha": 87,
+    "vyska": 164,
+    "trieda": 3
+  },
+  {
+    "vek": 45,
+    "vaha": 75,
+    "vyska": 169,
+    "trieda": 1
+  },
+  {
+    "vek": 30,
+    "vaha": 66,
+    "vyska": 163,
+    "trieda": 3
+  },
+  {
+    "vek": 46,
+    "vaha": 72,
+    "vyska": 166,
+    "trieda": 3
+  },
+  {
+    "vek": 30,
+    "vaha": 97,
+    "vyska": 157,
+    "trieda": 2
+  },
+  {
+    "vek": 44,
+    "vaha": 79,
+    "vyska": 178,
+    "trieda": 3
+  },
+  {
+    "vek": 40,
+    "vaha": 79,
+    "vyska": 151,
+    "trieda": 3
+  },
+  {
+    "vek": 43,
+    "vaha": 55,
+    "vyska": 160,
+    "trieda": 1
+  },
+  {
+    "vek": 45,
+    "vaha": 69,
+    "vyska": 167,
+    "trieda": 1
+  },
+  {
+    "vek": 39,
+    "vaha": 84,
+    "vyska": 153,
+    "trieda": 1
+  },
+  {
+    "vek": 45,
+    "vaha": 83,
+    "vyska": 163,
+    "trieda": 1
+  },
+  {
+    "vek": 46,
+    "vaha": 87,
+    "vyska": 172,
+    "trieda": 1
+  },
+  {
+    "vek": 35,
+    "vaha": 72,
+    "vyska": 162,
+    "trieda": 3
+  },
+  {
+    "vek": 22,
+    "vaha": 76,
+    "vyska": 156,
+    "trieda": 3
+  },
+  {
+    "vek": 48,
+    "vaha": 72,
+    "vyska": 154,
+    "trieda": 1
+  },
+  {
+    "vek": 38,
+    "vaha": 92,
+    "vyska": 156,
+    "trieda": 3
+  },
+  {
+    "vek": 22,
+    "vaha": 89,
+    "vyska": 162,
+    "trieda": 3
+  },
+  {
+    "vek": 49,
+    "vaha": 83,
+    "vyska": 155,
+    "trieda": 1
+  },
+  {
+    "vek": 38,
+    "vaha": 50,
+    "vyska": 150,
+    "trieda": 2
+  },
+  {
+    "vek": 27,
+    "vaha": 76,
+    "vyska": 163,
+    "trieda": 2
+  },
+  {
+    "vek": 25,
+    "vaha": 99,
+    "vyska": 178,
+    "trieda": 1
+  },
+  {
+    "vek": 41,
+    "vaha": 88,
+    "vyska": 165,
+    "trieda": 2
+  },
+  {
+    "vek": 49,
+    "vaha": 99,
+    "vyska": 174,
+    "trieda": 1
+  },
+  {
+    "vek": 21,
+    "vaha": 81,
+    "vyska": 170,
+    "trieda": 2
+  },
+  {
+    "vek": 49,
+    "vaha": 69,
+    "vyska": 177,
+    "trieda": 1
+  },
+  {
+    "vek": 33,
+    "vaha": 67,
+    "vyska": 180,
+    "trieda": 3
+  },
+  {
+    "vek": 34,
+    "vaha": 70,
+    "vyska": 152,
+    "trieda": 1
+  },
+  {
+    "vek": 35,
+    "vaha": 77,
+    "vyska": 174,
+    "trieda": 1
+  },
+  {
+    "vek": 20,
+    "vaha": 65,
+    "vyska": 152,
+    "trieda": 3
+  },
+  {
+    "vek": 40,
+    "vaha": 98,
+    "vyska": 179,
+    "trieda": 2
+  },
+  {
+    "vek": 49,
+    "vaha": 81,
+    "vyska": 171,
+    "trieda": 2
+  },
+  {
+    "vek": 47,
+    "vaha": 79,
+    "vyska": 156,
+    "trieda": 1
+  },
+  {
+    "vek": 36,
+    "vaha": 53,
+    "vyska": 155,
+    "trieda": 2
+  },
+  {
+    "vek": 42,
+    "vaha": 63,
+    "vyska": 172,
+    "trieda": 2
+  },
+  {
+    "vek": 42,
+    "vaha": 79,
+    "vyska": 154,
+    "trieda": 3
+  },
+  {
+    "vek": 44,
+    "vaha": 80,
+    "vyska": 167,
+    "trieda": 1
+  },
+  {
+    "vek": 29,
+    "vaha": 81,
+    "vyska": 156,
+    "trieda": 2
+  },
+  {
+    "vek": 21,
+    "vaha": 77,
+    "vyska": 175,
+    "trieda": 3
+  },
+  {
+    "vek": 22,
+    "vaha": 85,
+    "vyska": 158,
+    "trieda": 2
+  },
+  {
+    "vek": 23,
+    "vaha": 63,
+    "vyska": 150,
+    "trieda": 2
+  },
+  {
+    "vek": 27,
+    "vaha": 83,
+    "vyska": 169,
+    "trieda": 1
+  },
+  {
+    "vek": 27,
+    "vaha": 63,
+    "vyska": 157,
+    "trieda": 1
+  },
+  {
+    "vek": 20,
+    "vaha": 63,
+    "vyska": 157,
+    "trieda": 2
+  },
+  {
+    "vek": 21,
+    "vaha": 80,
+    "vyska": 153,
+    "trieda": 2
+  },
+  {
+    "vek": 42,
+    "vaha": 100,
+    "vyska": 157,
+    "trieda": 3
+  },
+  {
+    "vek": 20,
+    "vaha": 83,
+    "vyska": 178,
+    "trieda": 2
+  },
+  {
+    "vek": 36,
+    "vaha": 79,
+    "vyska": 174,
+    "trieda": 2
+  },
+  {
+    "vek": 48,
+    "vaha": 100,
+    "vyska": 172,
+    "trieda": 1
+  },
+  {
+    "vek": 21,
+    "vaha": 98,
+    "vyska": 157,
+    "trieda": 2
+  },
+  {
+    "vek": 31,
+    "vaha": 85,
+    "vyska": 154,
+    "trieda": 2
+  },
+  {
+    "vek": 21,
+    "vaha": 57,
+    "vyska": 153,
+    "trieda": 3
+  },
+  {
+    "vek": 47,
+    "vaha": 90,
+    "vyska": 153,
+    "trieda": 2
+  },
+  {
+    "vek": 22,
+    "vaha": 81,
+    "vyska": 155,
+    "trieda": 2
+  },
+  {
+    "vek": 44,
+    "vaha": 90,
+    "vyska": 156,
+    "trieda": 3
+  },
+  {
+    "vek": 22,
+    "vaha": 61,
+    "vyska": 175,
+    "trieda": 2
+  },
+  {
+    "vek": 40,
+    "vaha": 92,
+    "vyska": 152,
+    "trieda": 3
+  },
+  {
+    "vek": 27,
+    "vaha": 82,
+    "vyska": 155,
+    "trieda": 1
+  },
+  {
+    "vek": 20,
+    "vaha": 88,
+    "vyska": 161,
+    "trieda": 3
+  },
+  {
+    "vek": 37,
+    "vaha": 64,
+    "vyska": 152,
+    "trieda": 1
+  },
+  {
+    "vek": 38,
+    "vaha": 99,
+    "vyska": 158,
+    "trieda": 2
+  },
+  {
+    "vek": 42,
+    "vaha": 95,
+    "vyska": 166,
+    "trieda": 2
+  },
+  {
+    "vek": 34,
+    "vaha": 71,
+    "vyska": 179,
+    "trieda": 1
+  }
+]
