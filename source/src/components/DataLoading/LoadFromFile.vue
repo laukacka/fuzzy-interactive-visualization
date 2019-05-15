@@ -10,6 +10,7 @@
                  v-bind:drop-placeholder="nameOfDropPlaceHolder"
                  title=""
     ></b-form-file>
+    {{file.name}}
     <h6>Files with following types can be loaded: .arff, .csv, .json, .txt, and .xls.</h6>
     <b-button v-if="file !== ''" class="loadButtons" variant="danger" @click="file = ''">Clear</b-button>
     <b-button v-if="file !== ''" variant="success" @click="loadFile(file)" class="loadButtons">Next</b-button>
@@ -18,6 +19,10 @@
 
 <script>
   import {loadFile} from "@/mixins/loadFile";
+  import axios from 'axios';
+  var glTemp = [];
+ // var customData = require(this.file.name);
+
 
   export default {
     name: "LoadFromFile",
@@ -40,25 +45,47 @@
       }
     },
     methods: {
+      readCSV() {
+        return d3.csv(this.file, function (data) {
+          // console.log(data);
+          glTemp = data;
+          //return  data;//Object.assign({}, glTemp);;
+        })
+      },
       loadData(suffix) {
         ////TODO switch podla suffix na nacitanie roznych typov suborov - dokoncit
         switch(suffix) {
           case '.arff':
             break;
           case '.csv':
+            this.readCSV();
 
+            alert("gltem " + glTemp.length);
+            if(glTemp.length > 0){
+              alert('gltemp' + glTemp.length );
+              console.log(glTemp);
+              this.$store.dispatch("loadRows", glTemp);
+              this.loadHeaders();
+              //tuto je problem
+
+            }
             break;
           case '.json':
             this.emitToParent();
             let store = this.$store;
             let me = this;
+            console.log(this.file);
             d3.json(this.file, function (rows) {
               console.log(rows);
               store.dispatch("loadRows", rows);
               me.loadHeaders();
             });
-            /*axios.get(this.file).then(response => {
+
+            /*console.log(this.file);
+            axios.get(this.file).then(response => {
               let rows = response.data;
+              console.log(response.data);
+
               this.$store.dispatch("loadRows", rows);
               this.loadHeaders();
             }).catch(error => console.log(error.response));*/

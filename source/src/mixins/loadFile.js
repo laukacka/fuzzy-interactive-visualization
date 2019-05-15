@@ -2,6 +2,7 @@ export const loadFile = {
   methods: {
     loadFile: function (data) {
       if (data) {
+        alert('mixins');
         let suffix = '';
         if (typeof data === 'string') {
           let indexOfDot = data.lastIndexOf('.');
@@ -20,6 +21,7 @@ export const loadFile = {
             allowOutsideClick: false,
             title: 'File was successfully loaded.'
           }).then((result) => {
+            console.log(result);
             if (result.value) {
               this.$router.push("methods");
             }

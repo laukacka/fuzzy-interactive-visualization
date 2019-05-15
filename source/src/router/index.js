@@ -6,6 +6,7 @@ import MethodsPage from "../pages/MethodsPage"
 import FuzzificationPage from "../pages/FuzzificationPage"
 import FuzzyClusteringPage from "../pages/FuzzyClusteringPage"
 import OriginalDataPage from "../pages/OriginalDataPage"
+import TempPage from "../pages/TempPage";
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/originalData',
       name: 'OriginalDataPage',
       component: OriginalDataPage
+    },
+    {
+      path: '/temp',
+      name: 'TempPage',
+      component: TempPage
     }
   ]
 });
