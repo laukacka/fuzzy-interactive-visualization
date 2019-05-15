@@ -14,7 +14,7 @@
       </b-form-group>
     </b-col>
     <b-col offset-md="1" md="7" cols="11" id="radviz" class="radviz-graph">
-      <button type="button" v-on:click="klik()" class="btn btn-info">Red</button>
+      <button type="button" v-on:click="klik()" class="btn btn-info">Redraw</button>
       <div class="container"></div>
       <div id="tooltip"></div>
     </b-col>

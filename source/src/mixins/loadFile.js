@@ -11,13 +11,7 @@ export const loadFile = {
           suffix = data.name.slice(indexOfDot, data.name.length);
         }
         if (suffix === '.arff' || suffix === '.csv' || suffix === '.json' || suffix === '.txt' || suffix === '.xls') {
-          let nieco = this;
-          this.loadData(suffix, data, function(loadedAndParsedContent){
-            //nieco.$store.dispatch("loadRows", loadedAndParsedContent);
-            //console.log(loadedAndParsedContent);
-          });
-
-          //console.log(this.$store.getters.getRows);
+          this.loadData(suffix);
           this.$store.dispatch("loadMembershipFunction", []);
           this.$store.dispatch("loadClusters", []);
           this.$swal({

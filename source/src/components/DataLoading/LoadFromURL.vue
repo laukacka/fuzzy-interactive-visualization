@@ -37,20 +37,20 @@
         return d3.csv(this.file, function (data) {
          // console.log(data);
           glTemp = data;
-          return Object.assign({}, glTemp);;
+          //return  data;//Object.assign({}, glTemp);;
         })
       },
       loadData(suffix) {
-        //TODO switch podla suffix na nacitanie roznych typov suborov - dokoncit
         switch (suffix) {
           case '.arff':
             break;
           case '.csv':
-               var temp =  this.readCSV();
-              alert("gltem " + glTemp.length)
+              this.readCSV();
+
+              alert("gltem " + glTemp.length);
                 if(glTemp.length > 0){
-                  alert('gltemp' + glTemp.length )
-                  console.log(glTemp)
+                  alert('gltemp' + glTemp.length );
+                  console.log(glTemp);
                   this.$store.dispatch("loadRows", glTemp);
                   this.loadHeaders();
                   //tuto je problem
@@ -60,8 +60,8 @@
           case '.json': //https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json
             axios.get(this.file).then(response => {
               let rows = response.data;
+              console.log(rows);
               this.$store.dispatch("loadRows", rows);
-              //localStorage.rows = rows;
               //console.log(this.$store.getters.getRows);
               this.loadHeaders();
             }).catch(error => console.log(error.response)); //if we have same errors, we can see them in console
@@ -80,10 +80,12 @@
         let rows = this.$store.getters.getRows;
         let columns = [];
         let oneRowOfAllData = Object.entries(rows[0]);
+
+
         for (let i = 0; i < oneRowOfAllData.length; i++) { //we create as many columns as we have items in oneRowOfAllData
           let column = {
             id: i,
-            label: oneRowOfAllData[i][0],
+            label: " " + oneRowOfAllData[i][0],
             field: oneRowOfAllData[i][0],
             tdClass: 'text-center text-nowrap',
             thClass: 'text-center text-nowrap'
