@@ -59,15 +59,12 @@
             break;
           case '.csv':
             this.readCSV();
-
             alert("gltem " + glTemp.length);
             if(glTemp.length > 0){
-              alert('gltemp' + glTemp.length );
+              alert('gltemp ' + glTemp.length );
               console.log(glTemp);
               this.$store.dispatch("loadRows", glTemp);
               this.loadHeaders();
-              //tuto je problem
-
             }
             break;
           case '.json':
@@ -117,9 +114,7 @@
           };
           columns.push(column);
         }
-        //console.log(columns);
         this.$store.dispatch("loadColumns", columns);
-        //localStorage.columns = columns;
       },
     }
   }

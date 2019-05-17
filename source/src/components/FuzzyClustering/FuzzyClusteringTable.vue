@@ -63,6 +63,7 @@
       }
     },
     mounted() {
+      this.rows =
       this.$store.dispatch('loadHeader', 'Fuzzy clustering - Table');
       this.columns = this.$store.getters.getColumns;
       for (let i = 0; i < this.columns.length; i++) {

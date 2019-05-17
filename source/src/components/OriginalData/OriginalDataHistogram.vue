@@ -185,7 +185,7 @@
       let objectRow = Object.entries(row);
       this.columns = [];
       for (let i = 0; i < objectRow.length; i++) {
-        if (typeof objectRow[i][1] === 'number') {
+        if (isNaN(objectRow[i][1]) === false) {
           this.columns.push(columns[i]);
         }
       }

@@ -68,6 +68,7 @@
             });*/
             axios.get(this.file).then(response => {
               let rows = response.data;
+              console.log(rows);
               this.$store.dispatch("loadRows", rows);
               this.loadHeaders();
             }).catch(error => console.log(error.response));
@@ -104,9 +105,8 @@
           };
           columns.push(column);
         }
-        //console.log(columns);
+        console.log(columns);
         this.$store.dispatch("loadColumns", columns);
-        //localStorage.columns = columns;
       },
       emitToParent() {
         this.$emit('childToParent', this.file);

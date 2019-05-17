@@ -3,7 +3,7 @@
     <b-col md="10">
       <vue-good-table
         :columns="this.$store.getters.getColumns"
-        :rows="this.$store.getters.getRows"
+        :rows= rows
         styleClass="vgt-responsive"
         :lineNumbers="true"
         :search-options="{ enabled: true, placeholder: 'Find..' }"
@@ -25,7 +25,9 @@
   export default {
     name: "OriginalDataTable",
     data() {
-      return {}
+      return {
+        rows: []
+      }
     },
     methods: {
       setParameters() {
@@ -70,6 +72,8 @@
     },
     mounted() {
       this.$store.dispatch('loadHeader', 'Original data - Table');
+      this.rows = this.$store.getters.getRows;
+      console.log(this.$store.getters.getRows);
     }
   }
 </script>

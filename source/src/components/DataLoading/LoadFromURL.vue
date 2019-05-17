@@ -49,7 +49,7 @@
 
               alert("gltem " + glTemp.length);
                 if(glTemp.length > 0){
-                  alert('gltemp' + glTemp.length );
+                  alert('gltemp ' + glTemp.length );
                   console.log(glTemp);
                   this.$store.dispatch("loadRows", glTemp);
                   this.loadHeaders();

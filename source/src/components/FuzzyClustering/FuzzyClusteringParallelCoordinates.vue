@@ -235,6 +235,7 @@
       let file = this.$store.getters.getRows;
       let row = file[0];
       let objectRow = Object.entries(row);
+      console.log(objectRow);
       this.columns = [];
       for (let i = 0; i < objectRow.length; i++) {
         if (typeof objectRow[i][1] === 'number') {
