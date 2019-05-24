@@ -74,7 +74,14 @@
             var columnNames = firstRow.split(',');
             console.log('columnNames = '+columnNames);
 
+            var formattedData = [];
+            for(od 1 po n-1){
+              var riadocek = ...;
+              var spracovanyRiadokAkoObjekt = novaFunkcia(riadocek, columnNames);
+              formattedData.push(spracovanyRiadokAkoObjekt);
+            }
 
+            /*
             let firstRow = Object.entries(this.file.split('\n')[0].split(','));
             console.log(firstRow);
 
@@ -114,6 +121,7 @@
             this.$store.dispatch("loadRows", rows);
             this.loadHeaders(suffix);
             break;
+            */
 
           case '.json':
             counter = 0;
