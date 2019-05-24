@@ -67,6 +67,14 @@
             break;
 
           case '.csv':
+            let allRows = this.file.split('\n');
+            console.log(allRows);
+            var firstRow = allRows[0];
+            console.log('firstRow = '+firstRow);
+            var columnNames = firstRow.split(',');
+            console.log('columnNames = '+columnNames);
+
+
             let firstRow = Object.entries(this.file.split('\n')[0].split(','));
             console.log(firstRow);
 
