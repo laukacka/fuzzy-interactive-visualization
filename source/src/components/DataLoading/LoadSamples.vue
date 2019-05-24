@@ -68,6 +68,7 @@
             });*/
             axios.get(this.file).then(response => {
               let rows = response.data;
+              console.log(response);
               console.log(rows);
               this.$store.dispatch("loadRows", rows);
               this.loadHeaders();

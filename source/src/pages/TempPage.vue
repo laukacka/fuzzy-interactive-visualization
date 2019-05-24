@@ -3,8 +3,6 @@
     <b-textarea rows="10" v-model="file"></b-textarea>
     <br>
     <file-reader @load="file = $event"></file-reader>
-    <!--{{file}}-->
-
   </div>
 </template>
 
@@ -50,6 +48,7 @@
                 }
               }
               rows[counter - 1] = Object.assign({}, row);
+              console.log(row);
               console.log(Object.assign({}, row));
               counter++;
 
@@ -68,15 +67,31 @@
             break;
 
           case '.csv':
+            let firstRow = Object.entries(this.file.split('\n')[0].split(','));
+            console.log(firstRow);
+
+            let nieco = Object.entries(this.file.split('\n')[0].split(','));
+            nieco[0][0] = nieco[0][1];
+            console.log(new Map(nieco));
+            console.log(nieco);
+
+            console.log(Object.assign({}, nieco));
+
             do {
               row = this.file.split('\n')[counter].split(',');
+              newRow = Object.entries(this.file.split('\n')[counter].split(','));
               for (let i = 0; i < row.length; i++) {
                 if (isNaN(row[i]) === false) {
-                  newRow = Number(row[i]);
-                  row[i] = newRow;
+                  //newRow = Number(row[i]);
+                  row[i] = Number(row[i]);
                 }
+                newRow[i][0] = firstRow[i][1];
+                newRow[i][1] = row[i];
               }
-              rows[counter - 1] = Object.assign({}, row);
+              console.log(newRow);
+              console.log(row);
+              console.log(Object.assign({}, newRow));
+              rows[counter - 1] = Object.assign({}, newRow[0]);
               counter++;
               if (this.file.split('\n')[counter] === undefined) {
                 end = true;
@@ -88,37 +103,25 @@
               }
             } while (end === false);
             console.log(rows);
+            this.$store.dispatch("loadRows", rows);
             this.loadHeaders(suffix);
             break;
 
           case '.json':
             counter = 0;
+            let endCounter = (Object.entries(JSON.parse(this.file))).length;
             do {
-              let pomRow = [];
-              row = Object.entries(JSON.parse(this.file)[counter]);
-              for (let i = 0; i < row.length; i++) {
-                if (isNaN(row[i][1]) === false) {
-                  newRow = Number(row[i][1]);
-                  row[i][1] = newRow;
-                }
-                pomRow[i] = row[i][1];
-              }
-              console.log(pomRow);
-              rows[counter] = Object.assign({}, pomRow);
+              row = JSON.parse(this.file)[counter];
+              //console.log(row);
+              rows[counter] = row;
               counter++;
-              console.log(Object.entries(JSON.parse(this.file)[counter]));
-              if (Object.entries(JSON.parse(this.file)[counter]) === undefined) {
+              if (counter === endCounter) {
                 end = true;
-              } /*else {
-                pom = this.file.split('\n')[counter].split(' ')[0];
-                if (pom === "%" || pom === "") {
-                  end = true;
-                }
-              }*/
+              }
             } while (end === false);
-            console.log(rows);
+            //console.log(rows);
             this.$store.dispatch("loadRows", rows);
-            //this.loadHeaders(suffix);
+            this.loadHeaders(suffix);
             break;
 
           case '.txt':
@@ -194,8 +197,8 @@
             for (let i = 0; i < oneRowOfAllData.length; i++) {
               let column = {
                 id: i,
-                label: this.file.split('\n')[0].split(' ')[i],
-                field: this.file.split('\n')[0].split(' ')[i],
+                label: oneRowOfAllData[i][0],
+                field: oneRowOfAllData[i][0],
                 tdClass: 'text-center text-nowrap',
                 thClass: 'text-center text-nowrap'
               };
@@ -204,6 +207,7 @@
             this.$store.dispatch("loadColumns", columns);
             //console.log(columns);
             break;
+
           case '.txt':
             for (let i = 0; i < oneRowOfAllData.length; i++) {
               let column = {
@@ -233,6 +237,7 @@
             this.$store.dispatch("loadColumns", columns);
             //console.log(columns);
             break;
+
           default:
         }
       },
