@@ -23,6 +23,7 @@
     data() {
       return {
         file: '',
+        rows: [],
         buttons: [
           {
             name: 'CARS',
@@ -37,7 +38,7 @@
           {
             name: 'IRIS',
             variant: 'dark',
-            file: 'https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json'
+            file: 'http://fuzzy.visualization.sk/datasets/iris.json'
           },
           {
             name: 'WINE',
@@ -60,42 +61,18 @@
         switch (suffix) {
           case '.json':
             this.emitToParent();
-            /*let store = this.$store;
-            let me = this;
-            d3.json(this.file, function (rows) {
-              store.dispatch("loadRows", rows);
-              me.loadHeaders();
-            });*/
             axios.get(this.file).then(response => {
-              let rows = response.data;
-              console.log(response);
-              console.log(rows);
-              this.$store.dispatch("loadRows", rows);
+              this.rows = response.data;
+              this.$store.dispatch("loadRows", this.rows);
               this.loadHeaders();
             }).catch(error => console.log(error.response));
-            break;
-          case '.arff':
-
-            break;
-          case '.csv':
-            /*this.emitToParent();
-            let store3 = this.$store;
-            let me3 = this;
-            d3.csv('@/assets/datasets/cars.csv', function (data) {
-              let rows = data;
-              store3.dispatch("loadRows", rows);
-              me3.loadHeaders();
-              console.log(data);
-              console.log('data v d3.csv');
-            });*/
             break;
           default:
         }
       },
       loadHeaders() {
-        let rows = this.$store.getters.getRows;
         let columns = [];
-        let oneRowOfAllData = Object.entries(rows[0]);
+        let oneRowOfAllData = Object.entries(this.rows[0]);
         for (let i = 0; i < oneRowOfAllData.length; i++) { //we create as many columns as we have items in oneRowOfAllData
           let column = {
             id: i,
@@ -106,7 +83,6 @@
           };
           columns.push(column);
         }
-        console.log(columns);
         this.$store.dispatch("loadColumns", columns);
       },
       emitToParent() {

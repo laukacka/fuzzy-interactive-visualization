@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import FileReader from "./FileReader";
+  import FileReader from "../components/DataLoading/FileReader";
 
   export default {
     components: {
@@ -15,7 +15,10 @@
     },
     data() {
       return {
-        file: " "
+        file: " ",
+        allData: [],
+        columns: [],
+        rows: []
       }
     },
     watch: {
@@ -28,141 +31,86 @@
       }
     },
     methods: {
+      rowToObject(row) {
+        let rowAsObject = {};
+        for (let i = 0; i < row.length; i++) {
+          if (isNaN(row[i]) === false) {
+            row[i] = Number(row[i]);
+          }
+          rowAsObject[this.columns[i]] = row[i];
+        }
+        return rowAsObject;
+      },
       loadRows(suffix) {
-        let counter = 1;
-        let rows = [];
-        let pom;
-        let end = false;
-        let row;
-        let newRow;
-
+        this.allData = this.file.split('\n');
+        let firstRow = this.allData[0];
         switch (suffix) {
           case '.arff':
-            console.log(this.file.split('@DATA')[1].split('\n')[counter].split(','));
-            do {
-              row = this.file.split('@DATA')[1].split('\n')[counter].split(',');
-              for (let i = 0; i < row.length; i++) {
-                if (isNaN(row[i]) === false) {
-                  newRow = Number(row[i]);
-                  row[i] = newRow;
+            let dataRows = false;
+            for (let i = 0; i < this.allData.length; i++) {
+              let row = this.allData[i].split(' ');
+              if (row[0].toUpperCase() === '@ATTRIBUTE') {
+                this.columns.push(row[1]);
+              }
+            }
+            for (let i = 0; i < this.allData.length; i++) {
+              let row = this.allData[i].split(' ');
+              if (row[0].toUpperCase() === '@DATA') {
+                dataRows = true;
+                continue;
+              }
+              if (dataRows) {
+                if (row[0] !== "" && row[0] !== '%') {
+                  let rowForObject = this.allData[i].split(',');
+                  let rowAsObject = this.rowToObject(rowForObject);
+                  this.rows.push(rowAsObject);
+                } else {
+                  break;
                 }
               }
-              rows[counter - 1] = Object.assign({}, row);
-              console.log(row);
-              console.log(Object.assign({}, row));
-              counter++;
-
-              if (this.file.split('@DATA')[1].split('\n')[counter] === undefined) {
-                end = true;
-              } else {
-                pom = this.file.split('@DATA')[1].split('\n')[counter].split(',')[0];
-                if (pom === "%" || pom === "") {
-                  end = true;
-                }
-              }
-            } while (end === false);
-            console.log(rows);
-            this.$store.dispatch("loadRows", rows);
-            this.loadHeaders(suffix);
+            }
             break;
 
           case '.csv':
-            let allRows = this.file.split('\n');
-            console.log(allRows);
-            var firstRow = allRows[0];
-            console.log('firstRow = '+firstRow);
-            var columnNames = firstRow.split(',');
-            console.log('columnNames = '+columnNames);
-
-            var formattedData = [];
-            for(od 1 po n-1){
-              var riadocek = ...;
-              var spracovanyRiadokAkoObjekt = novaFunkcia(riadocek, columnNames);
-              formattedData.push(spracovanyRiadokAkoObjekt);
+            this.columns = firstRow.split(',');
+            for (let i = 1; i < this.allData.length; i++) {
+              let row = this.allData[i].split(',');
+              if (row[0] === "") {
+                break;
+              }
+              let rowAsObject = this.rowToObject(row);
+              this.rows.push(rowAsObject);
             }
-
-            /*
-            let firstRow = Object.entries(this.file.split('\n')[0].split(','));
-            console.log(firstRow);
-
-            let nieco = Object.entries(this.file.split('\n')[0].split(','));
-            nieco[0][0] = nieco[0][1];
-            console.log(new Map(nieco));
-            console.log(nieco);
-
-            console.log(Object.assign({}, nieco));
-
-            do {
-              row = this.file.split('\n')[counter].split(',');
-              newRow = Object.entries(this.file.split('\n')[counter].split(','));
-              for (let i = 0; i < row.length; i++) {
-                if (isNaN(row[i]) === false) {
-                  //newRow = Number(row[i]);
-                  row[i] = Number(row[i]);
-                }
-                newRow[i][0] = firstRow[i][1];
-                newRow[i][1] = row[i];
-              }
-              console.log(newRow);
-              console.log(row);
-              console.log(Object.assign({}, newRow));
-              rows[counter - 1] = Object.assign({}, newRow[0]);
-              counter++;
-              if (this.file.split('\n')[counter] === undefined) {
-                end = true;
-              } else {
-                pom = this.file.split('\n')[counter].split(',')[0];
-                if (pom === "%" || pom === "") {
-                  end = true;
-                }
-              }
-            } while (end === false);
-            console.log(rows);
-            this.$store.dispatch("loadRows", rows);
+            this.$store.dispatch("loadRows", this.rows);
             this.loadHeaders(suffix);
             break;
-            */
 
           case '.json':
-            counter = 0;
+            let counter = 0;
+            let end = false;
             let endCounter = (Object.entries(JSON.parse(this.file))).length;
             do {
-              row = JSON.parse(this.file)[counter];
-              //console.log(row);
-              rows[counter] = row;
+              this.rows.push(JSON.parse(this.file)[counter]);
               counter++;
               if (counter === endCounter) {
                 end = true;
               }
             } while (end === false);
-            //console.log(rows);
-            this.$store.dispatch("loadRows", rows);
+            this.$store.dispatch("loadRows", this.rows);
             this.loadHeaders(suffix);
             break;
 
           case '.txt':
-            do {
-              row = this.file.split('\n')[counter].split(' ');
-              for (let i = 0; i < row.length; i++) {
-                if (isNaN(row[i]) === false) {
-                  newRow = Number(row[i]);
-                  row[i] = newRow;
-                }
+            this.columns = firstRow.split(' ');
+            for (let i = 1; i < this.allData.length; i++) {
+              let row = this.allData[i].split(' ');
+              if (row[0] === "") {
+                break;
               }
-              rows[counter - 1] = Object.assign({}, row);
-              counter++;
-
-              if (this.file.split('\n')[counter] === undefined) {
-                end = true;
-              } else {
-                pom = this.file.split('\n')[counter].split(' ')[0];
-                if (pom === "%" || pom === "") {
-                  end = true;
-                }
-              }
-            } while (end === false);
-            console.log(rows);
-            this.$store.dispatch("loadRows", rows);
+              let rowAsObject = this.rowToObject(row);
+              this.rows.push(rowAsObject);
+            }
+            this.$store.dispatch("loadRows", this.rows);
             this.loadHeaders(suffix);
             break;
 
@@ -178,12 +126,11 @@
         let oneRowOfAllData = Object.entries(rows[0]);
         switch (suffix) {
           case '.arff':
-            let counter = 1;
             for (let i = 0; i < oneRowOfAllData.length; i++) {
               let column = {
                 id: i,
-                label: this.file.split('@ATTRIBUTE')[counter].split(' ')[1],
-                field: this.file.split('@ATTRIBUTE')[counter].split(' ')[1],
+                label: oneRowOfAllData[i][0],
+                field: oneRowOfAllData[i][0],
                 tdClass: 'text-center text-nowrap',
                 thClass: 'text-center text-nowrap'
               };
@@ -191,22 +138,21 @@
               counter++;
             }
             this.$store.dispatch("loadColumns", columns);
-            //console.log(columns);
             break;
 
           case '.csv':
             for (let i = 0; i < oneRowOfAllData.length; i++) {
               let column = {
                 id: i,
-                label: this.file.split('\n')[0].split(',')[i],
-                field: this.file.split('\n')[0].split(',')[i],
+                label: oneRowOfAllData[i][0],
+                field: oneRowOfAllData[i][0],
                 tdClass: 'text-center text-nowrap',
                 thClass: 'text-center text-nowrap'
               };
               columns.push(column);
             }
             this.$store.dispatch("loadColumns", columns);
-            //console.log(columns);
+            console.log(columns);
             break;
 
           case '.json':
@@ -221,22 +167,20 @@
               columns.push(column);
             }
             this.$store.dispatch("loadColumns", columns);
-            //console.log(columns);
             break;
 
           case '.txt':
             for (let i = 0; i < oneRowOfAllData.length; i++) {
               let column = {
                 id: i,
-                label: this.file.split('\n')[0].split(' ')[i],
-                field: this.file.split('\n')[0].split(' ')[i],
+                label: oneRowOfAllData[i][0],
+                field: oneRowOfAllData[i][0],
                 tdClass: 'text-center text-nowrap',
                 thClass: 'text-center text-nowrap'
               };
               columns.push(column);
             }
             this.$store.dispatch("loadColumns", columns);
-            //console.log(columns);
             break;
 
           case '.xls':

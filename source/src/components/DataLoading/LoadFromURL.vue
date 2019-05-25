@@ -2,7 +2,7 @@
   <div>
     <b-input-group prepend="http://" class="mt-3 loadURL">
       <b-form-input :state="Boolean(file)" v-model="file"/>
-      <b-input-group-append >
+      <b-input-group-append>
       </b-input-group-append>
     </b-input-group>
     <h6>Insert web address (URL). Files with following types can be loaded: .arff, .csv, .json, .txt, and .xls.</h6>
@@ -14,7 +14,16 @@
 <script>
   import axios from 'axios';
   import {loadFile} from "@/mixins/loadFile";
-  var glTemp = [];
+
+  let dataset = [];
+  let me = this;
+
+  function rowsOfCSV(dataset) {
+    me.rows = dataset;
+    console.log(me.rows);
+    this.$store.dispatch("loadRows", rows);
+    this.loadHeaders();
+  }
 
   export default {
     name: "LoadFromURL",
@@ -22,6 +31,7 @@
     data() {
       return {
         file: '',
+        rows: [],
       }
     },
     mounted() {
@@ -33,54 +43,45 @@
       }
     },
     methods: {
-      readCSV() {
-        return d3.csv(this.file, function (data) {
-         // console.log(data);
-          glTemp = data;
-          //return  data;//Object.assign({}, glTemp);;
-        })
-      },
       loadData(suffix) {
         switch (suffix) {
           case '.arff':
             break;
           case '.csv':
-              this.readCSV();
+            d3.csv(this.file, function (error, data) {
+              if (error) {
+                console.log(error);
+              } else {
+                dataset = data;
+                rowsOfCSV(dataset);
+              }
+            });
 
-              alert("gltem " + glTemp.length);
-                if(glTemp.length > 0){
-                  alert('gltemp ' + glTemp.length );
-                  console.log(glTemp);
-                  this.$store.dispatch("loadRows", glTemp);
-                  this.loadHeaders();
-                  //tuto je problem
-
-                }
             break;
           case '.json': //https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json
             axios.get(this.file).then(response => {
               let rows = response.data;
-              console.log(rows);
               this.$store.dispatch("loadRows", rows);
-              //console.log(this.$store.getters.getRows);
               this.loadHeaders();
             }).catch(error => console.log(error.response)); //if we have same errors, we can see them in console
             break;
           case '.txt':
-
+            d3.text(this.file, function (error, data) {
+                let rows = d3.csv.parse(data);
+                this.$store.dispatch("loadRows", rows);
+              }
+            );
             break;
           case '.xls': //www.saedsayad.com/datasets/Iris.xls
 
             break;
           default:
-
         }
       },
       loadHeaders() {
         let rows = this.$store.getters.getRows;
         let columns = [];
         let oneRowOfAllData = Object.entries(rows[0]);
-
 
         for (let i = 0; i < oneRowOfAllData.length; i++) { //we create as many columns as we have items in oneRowOfAllData
           let column = {
@@ -93,7 +94,6 @@
           columns.push(column);
         }
         this.$store.dispatch("loadColumns", columns);
-        //localStorage.columns = columns;
       },
       emitToParent() {
         this.$emit('childToParent', this.file);
