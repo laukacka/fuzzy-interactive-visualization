@@ -16,13 +16,12 @@
   import {loadFile} from "@/mixins/loadFile";
 
   let dataset = [];
-  let me = this;
 
   function rowsOfCSV(dataset) {
-    me.rows = dataset;
-    console.log(me.rows);
-    this.$store.dispatch("loadRows", rows);
-    this.loadHeaders();
+    //console.log(dataset);
+    //this.$store.dispatch("loadRows", dataset);
+    //this.loadHeaders();
+    return dataset;
   }
 
   export default {
@@ -53,7 +52,9 @@
                 console.log(error);
               } else {
                 dataset = data;
-                rowsOfCSV(dataset);
+                let goodData = rowsOfCSV(dataset);
+                this.$store.dispatch("loadRows", goodData);
+                this.loadHeaders();
               }
             });
 
