@@ -13,7 +13,7 @@
         </b-form-checkbox>
       </b-form-group>
     </b-col>
-    <b-col offset-md="1" md="7" cols="11"  class="radviz-graph">
+    <b-col offset-md="1" md="7" cols="11" class="radviz-graph">
       <button type="button" v-on:click="drawRadviz()" class="btn btn-info">Redraw</button>
       <div id="radviz"></div>
       <div id="tooltip"></div>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+  import radviz from './radviz.js';
   let dimensions = ["sepalLength", "sepalWidth", "petalLength", "petalWidth"];
 
   export default {
@@ -34,12 +35,6 @@
     },
     methods: {
       drawRadviz() {
-        let radvizScript = document.createElement("script");
-        radvizScript.setAttribute(
-          "src",
-          "https://rawgit.com/biovisualize/radviz/master/radviz-min.js"
-        );
-        document.head.appendChild(radvizScript);
         let radviz = radvizComponent().config({
           el: document.querySelector("#radviz"),
           colorAccessor: function (d) {
@@ -67,13 +62,6 @@
       }
     },
     mounted() {
-      let radvizScript = document.createElement("script");
-      radvizScript.setAttribute(
-        "src",
-        "https://rawgit.com/biovisualize/radviz/master/radviz-min.js"
-      );
-      document.head.appendChild(radvizScript);
-
       this.$store.dispatch('loadHeader', 'Radviz');
 
       let file = this.$store.getters.getRows;
@@ -101,7 +89,7 @@
     margin: 5px;
   }
 
-  .radviz-graph {
+  .panel {
     stroke: black;
     fill: white;
   }

@@ -46,6 +46,6 @@ export default new Router({
       path: '/temp',
       name: 'TempPage',
       component: TempPage
-    }
+    },
   ]
 });
