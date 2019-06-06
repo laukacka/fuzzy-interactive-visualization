@@ -1,7 +1,7 @@
 <template>
   <div>
     <file-reader @load="file = $event" v-on:childToParent="onChildAction"></file-reader>
-    <h6>Files with following types can be loaded: .arff, .csv, .json, .txt, and .xls.</h6>
+    <h6>Files with following types can be loaded: .arff, .csv, .json and .txt.</h6>
     <b-button v-if="file !== ''" class="loadButtons" variant="danger" @click="file = ''">Clear</b-button>
     <b-button v-if="file !== ''" variant="success" @click="loadFile(fileName)" class="loadButtons">Next</b-button>
   </div>

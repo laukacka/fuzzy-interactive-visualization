@@ -36,7 +36,7 @@
             file: 'http://fuzzy.visualization.sk/datasets/glass.json'
           },
           {
-            name: 'IRIS',
+            name: 'IRIS', //https://raw.githubusercontent.com/domoritz/maps/master/data/iris.json
             variant: 'dark',
             file: 'http://fuzzy.visualization.sk/datasets/iris.json'
           },

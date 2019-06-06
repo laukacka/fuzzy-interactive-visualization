@@ -13,16 +13,16 @@
         </b-form-checkbox>
       </b-form-group>
     </b-col>
-    <b-col offset-md="1" md="7" cols="11" id="radviz" class="radviz-graph">
-      <button type="button" v-on:click="klik()" class="btn btn-info">Redraw</button>
-      <div class="container"></div>
+    <b-col offset-md="1" md="7" cols="11"  class="radviz-graph">
+      <button type="button" v-on:click="drawRadviz()" class="btn btn-info">Redraw</button>
+      <div id="radviz"></div>
       <div id="tooltip"></div>
     </b-col>
   </b-row>
 </template>
 
 <script>
-  var dimensions = ["sepalLength", "sepalWidth", "petalLength", "petalWidth"];
+  let dimensions = ["sepalLength", "sepalWidth", "petalLength", "petalWidth"];
 
   export default {
     name: "FuzzyClusteringRadviz",
@@ -32,48 +32,31 @@
         selected: [],
       }
     },
-    watch: {
-      selected: function () {
-        //this.updateTable();
-      }
-    },
     methods: {
-      updateTable() {
-        let localColumns = [];
-        for (let i = 0; i < this.$store.getters.getColumns.length; i++) {
-          for (let j = 0; j < this.selected.length; j++) {
-            if (this.$store.getters.getColumns[i].label === this.selected[j]) {
-              localColumns.push(this.$store.getters.getColumns[i]);
-            }
-          }
-        }
-        this.columns = localColumns;
-        this.updateTableKey = !this.updateTableKey;
-      },
-      klik () {
+      drawRadviz() {
         let radvizScript = document.createElement("script");
         radvizScript.setAttribute(
           "src",
           "https://rawgit.com/biovisualize/radviz/master/radviz-min.js"
         );
         document.head.appendChild(radvizScript);
-        var radviz = radvizComponent().config({
+        let radviz = radvizComponent().config({
           el: document.querySelector("#radviz"),
-          colorAccessor: function(d) {
+          colorAccessor: function (d) {
             return d["species"];
           },
-          dimensions: this.selected,
+          dimensions: dimensions,
           size: 500,
           margin: 100,
           useRepulsion: true,
           drawLinks: true,
-          tooltipFormatter: function(d) {
+          tooltipFormatter: function (d) {
             return (
               "<h1>" +
               d.species +
               "</h1>" +
               dimensions
-                .map(function(dB) {
+                .map(function (dB) {
                   return dB + ": " + d[dB];
                 })
                 .join("<br />")
@@ -84,6 +67,13 @@
       }
     },
     mounted() {
+      let radvizScript = document.createElement("script");
+      radvizScript.setAttribute(
+        "src",
+        "https://rawgit.com/biovisualize/radviz/master/radviz-min.js"
+      );
+      document.head.appendChild(radvizScript);
+
       this.$store.dispatch('loadHeader', 'Radviz');
 
       let file = this.$store.getters.getRows;
@@ -99,14 +89,6 @@
       for (let i = 0; i < this.columns.length; i++) {
         this.selected.push(this.columns[i]);
       }
-
-      let radvizScript = document.createElement("script");
-      radvizScript.setAttribute(
-        "src",
-        "https://rawgit.com/biovisualize/radviz/master/radviz-min.js"
-      );
-      document.head.appendChild(radvizScript);
-      //this.klik();
     }
   }
 </script>
@@ -119,7 +101,7 @@
     margin: 5px;
   }
 
-  /*.visualizatioon > .panel {
+  .radviz-graph {
     stroke: black;
     fill: white;
   }
@@ -148,7 +130,7 @@
   .label {
     fill: gray;
     pointer-events: none;
-  }*/
+  }
 
   #tooltip {
     font-size: 12px;

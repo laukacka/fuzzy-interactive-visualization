@@ -26,6 +26,7 @@
     },
     methods: {
       loadTextFromFile(ev) {
+        console.log(ev);
         const file = ev.target.files[0];
         this.file = file;
         const reader = new FileReader();

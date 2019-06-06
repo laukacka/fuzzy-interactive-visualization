@@ -5,7 +5,7 @@
       <b-input-group-append>
       </b-input-group-append>
     </b-input-group>
-    <h6>Insert web address (URL). Files with following types can be loaded: .arff, .csv, .json, .txt, and .xls.</h6>
+    <h6>Insert web address (URL). Files with following types can be loaded: .arff, .csv, .json and .txt.</h6>
     <b-button v-if="file !== ''" class="loadButtons" variant="danger" @click="file = ''">Clear</b-button>
     <b-button v-if="file !== ''" @click="loadFile(file)" class="loadButtons" variant="success">Next</b-button>
   </div>
