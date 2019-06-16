@@ -11,40 +11,20 @@
           {{ column }}
         </b-form-checkbox>
       </b-form-group>
+      <b-button variant="primary" @click="start()">Change attribute for clusters</b-button>
     </b-col>
-    <!--<b-row align-h="center" align-v="center">
-      <b-col>
-        <h6></h6>
-       &lt;!&ndash; <b-button variant="warning" @click="changeColor">Change color</b-button>&ndash;&gt;
-      </b-col>
-      &lt;!&ndash;<b-col v-if="showColorPicker">
-        <chrome style="margin: auto" v-model="color"></chrome>
-      </b-col>&ndash;&gt;
-    </b-row>-->
     <b-col offset-md="1" md="7" cols="11" id="coordinates" class="coordinates-graph">
-
     </b-col>
   </b-row>
 </template>
 <script>
-  import {Chrome} from 'vue-color';
-
   export default {
     name: "FuzzyClusteringParallelCoordinates",
-    components: {
-      Chrome
-    },
     data() {
       return {
         columns: [],
         selected: [],
-        color: {
-          hex: '#533e21',
-          hsl: {h: 150, s: 0.5, l: 0.2, a: 1},
-          hsv: {h: 150, s: 0.66, v: 0.30, a: 1},
-          rgba: {r: 25, g: 77, b: 51, a: 1},
-          a: 1
-        },
+        clustersName: '',
         showColorPicker: false
       }
     },
@@ -56,12 +36,48 @@
     methods: {
       change() {
         d3.select("svg").remove();
-        this.start();
-      },
-      changeColor() {
-        this.showColorPicker = !this.showColorPicker;
+        this.drawParallelCoordinates();
       },
       start() {
+        let file = this.$store.getters.getRows;
+        let row = file[0];
+        let objectRow = Object.entries(row);
+        let clusterIndex = -1;
+
+        this.$swal({
+          title: 'Index of clusters:',
+          input: 'range',
+          inputAttributes: {
+            min: 1,
+            max: objectRow.length,
+            step: 1
+          },
+          padding: 30,
+          allowOutsideClick: false,
+          confirmButtonColor: '#1bd60b',
+          backdrop: `rgba(0, 0, 0, 0.9)`,
+          inputValue: 1
+        }).then((result) => {
+          clusterIndex = result.value;
+          this.clustersName = objectRow[clusterIndex - 1][0];
+          this.columns = [];
+          for (let i = 0; i < objectRow.length; i++) {
+            if (typeof objectRow[i][1] === 'number') {
+              if (this.clustersName !== objectRow[i][0]) {
+                this.columns.push(objectRow[i][0]);
+              }
+            }
+          }
+          this.selected = [];
+          for (let i = 0; i < this.columns.length; i++) {
+            if (this.clustersName !== this.columns[i]) {
+              this.selected.push(this.columns[i]);
+            }
+          }
+          this.change();
+        });
+      },
+      drawParallelCoordinates() {
         let file = this.$store.getters.getRows;
         let margin = {top: 30, right: 10, bottom: 10, left: 10};
         let width = 700 - margin.left - margin.right;
@@ -71,13 +87,44 @@
         let dragging = {};
         let dimensions = '';
         let line = d3.svg.line();
-        //.style('fill', 'none').style('stroke', '#000').style('shape-rendering', 'crispEdges');
         let axis = d3.svg.axis().orient("left");
         let background;
         let foreground;
+
+        let randomColorGenerator = function () {
+          let letters = '0123456789ABCDEF';
+          let color = '#';
+          for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+          }
+          return color;
+        };
+
+        let arrayOfClusters = [];
+        let arrayOfColors = [];
+
+        for (let i = 0; i < file.length; i++) {
+          let typeOfCluster = file[i][this.clustersName];
+          let found = false;
+          for (let j = 0; j < arrayOfClusters.length; j++) {
+            if (typeOfCluster === arrayOfClusters[j]) {
+              found = true;
+              break;
+            }
+          }
+          if (!found) {
+            arrayOfClusters.push(typeOfCluster);
+          }
+        }
+
+        for (let i = 0; i < arrayOfClusters.length; i++) {
+          arrayOfColors.push(randomColorGenerator());
+        }
+
+        let color = d3.scale.ordinal().domain(arrayOfClusters).range(arrayOfColors);
+
         let svg = d3.select("#coordinates")
           .append("svg")
-          //.style('font', '15px sans-serif')
           .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
           .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -97,11 +144,13 @@
           .data(file)
           .enter()
           .append("path")
-          .attr('stroke', '#cca86f')
+          .attr('stroke', '#e3e2e1')
           .attr('fill', 'none')
           .attr('strokeWidth', 1)
           .attr('shapeRendering', 'crispEdges')
           .attr("d", path);
+
+        let pomClustersName = this.clustersName;
 
         foreground = svg.append("g")
           .attr("class", "foreground")
@@ -110,14 +159,14 @@
           .enter()
           .append("path")
           .attr('strokeWidth', 1)
-          .attr('stroke', this.color.hex)
           .attr('shapeRendering', 'crispEdges')
           .attr('fill', 'none')
-          .attr("d", path);
+          .attr("d", path)
+          .style("stroke", function (d) {
+            return color(d[pomClustersName]);
+          });
 
         // Add a group element for each dimension.
-        // Pridajte element skupiny pre každú dimenziu.
-        // g su zvysle ciary
         let g = svg.selectAll(".dimension")
           .data(dimensions)
           .enter()
@@ -127,10 +176,10 @@
             return "translate(" + x(d) + ")";
           }).call(d3.behavior.drag().origin(function (d) {
               return {x: x(d)};
-            }).on("dragstart", function (d) {            //zaciatok presuvanie atributu
+            }).on("dragstart", function (d) {
               dragging[d] = x(d);
               background.attr("visibility", "hidden");
-            }).on("drag", function (d) { //presuvanie
+            }).on("drag", function (d) {
               dragging[d] = Math.min(width, Math.max(0, d3.event.x));
               foreground.attr("d", path);
               dimensions.sort(function (a, b) {
@@ -140,7 +189,7 @@
               g.attr("transform", function (d) {
                 return "translate(" + position(d) + ")";
               });
-            }).on("dragend", function (d) {         //presuvam
+            }).on("dragend", function (d) {
               delete dragging[d];
               transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
               transition(foreground).attr("d", path);
@@ -176,19 +225,16 @@
           .attr("x", -6)
           .attr("width", 12);
 
-        //});
         function position(d) {
           let v = dragging[d];
           return v == null ? x(d) : v;
         }
 
-        // premiesni ich s 0.5 sekundovou odozvoou
         function transition(g) {
           return g.transition().duration(500);
         }
 
         // Returns the path for a given data point.
-        //   Vracia cestu pre daný dátový bod.
         function path(d) {
           return line(dimensions.map(function (p) {
               return [position(p), y[p](d[p])];
@@ -196,13 +242,10 @@
           );
         }
 
-        // ZACIATOK ZVYRAZNOVANIA
-        // STOPNEME PREDEFINOVANU AKCIU
         function brushstart() {
           d3.event.sourceEvent.stopPropagation();
         }
 
-        // Spracováva udalosti štetce, prepínanie zobrazenia v popredí liniek.
         function brush() {
           let actives = dimensions.filter(function (p) {
               return !y[p].brush.empty();
@@ -232,36 +275,12 @@
           }
         })
       }
-      let file = this.$store.getters.getRows;
-      let row = file[0];
-      let objectRow = Object.entries(row);
-      console.log(objectRow);
-      this.columns = [];
-      for (let i = 0; i < objectRow.length; i++) {
-        if (typeof objectRow[i][1] === 'number') {
-          this.columns.push(objectRow[i][0]);
-        }
-      }
-      this.selected = [];
-      for (let i = 0; i < this.columns.length; i++) {
-        this.selected.push(this.columns[i]);
-      }
       this.start();
     }
   }
 </script>
 
 <style scoped>
-  /*svg {
-    font: 10px sans-serif;
-  }*/
-
- /* .brush .extent {
-    fill-opacity: .3;
-    stroke: #fff;
-    !* shape-rendering: crispEdges;*!
-  }*/
-
   .axis line,
   .axis path {
     fill: none;

@@ -39,7 +39,7 @@
     },
     mounted() {
       this.$store.dispatch('loadHeader', ' ');
-      /*if (this.$store.getters.getRows.length === 0) {
+      if (this.$store.getters.getRows.length === 0) {
         this.$swal({
           type: 'warning',
           allowOutsideClick: false,
@@ -49,7 +49,7 @@
             this.$router.push("dataInput");
           }
         })
-      }*/
+      }
     }
   }
 </script>

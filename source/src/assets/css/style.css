@@ -14,3 +14,47 @@
   margin-top: 24px;
   width: 50px;
 }
+
+/*Radviz:*/
+.panel {
+  stroke: black;
+  fill: white;
+}
+
+.bg {
+  fill: none;
+}
+
+.link {
+  stroke: silver;
+  stroke-opacity: 0.05;
+}
+
+.dot {
+  fill-opacity: 0.8;
+}
+
+.label-node {
+  fill: #1e27b6;
+}
+
+.active {
+  stroke: black;
+}
+
+.label {
+  fill: #000000;
+  pointer-events: none;
+}
+
+#tooltip {
+  font-size: 12px;
+  margin-top: 22px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+}
+
+#tooltip h1 {
+  font-size: 14px;
+  margin: 0;
+}
